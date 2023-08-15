@@ -1,0 +1,182 @@
+{
+    "id": {
+        "type": "state",
+        "common": {
+            "id": {
+                "type": "state",
+                "common": {
+                    "name": "ID",
+                    "type": "string",
+                    "role": "text",
+                    "read": true,
+                    "write": false,
+                    "desc": ""
+                },
+                "native": {},
+                "value": "id"
+            },
+            "name": "ID",
+            "type": "string",
+            "role": "text",
+            "read": true,
+            "write": false,
+            "desc": ""
+        },
+        "native": {},
+        "value": "id"
+    },
+    "name": {
+        "type": "state",
+        "common": {
+            "id": {
+                "type": "state",
+                "common": {
+                    "name": "ID",
+                    "type": "string",
+                    "role": "text",
+                    "read": true,
+                    "write": false,
+                    "desc": ""
+                },
+                "native": {},
+                "value": "id"
+            },
+            "name": "Mower name",
+            "type": "string",
+            "role": "info.name",
+            "read": true,
+            "write": false,
+            "desc": ""
+        },
+        "native": {},
+        "value": "name"
+    },
+    "wlan.signal": {
+        "type": "state",
+        "common": {
+            "name": "Signal strength",
+            "type": "number",
+            "role": "value",
+            "read": true,
+            "write": false,
+            "desc": "",
+            "unit": "dB"
+        },
+        "native": {},
+        "value": "signal"
+    },
+    "status.status": {
+        "type": "state",
+        "common": {
+            "name": "Current status",
+            "type": "number",
+            "role": "state",
+            "read": true,
+            "write": false,
+            "desc": "",
+            "states": {
+                "0": "Unbekannt",
+                "1": "Parken",
+                "2": "Mähen",
+                "3": "Suchen der Ladestation",
+                "4": "Laden",
+                "5": "Umsetzen",
+                "7": "Fehler",
+                "8": "Schleifensignal verloren",
+                "16": "Abgeschaltet",
+                "17": "Schlafen"
+            }
+        },
+        "native": {},
+        "value": "status"
+    },
+    "status.stopped": {
+        "type": "state",
+        "common": {
+            "name": "Stopped",
+            "type": "boolean",
+            "role": "state",
+            "read": true,
+            "write": false,
+            "desc": ""
+        },
+        "native": {},
+        "value": "stopped"
+    },
+    "status.duration": {
+        "type": "state",
+        "common": {
+            "name": "Status duration",
+            "type": "number",
+            "role": "value",
+            "read": true,
+            "write": false,
+            "desc": "",
+            "unit": "sec"
+        },
+        "native": {},
+        "value": "duration"
+    },
+    "status.mode": {
+        "type": "state",
+        "common": {
+            "name": "Current mode",
+            "type": "number",
+            "role": "state",
+            "read": true,
+            "write": true,
+            "desc": "",
+            "states": {
+                "0": "Auto",
+                "1": "Manuell",
+                "2": "Home",
+                "98": "End of day",
+                "99": "Job"
+            }
+        },
+        "native": {},
+        "value": "mode"
+    },
+    "status.battery": {
+        "type": "state",
+        "common": {
+            "name": "Battery",
+            "type": "number",
+            "role": "value.battery",
+            "read": true,
+            "write": false,
+            "desc": "",
+            "unit": "%"
+        },
+        "native": {},
+        "value": "battery"
+    },
+    "status.hours": {
+        "type": "state",
+        "common": {
+            "name": "Operating hours",
+            "type": "number",
+            "role": "value",
+            "read": true,
+            "write": false,
+            "desc": "",
+            "unit": "hrs"
+        },
+        "native": {},
+        "value": "hours"
+    },
+    "status.distance": {
+        "type": "state",
+        "common": {
+            "name": "Status distance",
+            "type": "number",
+            "role": "value.distance",
+            "read": true,
+            "write": false,
+            "desc": "",
+            "unit": "meters"
+        },
+        "native": {},
+        "value": "distance"
+    }
+}

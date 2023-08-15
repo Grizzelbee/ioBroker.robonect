@@ -12,6 +12,8 @@ const utils = require('@iobroker/adapter-core');
 const ping = require('ping');
 const jsonLogic = require('./lib/json_logic.js');
 const axios = require('axios');
+const http = require('http');
+const url = require('url');
 
 
 class Robonect extends utils.Adapter {
@@ -58,7 +60,12 @@ class Robonect extends utils.Adapter {
 
         this.infoTimeout;
         this.statusTimeout;
+        // http-server for Robonect PushService
+        this.ps;
+        this.ps_host;
+        this.ps_port;
     }
+
 
     /**
      * Is called when databases are connected and adapter received configuration.
@@ -97,13 +104,14 @@ class Robonect extends utils.Adapter {
         this.versionPollType = this.config.versionPollType;
         this.weatherPollType = this.config.weatherPollType;
         this.wlanPollType = this.config.wlanPollType;
+        //
+        this.ps_host = '192.168.175.26';
+        this.ps_port = '8088';
 
         if (this.username !== '' && this.password !== '') {
-            //this.url = 'http://' + this.username + ':' + this.password + '@' + this.robonectIp;
-            //this.url = `http://${this.username}:${this.password}@${this.robonectIp}`;
             this.apiUrl = `http://${this.robonectIp}/api/json?user=${this.username}&pass=${this.password}&cmd=`;
         } else {
-            this.url = 'http://' + this.robonectIp;
+            this.apiUrl = 'http://' + this.robonectIp;
         }
 
         if (isNaN(this.statusInterval) || this.statusInterval < 1) {
@@ -145,6 +153,41 @@ class Robonect extends utils.Adapter {
 
         // Do the initial polling
         this.updateRobonectData('Initial');
+
+
+        const adapter= this;
+        // http-Server for Robonect PushService
+        const requestListener = function (req, res) {
+            let params;
+            if (req.method === 'GET') {
+                adapter.log.debug(`Received GET request`);
+                adapter.log.debug(`req.url=[${req.url}]`);
+                params = url.parse(req.url, true).query;
+                res.writeHead(200, { 'Content-Type': 'text/html' });
+                res.end();
+            } else if (req.method === 'POST') {
+                adapter.log.debug(`Received POST request`);
+                adapter.log.debug(`req.url=[${req.url}]`);
+                let body = '';
+                req.on('data', function (chunk) {
+                    body += chunk;
+                });
+                req.on('end', function(){
+                    params = url.parse(req.url, true).query;
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    res.end(body);
+                    adapter.log.debug(`body=[${params}]`);
+                });
+            }
+            const objects = require('./lib/objects_pushedStatus.json');
+            adapter.updateObjects(objects, params);
+
+        };
+
+        const pushService = http.createServer(requestListener);
+        pushService.listen(this.ps_port, this.ps_host, () => {
+            this.log.info(`Server for Robonect push-service is running on http://${this.ps_host}:${this.ps_port}`);
+        });
 
         // Start regular pollings
         const pollStatus = () => {
@@ -479,37 +522,6 @@ class Robonect extends utils.Adapter {
             });
     }
 
-    /**
-     * Parse response
-     * @param {*} err
-     * @param {*} response
-     * @param {*} body
-     */
-    parseResponse(response, body) {
-        this.log.debug('Parsing received data.');
-        if (response && response.statusCode === 200) {
-            if (body !== '') {
-                try {
-                    const data = JSON.parse(body);
-
-                    // Handle non-exception-throwing cases:
-                    // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
-                    // but... JSON.parse(null) returns null, and typeof null === 'object',
-                    // so we must check for that, too. Thankfully, null is falsey, so this suffices:
-                    if (data && typeof data === 'object') {
-                        return data;
-                    }
-                }
-                catch (e) {
-                    throw new Error('JSON not valid');
-                }
-            } else {
-                throw new Error('Empty body');
-            }
-        } else {
-            throw new Error('Bad response: ' + JSON.stringify(response));
-        }
-    }
 
     /**
      * Check if current time is in a rest period
@@ -581,11 +593,13 @@ class Robonect extends utils.Adapter {
                 rule = { 'var': [itemValue] };
             }
 
-            const val = jsonLogic.apply(
+            let val = jsonLogic.apply(
                 rule,
                 data
             );
-
+            if (objects[item].common.type === 'number') val=Number.parseInt(val);
+            if (objects[item].common.type === 'boolean' && item === 'status.stopped') val= val===1;
+            // this.log.debug(`Trying to set ${item} to value: [${val}]`);
             this.setState(item, { val: val, ack: true });
         }
     }
