@@ -1,9 +1,11 @@
 {
     "common": {
         "name": "robonect",
-        "title": "Robonect",
         "version": "0.1.4",
         "news": {
+            "1.0.0": {
+                "en": ""
+            },
             "0.1.4": {
                 "en": "Changed polling log level from info to debug\r\nimplemented polling of garage door status",
                 "de": "Die Abfrageprotokollstufe wurde von \"Info\" auf \"Debug\" geändert\r\nAbfrage des Garagentorstatus implementiert",
@@ -14,7 +16,8 @@
                 "it": "Cambiato il livello di log del polling da info a debug\r\nimplementato il polling dello stato della porta del garage",
                 "es": "Se modificó el nivel de registro de sondeo de información a depuración\r\nencuesta implementada del estado de la puerta del garaje",
                 "pl": "Zmieniono poziom dziennika sondowania z informacji na debugowanie\r\nwdrożono odpytywanie stanu bramy garażowej",
-                "zh-cn": "将轮询日志级别从信息更改为调试\r\n实施了车库门状态的轮询"
+                "zh-cn": "将轮询日志级别从信息更改为调试\r\n实施了车库门状态的轮询",
+                "uk": "Рівень журналу опитування змінено з інформації на налагодження\r\nреалізовано опитування стану гаражних воріт"
             },
             "0.1.3": {
                 "en": "implemented JsonLogic & refactoring",
@@ -26,7 +29,8 @@
                 "it": "implementato JsonLogic e refactoring",
                 "es": "implementado JsonLogic y refactorización",
                 "pl": "zaimplementowano JsonLogic i refaktoryzację",
-                "zh-cn": "实现的JsonLogic和重构"
+                "zh-cn": "实现的JsonLogic和重构",
+                "uk": "реалізовано JsonLogic і рефакторинг"
             },
             "0.1.2": {
                 "en": "fixed GPS",
@@ -38,7 +42,8 @@
                 "it": "GPS fisso",
                 "es": "GPS fijo",
                 "pl": "naprawiony GPS",
-                "zh-cn": "固定GPS"
+                "zh-cn": "固定GPS",
+                "uk": "фіксований GPS"
             },
             "0.1.1": {
                 "en": "fixed typo",
@@ -50,7 +55,8 @@
                 "it": "errore di battitura fisso",
                 "es": "error tipográfico fijo",
                 "pl": "poprawiona literówka",
-                "zh-cn": "固定错字"
+                "zh-cn": "固定错字",
+                "uk": "виправлена ​​опечатка"
             },
             "0.1.0": {
                 "en": "implemented rest periods",
@@ -62,7 +68,8 @@
                 "it": "periodi di riposo implementati",
                 "es": "períodos de descanso implementados",
                 "pl": "wprowadzone okresy odpoczynku",
-                "zh-cn": "已实施的休息时间"
+                "zh-cn": "已实施的休息时间",
+                "uk": "реалізовані періоди відпочинку"
             },
             "0.0.12": {
                 "en": "improved polling",
@@ -74,7 +81,8 @@
                 "it": "polling migliorato",
                 "es": "sondeo mejorado",
                 "pl": "poprawione odpytywanie",
-                "zh-cn": "改进的轮询"
+                "zh-cn": "改进的轮询",
+                "uk": "покращене опитування"
             },
             "0.0.11": {
                 "en": "implemented weather and GPS polls",
@@ -86,7 +94,8 @@
                 "it": "implementato sondaggi meteo e GPS",
                 "es": "encuestas meteorológicas y GPS implementadas",
                 "pl": "zaimplementowane ankiety pogodowe i GPS",
-                "zh-cn": "实施天气和GPS民意测验"
+                "zh-cn": "实施天气和GPS民意测验",
+                "uk": "реалізовані опитування погоди та GPS"
             },
             "0.0.10": {
                 "en": "first stable version",
@@ -98,7 +107,8 @@
                 "it": "prima versione stabile",
                 "es": "primera versión estable",
                 "pl": "pierwsza stabilna wersja",
-                "zh-cn": "第一个稳定版本"
+                "zh-cn": "第一个稳定版本",
+                "uk": "перша стабільна версія"
             },
             "0.0.9": {
                 "en": "adapter improvements",
@@ -110,7 +120,8 @@
                 "it": "miglioramenti dell'adattatore",
                 "es": "mejoras del adaptador",
                 "pl": "ulepszenia adaptera",
-                "zh-cn": "适配器改进"
+                "zh-cn": "适配器改进",
+                "uk": "вдосконалення адаптера"
             },
             "0.0.8": {
                 "en": "fixed some issues caused by different configurations",
@@ -122,7 +133,8 @@
                 "it": "risolti alcuni problemi causati da diverse configurazioni",
                 "es": "solucionó algunos problemas causados por diferentes configuraciones",
                 "pl": "naprawiono niektóre problemy spowodowane przez różne konfiguracje",
-                "zh-cn": "修复了不同配置导致的一些问题"
+                "zh-cn": "修复了不同配置导致的一些问题",
+                "uk": "виправлено деякі проблеми, спричинені різними конфігураціями"
             },
             "0.0.7": {
                 "en": "prepared adapter for latest repository",
@@ -134,7 +146,8 @@
                 "it": "adattatore preparato per il repository più recente",
                 "es": "Adaptador preparado para el último repositorio",
                 "pl": "przygotowany adapter do najnowszego repozytorium",
-                "zh-cn": "为最新存储库准备的适配器"
+                "zh-cn": "为最新存储库准备的适配器",
+                "uk": "підготовлений адаптер для останнього репозиторію"
             },
             "0.0.6": {
                 "en": "fixed minor issues",
@@ -146,7 +159,8 @@
                 "it": "risolti problemi minori",
                 "es": "problemas menores solucionados",
                 "pl": "naprawiono drobne problemy",
-                "zh-cn": "解决小问题"
+                "zh-cn": "解决小问题",
+                "uk": "виправлено незначні проблеми"
             },
             "0.0.5": {
                 "en": "updated to work with Robonect HX version 1.1b",
@@ -158,7 +172,8 @@
                 "it": "aggiornato per funzionare con Robonect HX versione 1.1b",
                 "es": "actualizado para trabajar con Robonect HX versión 1.1b",
                 "pl": "zaktualizowano do pracy z Robonect HX wersja 1.1b",
-                "zh-cn": "更新为可与Robonect HX版本1.1b一起使用"
+                "zh-cn": "更新为可与Robonect HX版本1.1b一起使用",
+                "uk": "оновлено для роботи з Robonect HX версії 1.1b"
             },
             "0.0.4": {
                 "en": "updated to work with Robonect HX version 1.0 Beta5",
@@ -170,7 +185,8 @@
                 "it": "aggiornato per funzionare con Robonect HX versione 1.0 Beta5",
                 "es": "actualizado para trabajar con Robonect HX versión 1.0 Beta5",
                 "pl": "zaktualizowano do pracy z Robonect HX wersja 1.0 Beta5",
-                "zh-cn": "更新为可与Robonect HX版本1.0 Beta5一起使用"
+                "zh-cn": "更新为可与Robonect HX版本1.0 Beta5一起使用",
+                "uk": "оновлено для роботи з Robonect HX версії 1.0 Beta5"
             },
             "0.0.3": {
                 "en": "support of Admin3",
@@ -182,7 +198,8 @@
                 "it": "supporto di Admin3",
                 "es": "soporte de Admin3",
                 "pl": "obsługa Admin3",
-                "zh-cn": "支持Admin3"
+                "zh-cn": "支持Admin3",
+                "uk": "підтримка Admin3"
             },
             "0.0.2": {
                 "en": "updated to work with Robonect HX version 1.0 Beta2",
@@ -194,7 +211,8 @@
                 "it": "aggiornato per funzionare con Robonect HX versione 1.0 Beta2",
                 "es": "actualizado para trabajar con Robonect HX versión 1.0 Beta2",
                 "pl": "zaktualizowano do pracy z Robonect HX wersja 1.0 Beta2",
-                "zh-cn": "更新为可与Robonect HX版本1.0 Beta2"
+                "zh-cn": "更新为可与Robonect HX版本1.0 Beta2",
+                "uk": "оновлено для роботи з Robonect HX версії 1.0 Beta2"
             },
             "0.0.1": {
                 "en": "initial release",
@@ -206,8 +224,22 @@
                 "it": "Versione iniziale",
                 "es": "Versión inicial",
                 "pl": "Pierwsze wydanie",
-                "zh-cn": "初始发行"
+                "zh-cn": "初始发行",
+                "uk": "початковий випуск"
             }
+        },
+        "titleLang": {
+            "en": "Robonect HX",
+            "de": "Robonect HX",
+            "ru": "Робонект HX",
+            "pt": "Robonect HX",
+            "nl": "Robonect HX",
+            "fr": "Robonect HX",
+            "it": "Robonect HX",
+            "es": "Robonect HX",
+            "pl": "Robonect HX",
+            "uk": "Robonect HX",
+            "zh-cn": "Robonect HX"
         },
         "desc": {
             "en": "Robonect HX adapter",
@@ -219,13 +251,16 @@
             "it": "Adattatore Robonect HX",
             "es": "Adaptador Robonect HX",
             "pl": "Adapter Robonect HX",
-            "zh-cn": "Robonect HX适配器"
+            "zh-cn": "Robonect HX适配器",
+            "uk": "Адаптер Robonect HX"
         },
         "mode": "daemon",
         "materialize": true,
         "compact": true,
         "platform": "Javascript/Node.js",
         "loglevel": "info",
+        "connectionType": "local",
+        "dataSource": "push",
         "icon": "robonect.png",
         "enabled": false,
         "extIcon": "https://raw.githubusercontent.com/braindead1/ioBroker.robonect/master/admin/robonect.png",
@@ -233,14 +268,63 @@
             "robonect",
             "lawn mower"
         ],
-        "localLink": "http://%robonectIp%",
+        "localLinks": {
+            "_default": "http://%robonectIp%"
+        },
         "readme": "https://github.com/braindead1/ioBroker.robonect/blob/master/README.md",
         "authors": [
+            "grizzelbee <open.source@hingsen.de>",
             "braindead1 <os.braindead1@gmail.com>",
             "StefSign <hufnagl@hotmail.com>"
         ],
         "type": "garden",
-        "license": "MIT"
+        "tier": 2,
+        "license": "MIT",
+        "adminUI": {
+            "config": "json"
+        },
+        "messages": [
+            {
+                "condition": {
+                    "operand": "and",
+                    "rules": [
+                        "oldVersion<1.0.0",
+                        "newVersion>=1.0.0"
+                    ]
+                },
+                "title": {
+                    "en": "Instance requires new configuration after update",
+                    "de": "Die Instanz erfordert nach dem Update eine neue Konfiguration",
+                    "ru": "Экземпляр требует новой конфигурации после обновления",
+                    "pt": "A instância requer uma nova configuração após a atualização",
+                    "nl": "Instantie vereist nieuwe configuratie na update",
+                    "fr": "L'instance nécessite une nouvelle configuration après la mise à jour",
+                    "it": "L'istanza richiede una nuova configurazione dopo l'aggiornamento",
+                    "es": "La instancia requiere una nueva configuración después de la actualización",
+                    "pl": "Instancja wymaga nowej konfiguracji po aktualizacji",
+                    "zh-cn": "实例更新后需要新配置",
+                    "uk": "Після оновлення екземпляр потребує нової конфігурації"
+                },
+                "text": {
+                    "en": "After upgrading to Version 1.0.0 or later you need to reenter your password and check your configuration settings due to the change of the admin interface.",
+                    "de": "Nach dem Upgrade auf Version 1.0.0 oder höher müssen Sie aufgrund der Änderung der Admin-Oberfläche Ihr Passwort erneut eingeben und Ihre Konfigurationseinstellungen überprüfen.",
+                    "ru": "После обновления до версии 1.0.0 или более поздней вам необходимо повторно ввести пароль и проверить параметры конфигурации в связи с изменением интерфейса администратора.",
+                    "pt": "Depois de atualizar para a versão 1.0.0 ou posterior, você precisa digitar novamente sua senha e verificar suas definições de configuração devido à alteração da interface de administração.",
+                    "nl": "Na het upgraden naar versie 1.0.0 of later moet u uw wachtwoord opnieuw invoeren en uw configuratie-instellingen controleren vanwege de wijziging van de beheerdersinterface.",
+                    "fr": "Après la mise à niveau vers la version 1.0.0 ou ultérieure, vous devez ressaisir votre mot de passe et vérifier vos paramètres de configuration en raison du changement de l'interface d'administration.",
+                    "it": "Dopo l'aggiornamento alla versione 1.0.0 o successiva è necessario reinserire la password e controllare le impostazioni di configurazione a causa della modifica dell'interfaccia di amministrazione.",
+                    "es": "Después de actualizar a la versión 1.0.0 o posterior, debe volver a ingresar su contraseña y verificar sus ajustes de configuración debido al cambio de la interfaz de administración.",
+                    "pl": "Po aktualizacji do wersji 1.0.0 lub nowszej należy ponownie wprowadzić hasło i sprawdzić ustawienia konfiguracyjne ze względu na zmianę interfejsu administratora.",
+                    "uk": "Після оновлення до версії 1.0.0 або новішої вам потрібно повторно ввести пароль і перевірити налаштування конфігурації через зміну інтерфейсу адміністратора.",
+                    "zh-cn": "升级到版本1.0.0或更高版本后，由于管理界面的更改，您需要重新输入密码并检查您的配置设置。"
+                },
+                "level": "warn",
+                "buttons": [
+                    "agree",
+                    "cancel"
+                ]
+            }
+        ]
     },
     "native": {
         "statusInterval": 60,
