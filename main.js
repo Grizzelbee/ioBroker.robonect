@@ -210,7 +210,7 @@ class Robonect extends utils.Adapter {
             this.infoTimeout = setTimeout(pollInfo, this.infoInterval * 1000);
         }
 
-        this.log.info('Done');
+        // this.log.info('Done');
 
         return true;
     }
@@ -395,7 +395,7 @@ class Robonect extends utils.Adapter {
                         const objects = require('./lib/objects_' + cmd + '.json');
 
                         adapter.updateObjects(objects, response.data);
-                        adapter.log.debug('API call [' + adapter.apiUrl + '} - done!');
+                        adapter.log.debug(`API call to [${this.apiUrl}] with command [${cmd}]  - done!`);
                         resolve(response.data);
                     } else {
                         if (response.data.error_message && response.data.error_message !== '') {
