@@ -54,5 +54,6 @@
     "restPeriod1Start": "Beginn der ersten Ruhezeit",
     "restPeriod2Start": "Beginn der zweiten Ruhezeit",
     "restPeriod1End": "Ende der ersten Ruhephase",
-    "restPeriod2End": "Ende der zweiten Ruhephase"
+    "restPeriod2End": "Ende der zweiten Ruhephase",
+    "GarageDoor": "Garagentor"
 }

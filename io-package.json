@@ -252,17 +252,17 @@
             "zh-cn": "Robonect HX"
         },
         "desc": {
-            "en": "Robonect HX for Husquarna and Gardena lawn mower robots",
-            "de": "Robonect HX für Rasenmäherroboter Husquarna und Gardena",
-            "ru": "Robonect HX для роботов-газонокосилок Husquarna и Gardena",
-            "pt": "Robonect HX para robôs cortadores de grama Husquarna e Gardena",
-            "nl": "Robonect HX voor Husquarna en Gardena grasmaaierrobots",
-            "fr": "Robonect HX pour robots tondeuses Husquarna et Gardena",
-            "it": "Robonect HX per robot rasaerba Husquarna e Gardena",
-            "es": "Robonect HX para robots cortacésped Husquarna y Gardena",
-            "pl": "Robonect HX do robotów koszących Husquarna i Gardena",
-            "zh-cn": "适用于 Husquarna 和 Gardena 割草机机器人的 Robonect HX",
-            "uk": "Robonect HX для роботів-газонокосарок Husquarna та Gardena"
+            "en": "Robonect HX for lawn mower robots from Husquarna, Flymo, McCulloch and Gardena",
+            "de": "Robonect HX für Rasenmäherroboter von Husquarna, Flymo, McCulloch und Gardena",
+            "ru": "Robonect HX для роботов-газонокосилок от Husquarna, Flymo, McCulloch и Gardena",
+            "pt": "Robonect HX para robôs cortadores de grama da Husquarna, Flymo, McCulloch e Gardena",
+            "nl": "Robonect HX voor grasmaaierrobots van Husquarna, Flymo, McCulloch en Gardena",
+            "fr": "Robonect HX pour les robots tondeuses Husquarna, Flymo, McCulloch et Gardena",
+            "it": "Robonect HX per robot tosaerba di Husquarna, Flymo, McCulloch e Gardena",
+            "es": "Robonect HX para robots cortacésped de Husquarna, Flymo, McCulloch y Gardena",
+            "pl": "Robonect HX do robotów koszących Husquarna, Flymo, McCulloch i Gardena",
+            "uk": "Robonect HX для роботів-газонокосарок Husquarna, Flymo, McCulloch і Gardena",
+            "zh-cn": "Robonect HX 适用于 Husquarna、Flymo、McCulloch 和 Gardena 割草机机器人"
         },
         "mode": "daemon",
         "materialize": true,

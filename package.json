@@ -1,7 +1,7 @@
 {
   "name": "iobroker.robonect",
   "version": "1.0.0",
-  "description": "ioBroker robonect Adapter",
+  "description": "Robonect HX for lawn mower robots from Husquarna, Flymo, McCulloch and Gardena",
   "keywords": [
     "ioBroker",
     "robonect",
@@ -32,6 +32,16 @@
     }
   ],
   "main": "main.js",
+  "files": [
+    "admin{,/!(src)/**}/!(tsconfig|tsconfig.*).json",
+    "admin{,/!(src)/**}/*.{html,css,png,svg,jpg,js}",
+    "lib/",
+    "source/",
+    "www/",
+    "io-package.json",
+    "LICENSE",
+    "main.js"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/Grizzelbee/ioBroker.robonect.git"
