@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "robonect",
-        "version": "0.1.4",
+        "version": "1.0.0",
         "news": {
             "1.0.0": {
                 "en": "\n Dependencies got updated\n Some fixes to make adapter-checker happy\n Updated git workflows\n Dropped request.js since it's deprecated\n Replaced request.js by axios.js for http requests\n Add Webserver for Push-Service API\n Add adapter-dev support\n Added snyk plugin\n Swapped Admin UI to V5",
