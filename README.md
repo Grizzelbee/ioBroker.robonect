@@ -9,10 +9,14 @@ Windows: [![Build status](https://ci.appveyor.com/api/projects/status/yl79oamami
 This is an ioBroker adapter for your Robonect HX enabled lawn mower. It has been tested with Robonect v1.1b (with ZeroConf v1.4) and a Gardena R70Li.
 
 ## Settings
-* It is required to enter the IP address of the Robonect module. In case username and password are set, they are required, too.
+* It is required to enter the IP address (like 192.168.x.x) or hostname (like robonect-D247BF) or fully qualified domainname (like robonect-D247BF.fritz.box) of the Robonect module. In case username and password are set, they are required, too.
 * ioBroker.robonect polls data at different intervals: By default status information is polled every 60 seconds (1 minute) and other information is polled every 900 seconds (15 minutes).
 * It is possible to configure two rest periods to prevent polling e.g. at noon and during the night. Information that can be polled without waking the lawn mower (and make it beep) will still be polled.
 * For every API request it is possible to choose the polling interval (status or info) or don't poll at all.
+* push service: when activated select the IP address and port the adapter should listen to. These data must be also configured in the robonect module. Even if listening to on all IP adresses you need to configure the real IP address in robonect. The IP format to use is like 192.168.x.x:Port   
+
+### Push service: 
+The robonect module has a config option called "Push Service". When activated the adapter will receive push notifications if one of the events happens. With this option activated you may use much longer poll intervalls than the defaults.
 
 ## Control
 ### Mode
@@ -24,16 +28,17 @@ It is possible to control the extensions GPIO 1, GPIO 2, OUT 1 and OUT 2 of the 
 ## Changelog
 
 ### Work in progress
-* Swap Admin UI to V5
-* Find IP automatically or - at least - support FQDN in addition
-* Add Webserver for Push-Service API
-* Allow more than one mower
 
 ### 1.0.0 
 * (grizzelbee) Upd: Dependencies got updated
 * (grizzelbee) Upd: Some fixes to make adapter-checker happy
+* (grizzelbee) Upd: Updated git workflows
 * (grizzelbee) New: Dropped request.js since it's deprecated
-* (grizzelbee) Upd: Replaced request.js by axios.js for http requests
+* (grizzelbee) New: Replaced request.js by axios.js for http requests
+* (grizzelbee) New: Add Webserver for Push-Service API
+* (grizzelbee) New: Add adapter-dev support
+* (grizzelbee) New: Added snyk plugin
+* (grizzelbee) New: Swapped Admin UI to V5
 
 ### 0.1.4
 * (braindead1) changed polling log level from info to debug
