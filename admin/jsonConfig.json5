@@ -412,10 +412,11 @@
             "md": 4,
             "lg": 3
         },
-        "restPeriod2Start": {
+        "restPeriod1End": {
+            "newLine": true,
             "type": "timePicker",
-            "label": "restPeriod2Start",
-            "tooltip": "restPeriodStart_desc",
+            "label": "restPeriod1End",
+            "tooltip": "restPeriodEnd_desc",
             "sm": 12,
             "md": 4,
             "lg": 3
@@ -444,11 +445,10 @@
             "md": 4,
             "lg": 3
         },
-        "restPeriod1End": {
-            "newLine": true,
+        "restPeriod2Start": {
             "type": "timePicker",
-            "label": "restPeriod1End",
-            "tooltip": "restPeriodEnd_desc",
+            "label": "restPeriod2Start",
+            "tooltip": "restPeriodStart_desc",
             "sm": 12,
             "md": 4,
             "lg": 3
