@@ -271,7 +271,7 @@
         "dataSource": "push",
         "icon": "robonect.png",
         "enabled": false,
-        "extIcon": "https://raw.githubusercontent.com/braindead1/ioBroker.robonect/master/admin/robonect.png",
+        "extIcon": "https://raw.githubusercontent.com/Grizzelbee/ioBroker.robonect/master/admin/robonect.png",
         "keywords": [
             "robonect",
             "lawn mower"
@@ -279,7 +279,7 @@
         "localLinks": {
             "_default": "http://%robonectIp%"
         },
-        "readme": "https://github.com/braindead1/ioBroker.robonect/blob/master/README.md",
+        "readme": "https://github.com/Grizzelbee/ioBroker.robonect/blob/master/README.md",
         "authors": [
             "grizzelbee <open.source@hingsen.de>",
             "braindead1 <os.braindead1@gmail.com>",
@@ -291,10 +291,14 @@
         "adminUI": {
             "config": "json"
         },
+        "globalDependencies": [
+            {
+                "admin": ">=5.1.13"
+            }
+        ],
         "dependencies": [
             {
-                "js-controller": ">=3.0.0",
-                "admin": ">=5.0.17"
+                "js-controller": ">=3.0.0"
             }
         ],
         "plugins": {
