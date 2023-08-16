@@ -4,16 +4,16 @@
         "version": "1.0.0",
         "news": {
             "1.0.0": {
-                "en": "\n Dependencies got updated\n Some fixes to make adapter-checker happy\n Updated git workflows\n Dropped request.js since it's deprecated\n Replaced request.js by axios.js for http requests\n Add Webserver for Push-Service API\n Add adapter-dev support\n Added snyk plugin\n Swapped Admin UI to V5",
-                "de": "\n Abhängigkeiten wurden aktualisiert. \n Einige Korrekturen, um den Adapter-Checker glücklich zu machen Unterstützung\n Snyk-Plugin hinzugefügt\n Admin-Benutzeroberfläche auf V5 ausgetauscht",
-                "ru": "\n Зависимости были обновлены \n Некоторые исправления для проверки адаптера \n Обновлены рабочие процессы git \n Удален request.js, поскольку он устарел \n Заменен request.js на axios.js для HTTP-запросов \n Добавлен веб-сервер для API Push-Service \n Добавлен адаптер-dev поддержка \n Добавлен плагин snyk \n Пользовательский интерфейс администратора заменен на V5",
-                "pt": "\n As dependências foram atualizadas\n Algumas correções para deixar o verificador de adaptadores feliz\n Fluxos de trabalho git atualizados\n Retirado request.js desde que está obsoleto\n Substituído request.js por axios.js para solicitações http\n Adicionar servidor da Web para API Push-Service\n Adicionar adaptador-dev suporte\n Adicionado plug-in snyk\n UI de administrador trocada para V5",
-                "nl": "\n Afhankelijkheden zijn bijgewerkt \n Enkele oplossingen om adapter-checker blij te maken \n Git-workflows bijgewerkt \n Request.js verwijderd sinds het is verouderd \n Request.js vervangen door axios.js voor http-verzoeken \n Webserver toevoegen voor Push-Service API \n Adapter-dev toevoegen ondersteuning\n Snyk-plug-in toegevoegd\n Admin UI omgewisseld naar V5",
-                "fr": "\n Les dépendances ont été mises à jour\n Quelques correctifs pour rendre le vérificateur d'adaptateur heureux\n Mise à jour des flux de travail git\n Abandon de request.js depuis qu'il est obsolète\n Remplacement de request.js par axios.js pour les requêtes http\n Ajout d'un serveur Web pour l'API Push-Service\n Ajout d'un adaptateur-dev support\n Ajout du plugin snyk\n Permutation de l'interface utilisateur d'administration vers la V5",
-                "it": "\n Le dipendenze sono state aggiornate \n Alcune correzioni per rendere felice l'adapter-checker \n Aggiornati i flussi di lavoro git \n Eliminato request.js poiché è deprecato \n Sostituito request.js con axios.js per le richieste http \n Aggiungi Webserver per l'API Push-Service \n Aggiungi adapter-dev support\n Aggiunto plug-in snyk\n Scambiata interfaccia utente amministratore a V5",
-                "es": "\n Se actualizaron las dependencias\n Algunas correcciones para hacer feliz al verificador de adaptadores\n Se actualizaron los flujos de trabajo de git\n Se eliminó request.js porque está en desuso\n Se reemplazó request.js por axios.js para solicitudes http\n Agregar servidor web para API de servicio push\n Agregar adaptador-dev soporte \n Complemento snyk agregado \n Interfaz de usuario de administrador intercambiada a V5",
-                "pl": "\n Zależności zostały zaktualizowane \n Niektóre poprawki uszczęśliwiające adapter-checker \n Zaktualizowane przepływy pracy git \n Usunięto request.js, ponieważ jest przestarzały \n Zastąpiono request.js przez axios.js dla żądań http \n Dodaj serwer WWW dla Push-Service API \n Dodaj adapter-dev wsparcie\n Dodano wtyczkę snyk\n Zamieniono interfejs administratora na V5",
-                "zh-cn": "\n 更新了依赖项\n 一些修复让适配器检查器满意\n 更新了 git 工作流程\n 删除了 request.js，因为它已被弃用\n 将 request.js 替换为 axios.js 用于 http 请求\n 为推送服务 API 添加 Web 服务器\n 添加适配器开发支持\n 添加了 snyk 插件\n 将管理 UI 替换为 V5"
+                "en": "\n Dependencies got updated\n Some fixes to make adapter-checker happy\n Updated git workflows\n Dropped requestJS since it's deprecated\n Replaced requestJS by axios for http requests\n Added Webserver for Push-Service API\n Added adapter-dev support\n Added snyk plugin\n Swapped Admin UI to V5",
+                "de": "Abhängigkeiten wurden aktualisiert\n Einige Korrekturen, um den Adapter-Checker glücklich zu machen\n Aktualisierte Git-Workflows\n requestJS wurde gelöscht, da es veraltet ist\n requestJS durch axios für http-Anfragen ersetzt\n Webserver für Push-Service-API hinzugefügt\n Adapter-Dev-Unterstützung hinzugefügt\n Snyk-Plugin hinzugefügt\n Admin-Benutzeroberfläche auf V5 umgestellt",
+                "ru": "Зависимости обновлены\n Некоторые исправления, чтобы сделать программу проверки адаптера счастливой\n Обновлены рабочие процессы git.\n Удален requestJS, так как он устарел\n Заменен requestJS на axios для http-запросов.\n Добавлен веб-сервер для Push-Service API\n Добавлена ​​поддержка адаптера-разработчика\n Добавлен сник-плагин\n Пользовательский интерфейс администратора заменен на V5.",
+                "pt": "As dependências foram atualizadas\n Algumas correções para deixar o verificador de adaptadores feliz\n Fluxos de trabalho git atualizados\n RequestJS descartado, pois está obsoleto\n Substituído requestJS por axios para solicitações http\n Servidor da Web adicionado para API de serviço push\n Adicionado suporte adaptador-dev\n Plugin snyk adicionado\n UI de administrador trocada para V5",
+                "nl": "Afhankelijkheden zijn bijgewerkt\n Enkele oplossingen om adapter-checker blij te maken\n Bijgewerkte git-workflows\n RequestJS verwijderd omdat het verouderd is\n RequestJS vervangen door axios voor http-verzoeken\n Toegevoegd Webserver voor Push-Service API\n Ondersteuning voor adapter-dev toegevoegd\n Snyk-plug-in toegevoegd\n Beheerdersinterface omgewisseld naar V5",
+                "fr": "Les dépendances ont été mises à jour\n Quelques correctifs pour rendre le vérificateur d'adaptateur heureux\n Flux de travail git mis à jour\n Abandon de requestJS car il est obsolète\n Remplacement de requestJS par axios pour les requêtes http\n Serveur Web ajouté pour l'API Push-Service\n Ajout de la prise en charge de l'adaptateur-dev\n Plugin snyk ajouté\n Passage de l'interface utilisateur d'administration à la V5",
+                "it": "Le dipendenze sono state aggiornate\n Alcune correzioni per rendere felice il controllore dell'adattatore\n Flussi di lavoro git aggiornati\n Dropped requestJS poiché è deprecato\n Sostituito requestJS con axios per le richieste http\n Aggiunto server Web per l'API Push-Service\n Aggiunto supporto adattatore-sviluppo\n Aggiunto plugin snyk\n Interfaccia utente di amministrazione sostituita con V5",
+                "es": "Las dependencias se actualizaron\n Algunas correcciones para hacer feliz al verificador de adaptadores\n Flujos de trabajo de git actualizados\n Se eliminó requestJS porque está en desuso\n Se reemplazó requestJS por axios para solicitudes http\n Servidor web agregado para API de servicio de inserción\n Se agregó compatibilidad con adaptador-dev\n Complemento snyk agregado\n Interfaz de usuario de administrador intercambiada a V5",
+                "pl": "Zależności zostały zaktualizowane\n Kilka poprawek, aby uszczęśliwić adapter-checker\n Zaktualizowano przepływy pracy git\n Usunięto requestJS, ponieważ jest przestarzały\n Zastąpiono requestJS przez axios dla żądań http\n Dodano serwer WWW dla interfejsu API Push-Service\n Dodano obsługę adapter-dev\n Dodano wtyczkę snyk\n Zmieniono interfejs administratora na V5",
+                "zh-cn": "依赖项已更新\n 一些使适配器检查器满意的修复\n 更新了 git 工作流程\n 删除了 requestJS，因为它已被弃用\n 将 http 请求的 requestJS 替换为 axios\n 添加了用于推送服务 API 的 Web 服务器\n 添加了适配器开发支持\n 添加了 snyk 插件\n 将管理 UI 切换至 V5"
             },
             "0.1.4": {
                 "en": "Changed polling log level from info to debug\r\nimplemented polling of garage door status",
@@ -25,8 +25,8 @@
                 "it": "Cambiato il livello di log del polling da info a debug\r\nimplementato il polling dello stato della porta del garage",
                 "es": "Se modificó el nivel de registro de sondeo de información a depuración\r\nencuesta implementada del estado de la puerta del garaje",
                 "pl": "Zmieniono poziom dziennika sondowania z informacji na debugowanie\r\nwdrożono odpytywanie stanu bramy garażowej",
-                "zh-cn": "将轮询日志级别从信息更改为调试\r\n实施了车库门状态的轮询",
-                "uk": "Рівень журналу опитування змінено з інформації на налагодження\r\nреалізовано опитування стану гаражних воріт"
+                "uk": "Рівень журналу опитування змінено з інформації на налагодження\r\nреалізовано опитування стану гаражних воріт",
+                "zh-cn": "将轮询日志级别从信息更改为调试\r\n实施了车库门状态的轮询"
             },
             "0.1.3": {
                 "en": "implemented JsonLogic & refactoring",
@@ -38,8 +38,8 @@
                 "it": "implementato JsonLogic e refactoring",
                 "es": "implementado JsonLogic y refactorización",
                 "pl": "zaimplementowano JsonLogic i refaktoryzację",
-                "zh-cn": "实现的JsonLogic和重构",
-                "uk": "реалізовано JsonLogic і рефакторинг"
+                "uk": "реалізовано JsonLogic і рефакторинг",
+                "zh-cn": "实现的JsonLogic和重构"
             },
             "0.1.2": {
                 "en": "fixed GPS",
@@ -51,8 +51,8 @@
                 "it": "GPS fisso",
                 "es": "GPS fijo",
                 "pl": "naprawiony GPS",
-                "zh-cn": "固定GPS",
-                "uk": "фіксований GPS"
+                "uk": "фіксований GPS",
+                "zh-cn": "固定GPS"
             },
             "0.1.1": {
                 "en": "fixed typo",
@@ -77,8 +77,8 @@
                 "it": "periodi di riposo implementati",
                 "es": "períodos de descanso implementados",
                 "pl": "wprowadzone okresy odpoczynku",
-                "zh-cn": "已实施的休息时间",
-                "uk": "реалізовані періоди відпочинку"
+                "uk": "реалізовані періоди відпочинку",
+                "zh-cn": "已实施的休息时间"
             },
             "0.0.12": {
                 "en": "improved polling",
@@ -90,8 +90,8 @@
                 "it": "polling migliorato",
                 "es": "sondeo mejorado",
                 "pl": "poprawione odpytywanie",
-                "zh-cn": "改进的轮询",
-                "uk": "покращене опитування"
+                "uk": "покращене опитування",
+                "zh-cn": "改进的轮询"
             },
             "0.0.11": {
                 "en": "implemented weather and GPS polls",
@@ -103,8 +103,8 @@
                 "it": "implementato sondaggi meteo e GPS",
                 "es": "encuestas meteorológicas y GPS implementadas",
                 "pl": "zaimplementowane ankiety pogodowe i GPS",
-                "zh-cn": "实施天气和GPS民意测验",
-                "uk": "реалізовані опитування погоди та GPS"
+                "uk": "реалізовані опитування погоди та GPS",
+                "zh-cn": "实施天气和GPS民意测验"
             },
             "0.0.10": {
                 "en": "first stable version",
@@ -116,8 +116,8 @@
                 "it": "prima versione stabile",
                 "es": "primera versión estable",
                 "pl": "pierwsza stabilna wersja",
-                "zh-cn": "第一个稳定版本",
-                "uk": "перша стабільна версія"
+                "uk": "перша стабільна версія",
+                "zh-cn": "第一个稳定版本"
             },
             "0.0.9": {
                 "en": "adapter improvements",
@@ -129,8 +129,8 @@
                 "it": "miglioramenti dell'adattatore",
                 "es": "mejoras del adaptador",
                 "pl": "ulepszenia adaptera",
-                "zh-cn": "适配器改进",
-                "uk": "вдосконалення адаптера"
+                "uk": "вдосконалення адаптера",
+                "zh-cn": "适配器改进"
             },
             "0.0.8": {
                 "en": "fixed some issues caused by different configurations",
@@ -142,8 +142,8 @@
                 "it": "risolti alcuni problemi causati da diverse configurazioni",
                 "es": "solucionó algunos problemas causados por diferentes configuraciones",
                 "pl": "naprawiono niektóre problemy spowodowane przez różne konfiguracje",
-                "zh-cn": "修复了不同配置导致的一些问题",
-                "uk": "виправлено деякі проблеми, спричинені різними конфігураціями"
+                "uk": "виправлено деякі проблеми, спричинені різними конфігураціями",
+                "zh-cn": "修复了不同配置导致的一些问题"
             },
             "0.0.7": {
                 "en": "prepared adapter for latest repository",
@@ -155,8 +155,8 @@
                 "it": "adattatore preparato per il repository più recente",
                 "es": "Adaptador preparado para el último repositorio",
                 "pl": "przygotowany adapter do najnowszego repozytorium",
-                "zh-cn": "为最新存储库准备的适配器",
-                "uk": "підготовлений адаптер для останнього репозиторію"
+                "uk": "підготовлений адаптер для останнього репозиторію",
+                "zh-cn": "为最新存储库准备的适配器"
             },
             "0.0.6": {
                 "en": "fixed minor issues",
@@ -168,8 +168,8 @@
                 "it": "risolti problemi minori",
                 "es": "problemas menores solucionados",
                 "pl": "naprawiono drobne problemy",
-                "zh-cn": "解决小问题",
-                "uk": "виправлено незначні проблеми"
+                "uk": "виправлено незначні проблеми",
+                "zh-cn": "解决小问题"
             },
             "0.0.5": {
                 "en": "updated to work with Robonect HX version 1.1b",
@@ -181,8 +181,8 @@
                 "it": "aggiornato per funzionare con Robonect HX versione 1.1b",
                 "es": "actualizado para trabajar con Robonect HX versión 1.1b",
                 "pl": "zaktualizowano do pracy z Robonect HX wersja 1.1b",
-                "zh-cn": "更新为可与Robonect HX版本1.1b一起使用",
-                "uk": "оновлено для роботи з Robonect HX версії 1.1b"
+                "uk": "оновлено для роботи з Robonect HX версії 1.1b",
+                "zh-cn": "更新为可与Robonect HX版本1.1b一起使用"
             },
             "0.0.4": {
                 "en": "updated to work with Robonect HX version 1.0 Beta5",
@@ -194,8 +194,8 @@
                 "it": "aggiornato per funzionare con Robonect HX versione 1.0 Beta5",
                 "es": "actualizado para trabajar con Robonect HX versión 1.0 Beta5",
                 "pl": "zaktualizowano do pracy z Robonect HX wersja 1.0 Beta5",
-                "zh-cn": "更新为可与Robonect HX版本1.0 Beta5一起使用",
-                "uk": "оновлено для роботи з Robonect HX версії 1.0 Beta5"
+                "uk": "оновлено для роботи з Robonect HX версії 1.0 Beta5",
+                "zh-cn": "更新为可与Robonect HX版本1.0 Beta5一起使用"
             },
             "0.0.3": {
                 "en": "support of Admin3",
@@ -207,8 +207,8 @@
                 "it": "supporto di Admin3",
                 "es": "soporte de Admin3",
                 "pl": "obsługa Admin3",
-                "zh-cn": "支持Admin3",
-                "uk": "підтримка Admin3"
+                "uk": "підтримка Admin3",
+                "zh-cn": "支持Admin3"
             },
             "0.0.2": {
                 "en": "updated to work with Robonect HX version 1.0 Beta2",
@@ -220,8 +220,8 @@
                 "it": "aggiornato per funzionare con Robonect HX versione 1.0 Beta2",
                 "es": "actualizado para trabajar con Robonect HX versión 1.0 Beta2",
                 "pl": "zaktualizowano do pracy z Robonect HX wersja 1.0 Beta2",
-                "zh-cn": "更新为可与Robonect HX版本1.0 Beta2",
-                "uk": "оновлено для роботи з Robonect HX версії 1.0 Beta2"
+                "uk": "оновлено для роботи з Robonect HX версії 1.0 Beta2",
+                "zh-cn": "更新为可与Robonect HX版本1.0 Beta2"
             },
             "0.0.1": {
                 "en": "initial release",
@@ -233,8 +233,8 @@
                 "it": "Versione iniziale",
                 "es": "Versión inicial",
                 "pl": "Pierwsze wydanie",
-                "zh-cn": "初始发行",
-                "uk": "початковий випуск"
+                "uk": "початковий випуск",
+                "zh-cn": "初始发行"
             }
         },
         "titleLang": {
@@ -252,7 +252,7 @@
         },
         "desc": {
             "en": "Robonect HX for Husquarna and Gardena lawn mower robots",
-            "de": "Robonect HX für Rasenmäherroboter von Husquarna und Gardena",
+            "de": "Robonect HX für Rasenmäherroboter Husquarna und Gardena",
             "ru": "Robonect HX для роботов-газонокосилок Husquarna и Gardena",
             "pt": "Robonect HX para robôs cortadores de grama Husquarna e Gardena",
             "nl": "Robonect HX voor Husquarna en Gardena grasmaaierrobots",
@@ -260,6 +260,7 @@
             "it": "Robonect HX per robot rasaerba Husquarna e Gardena",
             "es": "Robonect HX para robots cortacésped Husquarna y Gardena",
             "pl": "Robonect HX do robotów koszących Husquarna i Gardena",
+            "uk": "Robonect HX",
             "zh-cn": "适用于 Husquarna 和 Gardena 割草机机器人的 Robonect HX"
         },
         "mode": "daemon",
