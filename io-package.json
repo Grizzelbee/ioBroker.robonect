@@ -13,7 +13,8 @@
                 "it": "Le dipendenze sono state aggiornate\n Alcune correzioni per rendere felice il controllore dell'adattatore\n Flussi di lavoro git aggiornati\n Dropped requestJS poiché è deprecato\n Sostituito requestJS con axios per le richieste http\n Aggiunto server Web per l'API Push-Service\n Aggiunto supporto adattatore-sviluppo\n Aggiunto plugin snyk\n Interfaccia utente di amministrazione sostituita con V5",
                 "es": "Las dependencias se actualizaron\n Algunas correcciones para hacer feliz al verificador de adaptadores\n Flujos de trabajo de git actualizados\n Se eliminó requestJS porque está en desuso\n Se reemplazó requestJS por axios para solicitudes http\n Servidor web agregado para API de servicio de inserción\n Se agregó compatibilidad con adaptador-dev\n Complemento snyk agregado\n Interfaz de usuario de administrador intercambiada a V5",
                 "pl": "Zależności zostały zaktualizowane\n Kilka poprawek, aby uszczęśliwić adapter-checker\n Zaktualizowano przepływy pracy git\n Usunięto requestJS, ponieważ jest przestarzały\n Zastąpiono requestJS przez axios dla żądań http\n Dodano serwer WWW dla interfejsu API Push-Service\n Dodano obsługę adapter-dev\n Dodano wtyczkę snyk\n Zmieniono interfejs administratora na V5",
-                "zh-cn": "依赖项已更新\n 一些使适配器检查器满意的修复\n 更新了 git 工作流程\n 删除了 requestJS，因为它已被弃用\n 将 http 请求的 requestJS 替换为 axios\n 添加了用于推送服务 API 的 Web 服务器\n 添加了适配器开发支持\n 添加了 snyk 插件\n 将管理 UI 切换至 V5"
+                "zh-cn": "依赖项已更新\n 一些使适配器检查器满意的修复\n 更新了 git 工作流程\n 删除了 requestJS，因为它已被弃用\n 将 http 请求的 requestJS 替换为 axios\n 添加了用于推送服务 API 的 Web 服务器\n 添加了适配器开发支持\n 添加了 snyk 插件\n 将管理 UI 切换至 V5",
+                "uk": "Залежності оновлено\n Деякі виправлення для задоволення перевірки адаптера\n Оновлені робочі процеси git\n Вилучено requestJS, оскільки він застарів\n Замінено requestJS на axios для http-запитів\n Додано веб-сервер для Push-Service API\n Додана підтримка adapter-dev\n Додано плагін snyk\n Інтерфейс адміністратора замінено на V5"
             },
             "0.1.4": {
                 "en": "Changed polling log level from info to debug\r\nimplemented polling of garage door status",
@@ -260,8 +261,8 @@
             "it": "Robonect HX per robot rasaerba Husquarna e Gardena",
             "es": "Robonect HX para robots cortacésped Husquarna y Gardena",
             "pl": "Robonect HX do robotów koszących Husquarna i Gardena",
-            "uk": "Robonect HX",
-            "zh-cn": "适用于 Husquarna 和 Gardena 割草机机器人的 Robonect HX"
+            "zh-cn": "适用于 Husquarna 和 Gardena 割草机机器人的 Robonect HX",
+            "uk": "Robonect HX для роботів-газонокосарок Husquarna та Gardena"
         },
         "mode": "daemon",
         "materialize": true,
