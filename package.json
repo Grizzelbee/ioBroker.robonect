@@ -32,6 +32,16 @@
     }
   ],
   "main": "main.js",
+  "files": [
+    "admin{,/!(src)/**}/!(tsconfig|tsconfig.*).json",
+    "admin{,/!(src)/**}/*.{html,css,png,svg,jpg,js}",
+    "lib/",
+    "source/",
+    "www/",
+    "io-package.json",
+    "LICENSE",
+    "main.js"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/Grizzelbee/ioBroker.robonect.git"

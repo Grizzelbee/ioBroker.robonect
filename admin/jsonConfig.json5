@@ -65,7 +65,7 @@
         "doorPollType": {
             "newLine": false,
             "type": "select",
-            "label": "Garage door",
+            "label": "GarageDoor",
             "default": "NoPoll",
             "tooltip": "doorPollType_desc",
             "options": [
