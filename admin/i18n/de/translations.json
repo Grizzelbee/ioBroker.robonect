@@ -47,12 +47,12 @@
     "versionPollType": "Version",
     "weatherPollType": "Wetter",
     "wlanPollType": "WLAN",
-    "restPeriod1Start": "Beginn der Ruhezeit 1",
-    "restPeriod2Start": "Beginn der Ruhezeit 2",
-    "restPeriod1End": "Ende der Ruhezeit 1",
-    "restPeriod2End": "Ende der Ruhezeit 2",
     "No poll": "Keine Abfrage",
     "Status": "Status",
     "Info": "Die Info",
-    "NoPoll": "Keine Abfrage"
+    "NoPoll": "Keine Abfrage",
+    "restPeriod1Start": "Beginn der ersten Ruhezeit",
+    "restPeriod2Start": "Beginn der zweiten Ruhezeit",
+    "restPeriod1End": "Ende der ersten Ruhephase",
+    "restPeriod2End": "Ende der zweiten Ruhephase"
 }

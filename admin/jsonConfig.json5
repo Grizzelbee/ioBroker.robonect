@@ -405,7 +405,7 @@
         },
         "restPeriod1Start": {
             "newLine": true,
-            "type": "number",
+            "type": "timePicker",
             "label": "restPeriod1Start",
             "tooltip": "restPeriodStart_desc",
             "sm": 12,
@@ -413,7 +413,7 @@
             "lg": 3
         },
         "restPeriod2Start": {
-            "type": "number",
+            "type": "timePicker",
             "label": "restPeriod2Start",
             "tooltip": "restPeriodStart_desc",
             "sm": 12,
@@ -446,7 +446,7 @@
         },
         "restPeriod1End": {
             "newLine": true,
-            "type": "number",
+            "type": "timePicker",
             "label": "restPeriod1End",
             "tooltip": "restPeriodEnd_desc",
             "sm": 12,
@@ -454,7 +454,7 @@
             "lg": 3
         },
         "restPeriod2End": {
-            "type": "number",
+            "type": "timePicker",
             "label": "restPeriod2End",
             "tooltip": "restPeriodEnd_desc",
             "sm": 12,
