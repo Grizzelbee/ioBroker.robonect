@@ -413,7 +413,7 @@
             "lg": 3
         },
         "restPeriod1End": {
-            "newLine": true,
+            "newLine": false,
             "type": "text",
             "label": "restPeriod1End",
             "tooltip": "restPeriodEnd_desc",
@@ -446,6 +446,7 @@
             "lg": 3
         },
         "restPeriod2Start": {
+            "newLine": true,
             "type": "text",
             "label": "restPeriod2Start",
             "tooltip": "restPeriodStart_desc",
