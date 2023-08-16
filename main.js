@@ -14,6 +14,7 @@ const jsonLogic = require('./lib/json_logic.js');
 const axios = require('axios');
 const http = require('http');
 const url = require('url');
+const objects = require('./lib/objects_pushedStatus.json');
 
 
 class Robonect extends utils.Adapter {
@@ -105,8 +106,8 @@ class Robonect extends utils.Adapter {
         this.weatherPollType = this.config.weatherPollType;
         this.wlanPollType = this.config.wlanPollType;
         //
-        this.ps_host = '192.168.175.26';
-        this.ps_port = '8088';
+        this.ps_host = this.config.pushServiceIp;
+        this.ps_port = this.config.pushServicePort;
 
         if (this.username !== '' && this.password !== '') {
             this.apiUrl = `http://${this.robonectIp}/api/json?user=${this.username}&pass=${this.password}&cmd=`;
@@ -155,39 +156,43 @@ class Robonect extends utils.Adapter {
         this.updateRobonectData('Initial');
 
 
-        const adapter= this;
-        // http-Server for Robonect PushService
-        const requestListener = function (req, res) {
-            let params;
-            if (req.method === 'GET') {
-                adapter.log.debug(`Received GET request`);
-                adapter.log.debug(`req.url=[${req.url}]`);
-                params = url.parse(req.url, true).query;
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.end();
-            } else if (req.method === 'POST') {
-                adapter.log.debug(`Received POST request`);
-                adapter.log.debug(`req.url=[${req.url}]`);
-                let body = '';
-                req.on('data', function (chunk) {
-                    body += chunk;
-                });
-                req.on('end', function(){
+        // test whether to use robonect push service
+        if (this.config.pushService){
+            const adapter= this;
+            // http-Server for Robonect PushService
+            const requestListener = function (req, res) {
+                let params;
+                if (req.method === 'GET') {
+                    adapter.log.debug(`Received GET request`);
+                    adapter.log.debug(`req.url=[${req.url}]`);
                     params = url.parse(req.url, true).query;
                     res.writeHead(200, { 'Content-Type': 'text/html' });
-                    res.end(body);
-                    adapter.log.debug(`body=[${params}]`);
-                });
-            }
-            const objects = require('./lib/objects_pushedStatus.json');
-            adapter.updateObjects(objects, params);
+                    res.end();
+                } else if (req.method === 'POST') {
+                    adapter.log.debug(`Received POST request`);
+                    adapter.log.debug(`req.url=[${req.url}]`);
+                    let body = '';
+                    req.on('data', function (chunk) {
+                        body += chunk;
+                    });
+                    req.on('end', function(){
+                        params = url.parse(req.url, true).query;
+                        res.writeHead(200, { 'Content-Type': 'text/html' });
+                        res.end(body);
+                        adapter.log.debug(`body=[${params}]`);
+                    });
+                }
+                const objects = require('./lib/objects_pushedStatus.json');
+                adapter.updateObjects(objects, params);
 
-        };
+            };
 
-        const pushService = http.createServer(requestListener);
-        pushService.listen(this.ps_port, this.ps_host, () => {
-            this.log.info(`Server for Robonect push-service is running on http://${this.ps_host}:${this.ps_port}`);
-        });
+            const pushService = http.createServer(requestListener);
+            pushService.listen(this.ps_port, this.ps_host, () => {
+                this.log.info(`Server for Robonect push-service is listening on http://${this.ps_host}:${this.ps_port}`);
+            });
+
+        }
 
         // Start regular pollings
         const pollStatus = () => {
@@ -380,10 +385,10 @@ class Robonect extends utils.Adapter {
      */
     async pollApi(cmd) {
         const adapter = this;
-        this.log.debug(`API call to [${this.apiUrl}] with command [${cmd}] started`);
+        this.log.debug(`API call to [${adapter.apiUrl}] with command [${cmd}] started`);
         // eslint-disable-next-line no-unused-vars
         return new Promise((resolve, reject) => {
-            axios.get(this.apiUrl + cmd)
+            axios.get(adapter.apiUrl + cmd)
                 .then( function (response){
                     adapter.log.debug(JSON.stringify(response.data));
                     /*
@@ -395,7 +400,7 @@ class Robonect extends utils.Adapter {
                         const objects = require('./lib/objects_' + cmd + '.json');
 
                         adapter.updateObjects(objects, response.data);
-                        adapter.log.debug(`API call to [${this.apiUrl}] with command [${cmd}]  - done!`);
+                        adapter.log.debug(`API call to [${adapter.apiUrl}] with command [${cmd}]  - done!`);
                         resolve(response.data);
                     } else {
                         if (response.data.error_message && response.data.error_message !== '') {
