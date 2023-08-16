@@ -28,6 +28,7 @@ It is possible to control the extensions GPIO 1, GPIO 2, OUT 1 and OUT 2 of the 
 ## Changelog
 
 ### Work in progress
+* to use timePickers in admin at least admin version 6.4.3 is required.
 
 ### 1.0.0 
 * (grizzelbee) Upd: Dependencies got updated

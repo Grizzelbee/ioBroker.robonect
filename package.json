@@ -1,7 +1,7 @@
 {
   "name": "iobroker.robonect",
   "version": "1.0.0",
-  "description": "ioBroker robonect Adapter",
+  "description": "Robonect HX for lawn mower robots from Husquarna, Flymo, McCulloch and Gardena",
   "keywords": [
     "ioBroker",
     "robonect",
