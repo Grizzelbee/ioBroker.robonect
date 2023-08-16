@@ -1,0 +1,465 @@
+{
+    "i18n": true,
+    "type": "panel",
+    "items": {
+        "_networkSection": {
+            "newLine": true,
+            "type": "header",
+            "text": "Network",
+            "size": 2,
+            "sm": 24,
+            "md": 8,
+            "lg": 6
+        },
+        "_pollConfigSection": {
+            "newLine": false,
+            "type": "header",
+            "text": "Polling configuration",
+            "size": 2,
+            "sm": 24,
+            "md": 8,
+            "lg": 6
+        },
+        "robonectIp": {
+            "newLine": true,
+            "type": "text",
+            "label": "IP address",
+            "tooltip": "IP address_desc",
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "pushService": {
+            "type": "checkbox",
+            "label": "pushService",
+            "tooltip": "pushService_desc",
+            "default": false,
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "batteryPollType": {
+            "newLine": false,
+            "type": "select",
+            "label": "batteryPollType",
+            "default": "Status",
+            "tooltip": "batteryPollType_desc",
+            "options": [
+                {
+                    "label": "No poll",
+                    "value": "NoPoll"
+                },
+                {
+                    "label": "Status",
+                    "value": "Status"
+                },
+                {
+                    "label": "Info",
+                    "value": "Info"
+                }
+            ],
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "doorPollType": {
+            "newLine": false,
+            "type": "select",
+            "label": "Garage door",
+            "default": "NoPoll",
+            "tooltip": "doorPollType_desc",
+            "options": [
+                {
+                    "label": "No poll",
+                    "value": "NoPoll"
+                },
+                {
+                    "label": "Status",
+                    "value": "Status"
+                },
+                {
+                    "label": "Info",
+                    "value": "Info"
+                }
+            ],
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "username": {
+            "newLine": true,
+            "type": "text",
+            "label": "Username",
+            "tooltip": "Username_desc",
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "pushServiceIp": {
+            "newLine": false,
+            "type": "ip",
+            "listenOnAllPorts": true,
+            "label": "pushServiceIp",
+            "tooltip": "pushServiceIp_desc",
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "errorsPollType": {
+            "newLine": false,
+            "type": "select",
+            "label": "errorsPollType",
+            "default": "Status",
+            "tooltip": "errorsPollType_desc",
+            "options": [
+                {
+                    "label": "No poll",
+                    "value": "NoPoll"
+                },
+                {
+                    "label": "Status",
+                    "value": "Status"
+                },
+                {
+                    "label": "Info",
+                    "value": "Info"
+                }
+            ],
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "extensionPollType": {
+            "newLine": false,
+            "type": "select",
+            "label": "extensionPollType",
+            "default": "NoPoll",
+            "tooltip": "extensionPollType_desc",
+            "options": [
+                {
+                    "label": "No poll",
+                    "value": "NoPoll"
+                },
+                {
+                    "label": "Status",
+                    "value": "Status"
+                },
+                {
+                    "label": "Info",
+                    "value": "Info"
+                }
+            ],
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "password": {
+            "newLine": true,
+            "type": "password",
+            "label": "password",
+            "tooltip": "password_desc",
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "pushServicePort": {
+            "type": "number",
+            "min": 1,
+            "max": 65565,
+            "default": 55443,
+            "label": "pushServicePort",
+            "tooltip": "pushServicePort_desc",
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "gpsPollType": {
+            "newLine": false,
+            "type": "select",
+            "label": "gpsPollType",
+            "default": "NoPoll",
+            "tooltip": "gpsPollType_desc",
+            "options": [
+                {
+                    "label": "No poll",
+                    "value": "NoPoll"
+                },
+                {
+                    "label": "Status",
+                    "value": "Status"
+                },
+                {
+                    "label": "Info",
+                    "value": "Info"
+                }
+            ],
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "hoursPollType": {
+            "newLine": false,
+            "type": "select",
+            "label": "hoursPollType",
+            "default": "Info",
+            "tooltip": "hoursPollType_desc",
+            "options": [
+                {
+                    "label": "No poll",
+                    "value": "NoPoll"
+                },
+                {
+                    "label": "Status",
+                    "value": "Status"
+                },
+                {
+                    "label": "Info",
+                    "value": "Info"
+                }
+            ],
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "_pollingSection": {
+            "newLine": true,
+            "type": "header",
+            "text": "Polling",
+            "size": 2,
+            "sm": 24,
+            "md": 8,
+            "lg": 6
+        },
+        "motorPollType": {
+            "newLine": false,
+            "type": "select",
+            "label": "motorPollType",
+            "default": "Info",
+            "tooltip": "motorPollType_desc",
+            "options": [
+                {
+                    "label": "No poll",
+                    "value": "NoPoll"
+                },
+                {
+                    "label": "Status",
+                    "value": "Status"
+                },
+                {
+                    "label": "Info",
+                    "value": "Info"
+                }
+            ],
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "portalPollType": {
+            "newLine": false,
+            "type": "select",
+            "label": "portalPollType",
+            "default": "Info",
+            "tooltip": "portalPollType_desc",
+            "options": [
+                {
+                    "label": "No poll",
+                    "value": "NoPoll"
+                },
+                {
+                    "label": "Status",
+                    "value": "Status"
+                },
+                {
+                    "label": "Info",
+                    "value": "Info"
+                }
+            ],
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "statusInterval": {
+            "newLine": true,
+            "type": "number",
+            "default": 36000,
+            "label": "pollTimeStatus",
+            "tooltip": "pollTimeStatus_desc",
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "infoInterval": {
+            "newLine": false,
+            "type": "number",
+            "default": 24000,
+            "label": "pollTimeInfo",
+            "tooltip": "pollTimeInfo_desc",
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "pushPollType": {
+            "newLine": false,
+            "type": "select",
+            "label": "pushPollType",
+            "default": "Info",
+            "tooltip": "pushPollType_desc",
+            "options": [
+                {
+                    "label": "No poll",
+                    "value": "NoPoll"
+                },
+                {
+                    "label": "Status",
+                    "value": "Status"
+                },
+                {
+                    "label": "Info",
+                    "value": "Info"
+                }
+            ],
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "timerPollType": {
+            "newLine": false,
+            "type": "select",
+            "label": "timerPollType",
+            "default": "Info",
+            "tooltip": "timerPollType_desc",
+            "options": [
+                {
+                    "label": "No poll",
+                    "value": "NoPoll"
+                },
+                {
+                    "label": "Status",
+                    "value": "Status"
+                },
+                {
+                    "label": "Info",
+                    "value": "Info"
+                }
+            ],
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "_noPollSection": {
+            "newLine": true,
+            "type": "header",
+            "text": "No polling times",
+            "size": 2,
+            "sm": 24,
+            "md": 8,
+            "lg": 6
+        },
+        "versionPollType": {
+            "newLine": false,
+            "type": "select",
+            "label": "versionPollType",
+            "default": "Info",
+            "tooltip": "versionPollType_desc",
+            "options": [
+                {
+                    "label": "No poll",
+                    "value": "NoPoll"
+                },
+                {
+                    "label": "Status",
+                    "value": "Status"
+                },
+                {
+                    "label": "Info",
+                    "value": "Info"
+                }
+            ],
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "weatherPollType": {
+            "newLine": false,
+            "type": "select",
+            "label": "weatherPollType",
+            "default": "NoPoll",
+            "tooltip": "weatherPollType_desc",
+            "options": [
+                {
+                    "label": "No poll",
+                    "value": "NoPoll"
+                },
+                {
+                    "label": "Status",
+                    "value": "Status"
+                },
+                {
+                    "label": "Info",
+                    "value": "Info"
+                }
+            ],
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "restPeriod1Start": {
+            "newLine": true,
+            "type": "number",
+            "label": "restPeriod1Start",
+            "tooltip": "restPeriodStart_desc",
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "restPeriod2Start": {
+            "type": "number",
+            "label": "restPeriod2Start",
+            "tooltip": "restPeriodStart_desc",
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "wlanPollType": {
+            "newLine": false,
+            "type": "select",
+            "label": "wlanPollType",
+            "default": "Status",
+            "tooltip": "wlanPollType_desc",
+            "options": [
+                {
+                    "label": "No poll",
+                    "value": "NoPoll"
+                },
+                {
+                    "label": "Status",
+                    "value": "Status"
+                },
+                {
+                    "label": "Info",
+                    "value": "Info"
+                }
+            ],
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "restPeriod1End": {
+            "newLine": true,
+            "type": "number",
+            "label": "restPeriod1End",
+            "tooltip": "restPeriodEnd_desc",
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        },
+        "restPeriod2End": {
+            "type": "number",
+            "label": "restPeriod2End",
+            "tooltip": "restPeriodEnd_desc",
+            "sm": 12,
+            "md": 4,
+            "lg": 3
+        }
+    }
+}
