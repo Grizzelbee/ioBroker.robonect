@@ -12,6 +12,9 @@ const utils = require('@iobroker/adapter-core');
 const ping = require('ping');
 const jsonLogic = require('./lib/json_logic.js');
 const axios = require('axios');
+const http = require('http');
+const url = require('url');
+const objects = require('./lib/objects_pushedStatus.json');
 
 
 class Robonect extends utils.Adapter {
@@ -58,7 +61,12 @@ class Robonect extends utils.Adapter {
 
         this.infoTimeout;
         this.statusTimeout;
+        // http-server for Robonect PushService
+        this.ps;
+        this.ps_host;
+        this.ps_port;
     }
+
 
     /**
      * Is called when databases are connected and adapter received configuration.
@@ -97,13 +105,14 @@ class Robonect extends utils.Adapter {
         this.versionPollType = this.config.versionPollType;
         this.weatherPollType = this.config.weatherPollType;
         this.wlanPollType = this.config.wlanPollType;
+        //
+        this.ps_host = this.config.pushServiceIp;
+        this.ps_port = this.config.pushServicePort;
 
         if (this.username !== '' && this.password !== '') {
-            //this.url = 'http://' + this.username + ':' + this.password + '@' + this.robonectIp;
-            //this.url = `http://${this.username}:${this.password}@${this.robonectIp}`;
             this.apiUrl = `http://${this.robonectIp}/api/json?user=${this.username}&pass=${this.password}&cmd=`;
         } else {
-            this.url = 'http://' + this.robonectIp;
+            this.apiUrl = 'http://' + this.robonectIp;
         }
 
         if (isNaN(this.statusInterval) || this.statusInterval < 1) {
@@ -146,6 +155,45 @@ class Robonect extends utils.Adapter {
         // Do the initial polling
         this.updateRobonectData('Initial');
 
+
+        // test whether to use robonect push service
+        if (this.config.pushService){
+            const adapter= this;
+            // http-Server for Robonect PushService
+            const requestListener = function (req, res) {
+                let params;
+                if (req.method === 'GET') {
+                    adapter.log.debug(`Received GET request`);
+                    adapter.log.debug(`req.url=[${req.url}]`);
+                    params = url.parse(req.url, true).query;
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    res.end();
+                } else if (req.method === 'POST') {
+                    adapter.log.debug(`Received POST request`);
+                    adapter.log.debug(`req.url=[${req.url}]`);
+                    let body = '';
+                    req.on('data', function (chunk) {
+                        body += chunk;
+                    });
+                    req.on('end', function(){
+                        params = url.parse(req.url, true).query;
+                        res.writeHead(200, { 'Content-Type': 'text/html' });
+                        res.end(body);
+                        adapter.log.debug(`body=[${params}]`);
+                    });
+                }
+                const objects = require('./lib/objects_pushedStatus.json');
+                adapter.updateObjects(objects, params);
+
+            };
+
+            const pushService = http.createServer(requestListener);
+            pushService.listen(this.ps_port, this.ps_host, () => {
+                this.log.info(`Server for Robonect push-service is listening on http://${this.ps_host}:${this.ps_port}`);
+            });
+
+        }
+
         // Start regular pollings
         const pollStatus = () => {
             this.updateRobonectData('Status');
@@ -167,7 +215,7 @@ class Robonect extends utils.Adapter {
             this.infoTimeout = setTimeout(pollInfo, this.infoInterval * 1000);
         }
 
-        this.log.info('Done');
+        // this.log.info('Done');
 
         return true;
     }
@@ -337,10 +385,10 @@ class Robonect extends utils.Adapter {
      */
     async pollApi(cmd) {
         const adapter = this;
-        this.log.debug(`API call to [${this.apiUrl}] with command [${cmd}] started`);
+        this.log.debug(`API call to [${adapter.apiUrl}] with command [${cmd}] started`);
         // eslint-disable-next-line no-unused-vars
         return new Promise((resolve, reject) => {
-            axios.get(this.apiUrl + cmd)
+            axios.get(adapter.apiUrl + cmd)
                 .then( function (response){
                     adapter.log.debug(JSON.stringify(response.data));
                     /*
@@ -352,7 +400,7 @@ class Robonect extends utils.Adapter {
                         const objects = require('./lib/objects_' + cmd + '.json');
 
                         adapter.updateObjects(objects, response.data);
-                        adapter.log.debug('API call [' + adapter.apiUrl + '} - done!');
+                        adapter.log.debug(`API call to [${adapter.apiUrl}] with command [${cmd}]  - done!`);
                         resolve(response.data);
                     } else {
                         if (response.data.error_message && response.data.error_message !== '') {
@@ -479,37 +527,6 @@ class Robonect extends utils.Adapter {
             });
     }
 
-    /**
-     * Parse response
-     * @param {*} err
-     * @param {*} response
-     * @param {*} body
-     */
-    parseResponse(response, body) {
-        this.log.debug('Parsing received data.');
-        if (response && response.statusCode === 200) {
-            if (body !== '') {
-                try {
-                    const data = JSON.parse(body);
-
-                    // Handle non-exception-throwing cases:
-                    // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
-                    // but... JSON.parse(null) returns null, and typeof null === 'object',
-                    // so we must check for that, too. Thankfully, null is falsey, so this suffices:
-                    if (data && typeof data === 'object') {
-                        return data;
-                    }
-                }
-                catch (e) {
-                    throw new Error('JSON not valid');
-                }
-            } else {
-                throw new Error('Empty body');
-            }
-        } else {
-            throw new Error('Bad response: ' + JSON.stringify(response));
-        }
-    }
 
     /**
      * Check if current time is in a rest period
@@ -581,11 +598,13 @@ class Robonect extends utils.Adapter {
                 rule = { 'var': [itemValue] };
             }
 
-            const val = jsonLogic.apply(
+            let val = jsonLogic.apply(
                 rule,
                 data
             );
-
+            if (objects[item].common.type === 'number') val=Number.parseInt(val);
+            if (objects[item].common.type === 'boolean' && item === 'status.stopped') val= val===1;
+            // this.log.debug(`Trying to set ${item} to value: [${val}]`);
             this.setState(item, { val: val, ack: true });
         }
     }
