@@ -1,12 +1,20 @@
 ![Logo](admin/robonect.png)
 # ioBroker.robonect
 
-**Tests:** Linux/Mac: [![Build Status](https://travis-ci.org/braindead1/ioBroker.robonect.svg?branch=master)](https://travis-ci.org/braindead1/ioBroker.robonect)
-Windows: [![Build status](https://ci.appveyor.com/api/projects/status/yl79oamamifjvqrq?svg=true)](https://ci.appveyor.com/project/braindead1/iobroker-robonect)
 
-![Number of Installations](http://iobroker.live/badges/robonect-installed.svg) ![Number of Installations](http://iobroker.live/badges/robonect-stable.svg) 
 
-This is an ioBroker adapter for your Robonect HX enabled lawn mower. It has been tested with Robonect v1.1b (with ZeroConf v1.4) and a Gardena R70Li.
+
+[![NPM](https://nodei.co/npm/iobroker.robonect.png?downloads=true)](https://nodei.co/npm/iobroker.robonect/)
+
+![Number of Installations](http://iobroker.live/badges/robonect-installed.svg)
+[![NPM version](https://img.shields.io/npm/v/iobroker.robonect.svg)](https://www.npmjs.com/package/iobroker.robonect)
+![Number of Installations](http://iobroker.live/badges/robonect-stable.svg)
+![Test and Release](https://github.com/grizzelbee/ioBroker.robonect/workflows/Test-and-Release/badge.svg)
+![CodeQL](https://github.com/Grizzelbee/ioBroker.robonect/actions/workflows/codeQL.yml/badge.svg)
+
+This is an ioBroker adapter for your Robonect HX enabled lawn mower. 
+* It has been tested with Robonect v1.1b (with ZeroConf v1.4) and a Gardena R70Li.
+* And it has also been tested with Robonect v1.3b (with ZeroConf v1.9) and a Gardena R40Li.
 
 ## Settings
 * It is required to enter the IP address (like 192.168.x.x) or hostname (like robonect-D247BF) or fully qualified domainname (like robonect-D247BF.fritz.box) of the Robonect module. In case username and password are set, they are required, too.
