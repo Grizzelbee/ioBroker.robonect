@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "news": {
+            "1.0.2": {
+                "en": "Updated package.json to deliver jsonConfig.json5",
+                "de": "package.json aktualisiert, um jsonConfig.json5 bereitzustellen",
+                "ru": "Обновлен package.json для доставки jsonConfig.json5.",
+                "pt": "Package.json atualizado para entregar jsonConfig.json5",
+                "nl": "Bijgewerkt package.json om jsonConfig.json5 te leveren",
+                "fr": "Mise à jour de package.json pour fournir jsonConfig.json5",
+                "it": "Package.json aggiornato per fornire jsonConfig.json5",
+                "es": "Package.json actualizado para entregar jsonConfig.json5",
+                "pl": "Zaktualizowano plik package.json, aby dostarczał jsonConfig.json5",
+                "uk": "Оновлено package.json для доставки jsonConfig.json5",
+                "zh-cn": "更新了 package.json 以提供 jsonConfig.json5"
+            },
             "1.0.1": {
                 "en": "Documentation got updated",
                 "de": "Die Dokumentation wurde aktualisiert",

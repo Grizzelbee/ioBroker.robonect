@@ -1,6 +1,6 @@
 {
   "name": "iobroker.robonect",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Robonect HX for lawn mower robots from Husquarna, Flymo, McCulloch and Gardena",
   "keywords": [
     "ioBroker",
@@ -34,10 +34,9 @@
   "main": "main.js",
   "files": [
     "admin{,/!(src)/**}/!(tsconfig|tsconfig.*).json",
+    "admin{,/!(src)/**}/!(tsconfig|tsconfig.*).json5",
     "admin{,/!(src)/**}/*.{html,css,png,svg,jpg,js}",
     "lib/",
-    "source/",
-    "www/",
     "io-package.json",
     "LICENSE",
     "main.js"
