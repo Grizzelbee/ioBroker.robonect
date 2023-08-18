@@ -27,7 +27,7 @@
     "wlanPollType_desc": "Abfragetyp für WLAN-Konfigurationsdaten",
     "restPeriodEnd_desc": "Ende der Ruhezeit.",
     "IP address": "IP-Adresse oder Hostname/FQDN",
-    "pushService": "Nutzen Sie den Push-Service",
+    "pushService": "Push-Service",
     "batteryPollType": "Batterie",
     "doorPollType": "Garagentor",
     "Username": "Nutzername",
