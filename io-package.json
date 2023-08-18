@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "news": {
+            "1.0.1": {
+                "en": "Documentation got updated",
+                "de": "Die Dokumentation wurde aktualisiert",
+                "ru": "Документация обновлена",
+                "pt": "A documentação foi atualizada",
+                "nl": "Documentatie is bijgewerkt",
+                "fr": "La documentation a été mise à jour",
+                "it": "La documentazione è stata aggiornata",
+                "es": "La documentación se actualizó",
+                "pl": "Dokumentacja została zaktualizowana",
+                "uk": "Документацію оновлено",
+                "zh-cn": "文档已更新"
+            },
             "1.0.0": {
                 "en": "\n Dependencies got updated\n Some fixes to make adapter-checker happy\n Updated git workflows\n Dropped requestJS since it's deprecated\n Replaced requestJS by axios for http requests\n Added Webserver for Push-Service API\n Added adapter-dev support\n Added snyk plugin\n Swapped Admin UI to V5",
                 "de": "Abhängigkeiten wurden aktualisiert\n Einige Korrekturen, um den Adapter-Checker glücklich zu machen\n Aktualisierte Git-Workflows\n requestJS wurde gelöscht, da es veraltet ist\n requestJS durch axios für http-Anfragen ersetzt\n Webserver für Push-Service-API hinzugefügt\n Adapter-Dev-Unterstützung hinzugefügt\n Snyk-Plugin hinzugefügt\n Admin-Benutzeroberfläche auf V5 umgestellt",
