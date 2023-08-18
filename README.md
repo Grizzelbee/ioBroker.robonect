@@ -28,7 +28,10 @@ These data must also be configured in the Robonect module. Even if listening to 
 
 Since only a subset of status information is pushed (WLAN-Signal, Status, Stopped, Mode, duration, hours, distance and battery) pulling is still needed e.g. to get the blade status.
 
+Admin config:
 ![image](./admin/Push-Service-Adapter.png)
+
+Robonect config:
 ![image](./admin/Push-Service-Robonect.png)
 
 ## Control
@@ -41,9 +44,12 @@ It is possible to control the extensions GPIO 1, GPIO 2, OUT 1 and OUT 2 of the 
 ## Changelog
 
 ### Work in progress
-* to use timePickers in admin at least admin version 6.4.3 is required.
+* to use timePickers in admin at least admin version 6.4.3 is required - will implement as soon as admin >= 6.4.3 is in stable repo.
 
-### 1.0.0 
+### 1.0.1 (2023-08-18)
+* (grizzelbee) Upd: Documentation got updated
+ 
+### 1.0.0 (2023-08-17) 
 * (grizzelbee) Upd: Dependencies got updated
 * (grizzelbee) Upd: Some fixes to make adapter-checker happy
 * (grizzelbee) Upd: Updated git workflows
