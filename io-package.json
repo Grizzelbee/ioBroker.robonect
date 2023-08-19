@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.0.2",
+        "version": "1.0.3",
         "news": {
+            "1.0.3": {
+                "en": "Improved error handling\nrenamed jsonConfig.json5 to jsonConfig.json to get better compatibility",
+                "de": "Verbesserte Fehlerbehandlung\n jsonConfig.json5 wurde in jsonConfig.json umbenannt, um eine bessere Kompatibilität zu erreichen",
+                "ru": "Улучшена обработка ошибок \n jsonConfig.json5 переименован в jsonConfig.json для лучшей совместимости.",
+                "pt": "Tratamento de erros aprimorado\n renomeado jsonConfig.json5 para jsonConfig.json para obter melhor compatibilidade",
+                "nl": "Verbeterde foutafhandeling \n hernoemd jsonConfig.json5 naar jsonConfig.json voor betere compatibiliteit",
+                "fr": "Amélioration de la gestion des erreurs \n renommé jsonConfig.json5 en jsonConfig.json pour une meilleure compatibilité",
+                "it": "Miglioramento della gestione degli errori\nrinominato jsonConfig.json5 in jsonConfig.json per ottenere una migliore compatibilità",
+                "es": "Manejo de errores mejorado \n renombrado jsonConfig.json5 a jsonConfig.json para obtener una mejor compatibilidad",
+                "pl": "Ulepszona obsługa błędów \n zmieniono nazwę jsonConfig.json5 na jsonConfig.json, aby uzyskać lepszą kompatybilność",
+                "uk": "Покращена обробка помилок\nперейменовано jsonConfig.json5 на jsonConfig.json для кращої сумісності",
+                "zh-cn": "改进了错误处理\n将 jsonConfig.json5 重命名为 jsonConfig.json 以获得更好的兼容性"
+            },
             "1.0.2": {
                 "en": "Updated package.json to deliver jsonConfig.json5",
                 "de": "package.json aktualisiert, um jsonConfig.json5 bereitzustellen",
