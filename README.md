@@ -46,6 +46,10 @@ It is possible to control the extensions GPIO 1, GPIO 2, OUT 1 and OUT 2 of the 
 ### Work in progress
 * to use timePickers in admin at least admin version 6.4.3 is required - will implement as soon as admin >= 6.4.3 is in stable repo.
 
+### 1.0.3 (2023-08-19)
+* (grizzelbee) Upd: Improved error handling
+* (grizzelbee) Upd: Renamed jsonConfig.json5 to jsonConfig.json to get better compatibility
+
 ### 1.0.2 (2023-08-18)
 * (grizzelbee) Fix: Updated package.json to deliver jasonConfig.json5
 

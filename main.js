@@ -14,8 +14,6 @@ const jsonLogic = require('./lib/json_logic.js');
 const axios = require('axios');
 const http = require('http');
 const url = require('url');
-const objects = require('./lib/objects_pushedStatus.json');
-
 
 class Robonect extends utils.Adapter {
 
@@ -75,7 +73,7 @@ class Robonect extends utils.Adapter {
         if (this.config.robonectIp === undefined || this.config.robonectIp === '') {
             // todo: Support FQDN in addition
             this.log.error('No IP address set. Adapter will not be executed.');
-            this.setState('info.connection', false, true);
+            await this.setState('info.connection', false, true);
 
             return;
         }
@@ -153,7 +151,7 @@ class Robonect extends utils.Adapter {
         this.subscribeStates('*');
 
         // Do the initial polling
-        this.updateRobonectData('Initial');
+        await this.updateRobonectData('Initial');
 
 
         // test whether to use robonect push service
@@ -318,20 +316,20 @@ class Robonect extends utils.Adapter {
                 let doRegularPoll = false;
                 const isRestTime = this.isRestTime();
 
-                this.setState('last_sync', { val: this.formatDate(new Date(), 'YYYY-MM-DD hh:mm:ss'), ack: true });
-                this.setState('online', { val: isAlive, ack: true });
-                this.setState('rest_time', { val: isRestTime, ack: true });
-                this.setState('info.connection', { val: isAlive, ack: true });
+                this.setState('last_sync', {val: this.formatDate(new Date(), 'YYYY-MM-DD hh:mm:ss'), ack: true});
+                this.setState('online', {val: isAlive, ack: true});
+                this.setState('rest_time', {val: isRestTime, ack: true});
+                this.setState('info.connection', {val: isAlive, ack: true});
 
                 this.log.debug('Polling started');
 
                 // Poll status
                 await this.pollApi('status')
-                    .then((data)=>{
+                    .then((data) => {
                         this.log.debug(`Data from poll: ${JSON.stringify(data)}`);
                         this.currentStatus = data['status']['status'];
                     })
-                    .catch((err)=>{
+                    .catch((err) => {
                         this.log.error(`updateRobonectData: ${err}`);
                     });
 
@@ -345,34 +343,44 @@ class Robonect extends utils.Adapter {
                 this.log.debug('isRestTime: ' + isRestTime);
                 this.log.debug('currentStatus: ' + this.currentStatus);
                 this.log.debug('doRegularPoll: ' + doRegularPoll);
-
-                if (this.batteryPollType !== 'NoPoll' && (pollType === 'Initial' || (this.batteryPollType === pollType && doRegularPoll)))
-                    await this.pollApi('battery');
-                if (this.doorPollType !== 'NoPoll' && (pollType === 'Initial' || (this.doorPollType === pollType && doRegularPoll)))
-                    await this.pollApi('door');
-                if (this.errorsPollType !== 'NoPoll' && (pollType === 'Initial' || (this.errorsPollType === pollType && doRegularPoll)))
-                    await this.pollApi('error');
-                if (this.extensionPollType !== 'NoPoll' && (pollType === 'Initial' || (this.extensionPollType === pollType && doRegularPoll)))
-                    await this.pollApi('ext');
-                if (this.gpsPollType !== 'NoPoll' && (pollType === 'Initial' || (this.gpsPollType === pollType && doRegularPoll)))
-                    await this.pollApi('gps');
-                if (this.hoursPollType !== 'NoPoll' && (pollType === 'Initial' || (this.hoursPollType === pollType && doRegularPoll)))
-                    await this.pollApi('hour');
-                if (this.motorPollType !== 'NoPoll' && (pollType === 'Initial' || (this.motorPollType === pollType && doRegularPoll)))
-                    await this.pollApi('motor');
-                if (this.portalPollType !== 'NoPoll' && (pollType === 'Initial' || (this.portalPollType === pollType && doRegularPoll)))
-                    await this.pollApi('portal');
-                if (this.pushPollType !== 'NoPoll' && (pollType === 'Initial' || (this.pushPollType === pollType && doRegularPoll)))
-                    await this.pollApi('push');
-                if (this.timerPollType !== 'NoPoll' && (pollType === 'Initial' || (this.timerPollType === pollType && doRegularPoll)))
-                    await this.pollApi('timer');
-                if (this.versionPollType !== 'NoPoll' && (pollType === 'Initial' || (this.versionPollType === pollType && doRegularPoll)))
-                    await this.pollApi('version');
-                if (this.weatherPollType !== 'NoPoll' && (pollType === 'Initial' || (this.weatherPollType === pollType && doRegularPoll)))
-                    await this.pollApi('weather');
-                if (this.wlanPollType !== 'NoPoll' && (pollType === 'Initial' || (this.wlanPollType === pollType && doRegularPoll)))
-                    await this.pollApi('wlan');
-                this.log.debug('Polling done');
+                const adapter = this;
+                try {
+                    if (this.batteryPollType !== 'NoPoll' && (pollType === 'Initial' || (this.batteryPollType === pollType && doRegularPoll)))
+                        await this.pollApi('battery');
+                    if (this.doorPollType !== 'NoPoll' && (pollType === 'Initial' || (this.doorPollType === pollType && doRegularPoll)))
+                        await this.pollApi('door');
+                    if (this.errorsPollType !== 'NoPoll' && (pollType === 'Initial' || (this.errorsPollType === pollType && doRegularPoll)))
+                        await this.pollApi('error');
+                    if (this.extensionPollType !== 'NoPoll' && (pollType === 'Initial' || (this.extensionPollType === pollType && doRegularPoll)))
+                        await this.pollApi('ext');
+                    if (this.gpsPollType !== 'NoPoll' && (pollType === 'Initial' || (this.gpsPollType === pollType && doRegularPoll)))
+                        await this.pollApi('gps');
+                    if (this.hoursPollType !== 'NoPoll' && (pollType === 'Initial' || (this.hoursPollType === pollType && doRegularPoll)))
+                        await this.pollApi('hour');
+                    if (this.motorPollType !== 'NoPoll' && (pollType === 'Initial' || (this.motorPollType === pollType && doRegularPoll)))
+                        await this.pollApi('motor');
+                    if (this.portalPollType !== 'NoPoll' && (pollType === 'Initial' || (this.portalPollType === pollType && doRegularPoll)))
+                        await this.pollApi('portal');
+                    if (this.pushPollType !== 'NoPoll' && (pollType === 'Initial' || (this.pushPollType === pollType && doRegularPoll)))
+                        await this.pollApi('push');
+                    if (this.timerPollType !== 'NoPoll' && (pollType === 'Initial' || (this.timerPollType === pollType && doRegularPoll)))
+                        await this.pollApi('timer');
+                    if (this.versionPollType !== 'NoPoll' && (pollType === 'Initial' || (this.versionPollType === pollType && doRegularPoll)))
+                        await this.pollApi('version');
+                    if (this.weatherPollType !== 'NoPoll' && (pollType === 'Initial' || (this.weatherPollType === pollType && doRegularPoll)))
+                        await this.pollApi('weather');
+                    if (this.wlanPollType !== 'NoPoll' && (pollType === 'Initial' || (this.wlanPollType === pollType && doRegularPoll)))
+                        await this.pollApi('wlan');
+                    this.log.debug('Polling done');
+                }
+                catch (err) {
+                    if (err.error_code === 253) {
+                        adapter.gpsPollType = 'NoPoll';
+                        adapter.log.warn(`Your lawn mower dosen't support GPS. Deactivated polling of GPS. You should deactivate it in the adapters configuration.`);
+                    } else {
+                        adapter.log.warn('Error returned from Robonect device: '+JSON.stringify(err));
+                    }
+                }
             } else {
                 this.log.warn('No connection to lawn mower. Check network connection.');
             }
@@ -385,29 +393,22 @@ class Robonect extends utils.Adapter {
      */
     async pollApi(cmd) {
         const adapter = this;
-        this.log.debug(`API call to [${adapter.apiUrl}] with command [${cmd}] started`);
+        this.log.debug(`API call with command [${cmd}] started`);
         // eslint-disable-next-line no-unused-vars
         return new Promise((resolve, reject) => {
             axios.get(adapter.apiUrl + cmd)
                 .then( function (response){
-                    adapter.log.debug(JSON.stringify(response.data));
-                    /*
-                    const data = JSON.parse(response.data);
-                    //const data = adapter.parseResponse(response, response.data);
-
-                     */
+                    adapter.log.debug('Data returned from robonect device: '+JSON.stringify(response.data));
                     if (response.data.successful === true) {
                         const objects = require('./lib/objects_' + cmd + '.json');
 
                         adapter.updateObjects(objects, response.data);
-                        adapter.log.debug(`API call to [${adapter.apiUrl}] with command [${cmd}]  - done!`);
+                        adapter.log.debug(`API call with command [${cmd}] - done!`);
                         resolve(response.data);
                     } else {
-                        if (response.data.error_message && response.data.error_message !== '') {
-                            throw new Error(response.data.error_message);
-                        } else {
-                            throw new Error('Something went wrong');
-                        }
+                        adapter.log.debug(`API call with command [${cmd}] - failed!`);
+                        // adapter.log.warn('Data returned from robonect device: '+JSON.stringify(response.data));
+                        reject(response.data);
                     }
 
                 })
@@ -430,7 +431,7 @@ class Robonect extends utils.Adapter {
         } else {
             paramStatus = 0;
         }
-        const apiUrl =`${apiUrl}ext&${ext}=${paramStatus}`;
+        const apiUrl =`${this.apiUrl}ext&${ext}=${paramStatus}`;
         const adapter = this;
         this.log.debug('API call [' + apiUrl + '] started');
         axios.get(apiUrl)
