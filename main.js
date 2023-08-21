@@ -326,11 +326,12 @@ class Robonect extends utils.Adapter {
                 // Poll status
                 await this.pollApi('status')
                     .then((data) => {
-                        this.log.debug(`Data from poll: ${JSON.stringify(data)}`);
+                        this.log.silly(`Data from poll: ${JSON.stringify(data)}`);
                         this.currentStatus = data['status']['status'];
                     })
                     .catch((err) => {
-                        this.log.error(`updateRobonectData: ${err}`);
+                        // this.log.error(`Polling robonect status: ${JSON.stringify(err)}`);
+                        this.doErrorHandling(err);
                     });
 
                 if (isRestTime === false) {
@@ -343,7 +344,6 @@ class Robonect extends utils.Adapter {
                 this.log.debug('isRestTime: ' + isRestTime);
                 this.log.debug('currentStatus: ' + this.currentStatus);
                 this.log.debug('doRegularPoll: ' + doRegularPoll);
-                const adapter = this;
                 try {
                     if (this.batteryPollType !== 'NoPoll' && (pollType === 'Initial' || (this.batteryPollType === pollType && doRegularPoll)))
                         await this.pollApi('battery');
@@ -374,18 +374,37 @@ class Robonect extends utils.Adapter {
                     this.log.debug('Polling done');
                 }
                 catch (err) {
-                    if (err.error_code === 253) {
-                        adapter.gpsPollType = 'NoPoll';
-                        adapter.log.warn(`Your lawn mower dosen't support GPS. Deactivated polling of GPS. You should deactivate it in the adapters configuration.`);
-                    } else {
-                        adapter.log.warn('Error returned from Robonect device: '+JSON.stringify(err));
-                    }
+                    this.doErrorHandling(err);
                 }
             } else {
                 this.log.warn('No connection to lawn mower. Check network connection.');
             }
         }.bind(this));
     }
+
+    doErrorHandling(err){
+        const errorCode = err.error_code || err.response.status;
+        const errorMessage = err.error_message || err.message;
+        this.log.error(errorMessage);
+        switch (errorCode) {
+            case 253 : {
+                this.gpsPollType = 'NoPoll';
+                this.log.warn(`Your lawn mower dosen't support GPS. Deactivated polling of GPS. You should deactivate it in the adapters configuration.`);
+                break;
+            }
+            case 401 : {
+                this.log.error('Your Robonect has denied access due to incorrect credentials.');
+                this.log.error(`You have used: Username=${this.username}, Password=${this.password} for login. Please double check your credentials and if they are correct - try using an easier password containing only upper- and lowercase letters and numbers.`);
+                this.terminate(11);
+                break;
+            }
+            default:
+                this.log.warn('Error returned from Robonect device: '+JSON.stringify(err));
+        }
+
+    }
+
+
 
     /**
      * Is called to poll the Robonect module
@@ -407,13 +426,13 @@ class Robonect extends utils.Adapter {
                         resolve(response.data);
                     } else {
                         adapter.log.debug(`API call with command [${cmd}] - failed!`);
-                        // adapter.log.warn('Data returned from robonect device: '+JSON.stringify(response.data));
                         reject(response.data);
                     }
 
                 })
                 .catch((err)=>{
                     this.log.error(`Axios says: ${err}`);
+                    adapter.log.silly('Error-data returned from robonect device: '+JSON.stringify(err));
                     reject(err);
                 });
         });
