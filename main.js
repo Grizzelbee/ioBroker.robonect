@@ -109,6 +109,7 @@ class Robonect extends utils.Adapter {
 
         if (this.username !== '' && this.password !== '') {
             this.apiUrl = `http://${this.robonectIp}/api/json?user=${this.username}&pass=${this.password}&cmd=`;
+            // this.apiUrl = `http://${this.robonectIp}/api/json?user=${this.username}&pass=${this.password}`;
         } else {
             this.apiUrl = 'http://' + this.robonectIp;
         }
@@ -326,11 +327,12 @@ class Robonect extends utils.Adapter {
                 // Poll status
                 await this.pollApi('status')
                     .then((data) => {
-                        this.log.debug(`Data from poll: ${JSON.stringify(data)}`);
+                        this.log.silly(`Data from poll: ${JSON.stringify(data)}`);
                         this.currentStatus = data['status']['status'];
                     })
                     .catch((err) => {
-                        this.log.error(`updateRobonectData: ${err}`);
+                        // this.log.error(`Polling robonect status: ${JSON.stringify(err)}`);
+                        this.doErrorHandling(err);
                     });
 
                 if (isRestTime === false) {
@@ -343,7 +345,6 @@ class Robonect extends utils.Adapter {
                 this.log.debug('isRestTime: ' + isRestTime);
                 this.log.debug('currentStatus: ' + this.currentStatus);
                 this.log.debug('doRegularPoll: ' + doRegularPoll);
-                const adapter = this;
                 try {
                     if (this.batteryPollType !== 'NoPoll' && (pollType === 'Initial' || (this.batteryPollType === pollType && doRegularPoll)))
                         await this.pollApi('battery');
@@ -374,18 +375,37 @@ class Robonect extends utils.Adapter {
                     this.log.debug('Polling done');
                 }
                 catch (err) {
-                    if (err.error_code === 253) {
-                        adapter.gpsPollType = 'NoPoll';
-                        adapter.log.warn(`Your lawn mower dosen't support GPS. Deactivated polling of GPS. You should deactivate it in the adapters configuration.`);
-                    } else {
-                        adapter.log.warn('Error returned from Robonect device: '+JSON.stringify(err));
-                    }
+                    this.doErrorHandling(err);
                 }
             } else {
                 this.log.warn('No connection to lawn mower. Check network connection.');
             }
         }.bind(this));
     }
+
+    doErrorHandling(err){
+        const errorCode = err.error_code || err.response.status;
+        const errorMessage = err.error_message || err.message;
+        this.log.error(errorMessage);
+        switch (errorCode) {
+            case 253 : {
+                this.gpsPollType = 'NoPoll';
+                this.log.warn(`Your lawn mower dosen't support GPS. Deactivated polling of GPS. You should deactivate it in the adapters configuration.`);
+                break;
+            }
+            case 401 : {
+                this.log.error('Your Robonect has denied access due to incorrect credentials.');
+                this.log.error(`You used: Username=${this.username}, Password=${this.password} for login. Please double check your credentials and if they are correct - try using an easier password containing only upper- and lowercase letters and numbers.`);
+                this.terminate(11);
+                break;
+            }
+            default:
+                this.log.warn('Error returned from Robonect device: '+JSON.stringify(err));
+        }
+
+    }
+
+
 
     /**
      * Is called to poll the Robonect module
@@ -394,7 +414,6 @@ class Robonect extends utils.Adapter {
     async pollApi(cmd) {
         const adapter = this;
         this.log.debug(`API call with command [${cmd}] started`);
-        // eslint-disable-next-line no-unused-vars
         return new Promise((resolve, reject) => {
             axios.get(adapter.apiUrl + cmd)
                 .then( function (response){
@@ -407,13 +426,13 @@ class Robonect extends utils.Adapter {
                         resolve(response.data);
                     } else {
                         adapter.log.debug(`API call with command [${cmd}] - failed!`);
-                        // adapter.log.warn('Data returned from robonect device: '+JSON.stringify(response.data));
                         reject(response.data);
                     }
 
                 })
                 .catch((err)=>{
-                    this.log.error(`Axios says: ${err}`);
+                    this.log.silly(`Axios says: ${err}`);
+                    adapter.log.silly('Error-data returned from robonect device: '+JSON.stringify(err));
                     reject(err);
                 });
         });
@@ -437,8 +456,6 @@ class Robonect extends utils.Adapter {
         axios.get(apiUrl)
             .then((response)=>{
                 try {
-                    //const data = adapter.parseResponse(response, response.data);
-
                     if (response.data.successful === true) {
                         adapter.setState('extension.gpio1.inverted', { val: response.data['ext']['gpio1']['inverted'], ack: true });
                         adapter.setState('extension.gpio1.status', { val: response.data['ext']['gpio1']['status'], ack: true });
@@ -452,18 +469,14 @@ class Robonect extends utils.Adapter {
                         if (response.data['ext'][ext]['status'] === paramStatus) {
                             adapter.log.info(ext + ' set to ' + status);
                         } else {
-                            throw new Error(ext + ' could not be set to ' + status + '. Is the extension mode set to API?');
+                            this.log.error(ext + ' could not be set to ' + status + '. Is the extension mode set to API?');
                         }
                     } else {
-                        if (response.data.error_message && response.data.error_message !== '') {
-                            throw new Error(response.data.error_message);
-                        } else {
-                            throw new Error('Something went wrong');
-                        }
+                        this.doErrorHandling(response.data);
                     }
                 }
                 catch (errorMessage) {
-                    adapter.log.error(errorMessage);
+                    this.doErrorHandling(errorMessage);
                 }
 
             })
@@ -506,25 +519,19 @@ class Robonect extends utils.Adapter {
         axios.get(apiUrl)
             .then((response) => {
                 try {
-                    // const data = adapter.parseResponse(response, response.data);
-
                     if (response.data.successful === true) {
                         adapter.setState('status.mode', { val: mode, ack: true });
                         adapter.log.info('Mode set to ' + paramMode);
                     } else {
-                        if (response.data.error_message && response.data.error_message !== '') {
-                            throw new Error(response.data.error_message);
-                        } else {
-                            throw new Error('Something went wrong');
-                        }
+                        this.doErrorHandling(response.data);
                     }
                 }
                 catch (errorMessage) {
-                    adapter.log.error(errorMessage);
+                    this.doErrorHandling(errorMessage);
                 }
             } )
             .catch( (err) => {
-                adapter.log.error(`updateExtensionStatus: ${err}`);
+                this.doErrorHandling(err);
             });
     }
 
