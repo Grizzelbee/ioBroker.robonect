@@ -109,6 +109,7 @@ class Robonect extends utils.Adapter {
 
         if (this.username !== '' && this.password !== '') {
             this.apiUrl = `http://${this.robonectIp}/api/json?user=${this.username}&pass=${this.password}&cmd=`;
+            // this.apiUrl = `http://${this.robonectIp}/api/json?user=${this.username}&pass=${this.password}`;
         } else {
             this.apiUrl = 'http://' + this.robonectIp;
         }
@@ -394,7 +395,7 @@ class Robonect extends utils.Adapter {
             }
             case 401 : {
                 this.log.error('Your Robonect has denied access due to incorrect credentials.');
-                this.log.error(`You have used: Username=${this.username}, Password=${this.password} for login. Please double check your credentials and if they are correct - try using an easier password containing only upper- and lowercase letters and numbers.`);
+                this.log.error(`You used: Username=${this.username}, Password=${this.password} for login. Please double check your credentials and if they are correct - try using an easier password containing only upper- and lowercase letters and numbers.`);
                 this.terminate(11);
                 break;
             }
@@ -413,7 +414,6 @@ class Robonect extends utils.Adapter {
     async pollApi(cmd) {
         const adapter = this;
         this.log.debug(`API call with command [${cmd}] started`);
-        // eslint-disable-next-line no-unused-vars
         return new Promise((resolve, reject) => {
             axios.get(adapter.apiUrl + cmd)
                 .then( function (response){
@@ -431,7 +431,7 @@ class Robonect extends utils.Adapter {
 
                 })
                 .catch((err)=>{
-                    this.log.error(`Axios says: ${err}`);
+                    this.log.silly(`Axios says: ${err}`);
                     adapter.log.silly('Error-data returned from robonect device: '+JSON.stringify(err));
                     reject(err);
                 });
@@ -456,8 +456,6 @@ class Robonect extends utils.Adapter {
         axios.get(apiUrl)
             .then((response)=>{
                 try {
-                    //const data = adapter.parseResponse(response, response.data);
-
                     if (response.data.successful === true) {
                         adapter.setState('extension.gpio1.inverted', { val: response.data['ext']['gpio1']['inverted'], ack: true });
                         adapter.setState('extension.gpio1.status', { val: response.data['ext']['gpio1']['status'], ack: true });
@@ -471,18 +469,14 @@ class Robonect extends utils.Adapter {
                         if (response.data['ext'][ext]['status'] === paramStatus) {
                             adapter.log.info(ext + ' set to ' + status);
                         } else {
-                            throw new Error(ext + ' could not be set to ' + status + '. Is the extension mode set to API?');
+                            this.log.error(ext + ' could not be set to ' + status + '. Is the extension mode set to API?');
                         }
                     } else {
-                        if (response.data.error_message && response.data.error_message !== '') {
-                            throw new Error(response.data.error_message);
-                        } else {
-                            throw new Error('Something went wrong');
-                        }
+                        this.doErrorHandling(response.data);
                     }
                 }
                 catch (errorMessage) {
-                    adapter.log.error(errorMessage);
+                    this.doErrorHandling(errorMessage);
                 }
 
             })
@@ -525,25 +519,19 @@ class Robonect extends utils.Adapter {
         axios.get(apiUrl)
             .then((response) => {
                 try {
-                    // const data = adapter.parseResponse(response, response.data);
-
                     if (response.data.successful === true) {
                         adapter.setState('status.mode', { val: mode, ack: true });
                         adapter.log.info('Mode set to ' + paramMode);
                     } else {
-                        if (response.data.error_message && response.data.error_message !== '') {
-                            throw new Error(response.data.error_message);
-                        } else {
-                            throw new Error('Something went wrong');
-                        }
+                        this.doErrorHandling(response.data);
                     }
                 }
                 catch (errorMessage) {
-                    adapter.log.error(errorMessage);
+                    this.doErrorHandling(errorMessage);
                 }
             } )
             .catch( (err) => {
-                adapter.log.error(`updateExtensionStatus: ${err}`);
+                this.doErrorHandling(err);
             });
     }
 
