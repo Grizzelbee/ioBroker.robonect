@@ -384,23 +384,28 @@ class Robonect extends utils.Adapter {
     }
 
     doErrorHandling(err){
-        const errorCode = err.error_code || err.response.status;
-        const errorMessage = err.error_message || err.message;
-        this.log.error(errorMessage);
-        switch (errorCode) {
-            case 253 : {
-                this.gpsPollType = 'NoPoll';
-                this.log.warn(`Your lawn mower dosen't support GPS. Deactivated polling of GPS. You should deactivate it in the adapters configuration.`);
-                break;
+        try {
+            this.log.debug('Data received for error handling: '+JSON.stringify(err));
+            const errorCode = err.error_code || (err.response? err.response.status : -666);
+            const errorMessage = err.error_message || err.message;
+            this.log.error(errorMessage);
+            switch (errorCode) {
+                case 253 : {
+                    this.gpsPollType = 'NoPoll';
+                    this.log.warn(`Your lawn mower dosen't support GPS. Deactivated polling of GPS. You should deactivate it in the adapters configuration.`);
+                    break;
+                }
+                case 401 : {
+                    this.log.error('Your Robonect has denied access due to incorrect credentials.');
+                    this.log.error(`You used: Username=${this.username}, Password=${this.password} for login. Please double check your credentials and if they are correct - try using an easier password containing only upper- and lowercase letters and numbers.`);
+                    this.terminate(11);
+                    break;
+                }
+                default:
+                    this.log.warn('Error returned from Robonect device: '+JSON.stringify(err));
             }
-            case 401 : {
-                this.log.error('Your Robonect has denied access due to incorrect credentials.');
-                this.log.error(`You used: Username=${this.username}, Password=${this.password} for login. Please double check your credentials and if they are correct - try using an easier password containing only upper- and lowercase letters and numbers.`);
-                this.terminate(11);
-                break;
-            }
-            default:
-                this.log.warn('Error returned from Robonect device: '+JSON.stringify(err));
+        } catch(error){
+            this.log.error('Error during error handling: '+JSON.stringify(error));
         }
 
     }
@@ -420,7 +425,6 @@ class Robonect extends utils.Adapter {
                     adapter.log.debug('Data returned from robonect device: '+JSON.stringify(response.data));
                     if (response.data.successful === true) {
                         const objects = require('./lib/objects_' + cmd + '.json');
-
                         adapter.updateObjects(objects, response.data);
                         adapter.log.debug(`API call with command [${cmd}] - done!`);
                         resolve(response.data);
