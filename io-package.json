@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.0.4",
+        "version": "1.0.5",
         "news": {
+            "1.0.5": {
+                "en": "Added new state #18 - Garage door is opening*Status.stopped gets correctly updated",
+                "de": "Neuer Status Nr. 18 hinzugefügt – Garagentor öffnet sich*Status.stopped wird korrekt aktualisiert",
+                "ru": "Добавлено новое состояние № 18 — Дверь гаража открывается * Статус.остановлено корректно обновляется.",
+                "pt": "Adicionado novo estado #18 - A porta da garagem está abrindo*Status.stopped é atualizado corretamente",
+                "nl": "Nieuwe status #18 toegevoegd - Garagedeur gaat open*Status.stopped wordt correct bijgewerkt",
+                "fr": "Ajout d'un nouvel état #18 - La porte de garage s'ouvre*Status.stopped est correctement mis à jour",
+                "it": "Aggiunto il nuovo stato n. 18 - La porta del garage si sta aprendo*Status.stopped viene aggiornato correttamente",
+                "es": "Se agregó un nuevo estado #18: La puerta del garaje se está abriendo*El estado.detenido se actualiza correctamente",
+                "pl": "Dodano nowy stan nr 18 – Brama garażowa się otwiera.*Status.stopped zostaje poprawnie zaktualizowany",
+                "uk": "Додано новий стан №18 - Двері гаража відчиняються*Status.stopped правильно оновлюється",
+                "zh-cn": "添加了新状态 #18 - 车库门正在打开*Status.stopped 得到正确更新"
+            },
             "1.0.4": {
                 "en": "Improved error handling",
                 "de": "Verbesserte Fehlerbehandlung",

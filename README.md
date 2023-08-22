@@ -46,6 +46,10 @@ It is possible to control the extensions GPIO 1, GPIO 2, OUT 1 and OUT 2 of the 
 ### Work in progress
 * to use timePickers in admin at least admin version 6.4.3 is required - will implement as soon as admin >= 6.4.3 is in stable repo.
 
+### 1.0.5 (2023-08-22)
+* (grizzelbee) Upd: Added new state #18 - Garage door is opening
+* (grizzelbee) Fix: Status.stopped gets correctly updated 
+
 ### 1.0.4 (2023-08-22)
 * (grizzelbee) Upd: Improved error handling
 
