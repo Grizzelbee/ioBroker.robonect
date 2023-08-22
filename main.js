@@ -615,7 +615,7 @@ class Robonect extends utils.Adapter {
                 data
             );
             if (objects[item].common.type === 'number') val=Number.parseInt(val);
-            if (objects[item].common.type === 'boolean' && item === 'status.stopped') val= val===1;
+            // if (objects[item].common.type === 'boolean' && item === 'status.stopped') val= val===1;
             // this.log.debug(`Trying to set ${item} to value: [${val}]`);
             this.setState(item, { val: val, ack: true });
         }
