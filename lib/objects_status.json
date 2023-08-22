@@ -44,7 +44,8 @@
                 "7": "Fehler",
                 "8": "Schleifensignal verloren",
                 "16": "Abgeschaltet",
-                "17": "Schlafen"
+                "17": "Schlafen",
+                "18": "Garagentor öffnet sich"
             }
         },
         "native": {},
