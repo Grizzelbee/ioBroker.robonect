@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.0.3",
+        "version": "1.0.4",
         "news": {
+            "1.0.4": {
+                "en": "Improved error handling",
+                "de": "Verbesserte Fehlerbehandlung",
+                "ru": "Улучшена обработка ошибок",
+                "pt": "Tratamento de erros aprimorado",
+                "nl": "Verbeterde foutafhandeling",
+                "fr": "Amélioration de la gestion des erreurs",
+                "it": "Gestione degli errori migliorata",
+                "es": "Manejo de errores mejorado",
+                "pl": "Ulepszona obsługa błędów",
+                "uk": "Покращена обробка помилок",
+                "zh-cn": "改进了错误处理"
+            },
             "1.0.3": {
                 "en": "Improved error handling\nRenamed jsonConfig.json5 to jsonConfig.json to get better compatibility\nSome bug fixes",
                 "de": "Verbesserte Fehlerbehandlung\nJsonConfig.json5 in jsonConfig.json umbenannt, um eine bessere Kompatibilität zu erreichen\nEinige Fehlerbehebungen",
