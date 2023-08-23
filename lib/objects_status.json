@@ -6,7 +6,7 @@
             "type": "string",
             "role": "info.name",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},

@@ -243,6 +243,7 @@ class Robonect extends utils.Adapter {
     onStateChange(id, state) {
         if (typeof state == 'object' && !state.ack) {
             // The state was changed
+            const trigger = id.split('.', 3).pop();
             if (id === this.namespace + '.extension.gpio1.status') {
                 this.updateExtensionStatus('gpio1', state.val);
             } else if (id === this.namespace + '.extension.gpio2.status') {
@@ -254,7 +255,157 @@ class Robonect extends utils.Adapter {
             } else if (id === this.namespace + '.status.mode') {
                 this.updateMode(state.val);
             }
+            switch (trigger){
+                case 'door':
+                    this.handleDoorUpdate(id, state.val);
+                    break;
+                case 'name':
+                    this.sendApiCmd(`name&name=${state.val}`);
+                    break;
+                case 'push':
+                    this.handlePushUpdate(id, state.val);
+                    break;
+                case 'service':
+                    if (state.val !== '') this.sendApiCmd('service&'+state.val);
+                    break;
+                case 'start':
+                    this.sendApiCmd('start');
+                    break;
+                case 'stop':
+                    this.sendApiCmd('stop');
+                    break;
+                case 'timer':
+                    if (id.split('.').pop() === 'update_timer'){
+                        this.handleTimerUpdate(id, state.val);
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
+    }
+
+    handleDoorUpdate(){
+        /**
+         * /json?door <Danke an LegoSpieler!>
+         * ....door
+         * ........enabled
+         * ........open
+         * ........arrested
+         * ........delay
+         * ...............total
+         *
+         * /json?door&delay= [0 (Aus), -1 (An), 0-240 Zeit]
+         * /json?door&release (geöffnetes Tor bestätigen)
+         * /json?door&open=1 (Tor öffnen) <Danke an 9.st.h.2!>
+         * /json?door&close=1 (Tor schließen)
+         */
+
+    }
+
+
+
+    async handlePushUpdate(id, value){
+        this.log.debug(`Received push update for ID:${id} - new value: ${value}`);
+        /*
+         * /json?cmd=push&url=192.168.1.1:80
+         * /json?cmd=push&interval=n (n Sekunden)
+         * /json?cmd=push&trigger%i=[0 (AUS), 1 (Enter EIN, Leave AUS), 2 (Enter AUS Leave EIN), 3 (Enter EIN, Leave EIN)]
+         * ....mit i=0..9
+         * Info: Die einzelnen Anweisungen können verkettet werden; z.B.: /json?cmd=push&trigger0=1&trigger4=3
+         * &mode=get oder mode=post (deaktivieren hab ich noch nicht rausgefunden)
+         * name="LegoSpieler" (name="" deaktiviert Benutzerdaten)
+         * pass="12345678"
+         */
+        let result = 0;
+        // id = robonect.0.push.trigger.0.enter
+        const triggerNum=id.split('.', 5).pop();
+        let command= '';
+        switch (id.split('.').pop()) {
+            case 'interval':
+                command = `push&interval=${value*1000}`;
+                break;
+            case 'enter': {
+                const leave = await this.getState(`${id.split('.', 5).join('.')}.leave`);
+                if (value) {
+                    result += 1;
+                }
+                if (leave.val) {
+                    result += 2;
+                }
+                command = `push&trigger${triggerNum}=${result}`;
+                break;
+            }
+            case 'leave': {
+                const enter = await this.getState(`${id.split('.', 5).join('.')}.enter`);
+                if (value) {
+                    result += 2;
+                }
+                if (enter.val) {
+                    result += 1;
+                }
+                command = `push&trigger${triggerNum}=${result}`;
+                break;
+            }
+        }
+        try {
+            await this.sendApiCmd(command);
+            await this.pollApi('push');
+        }
+        catch(err){
+            this.log.warn(`Sending the command ${command} failed with: ${err}`);
+        }
+    }
+
+
+    async handleTimerUpdate(id, value){
+        /**
+         * /json?cmd=Timer
+         * ....Timer
+         * ........0..13
+         * ............id
+         * ............enabled
+         * ............start
+         * ............end
+         * ............weekdays
+         * ................mo
+         * ................tu
+         * ................we
+         * ................th
+         * ................fr
+         * ................sa
+         * ................su
+         * ........save=1 // Sichert die Daten im Roboter <Danke an kobelka>
+         *
+         * /json?cmd=Timer&Timer=1&start=06:00&end=09:00&mo=1&tu=1&we=1&th=1&fr=1&sa=1&su=1&enable=1
+         */
+        // robonect.0.timer.0.id
+        const timer = Number.parseInt(id.split('.', 4).pop())+1;
+        let cmd = `timer&timer=${timer}&save=1`;
+        cmd += '&enable=' + ((await this.getValueAsync(`${id.split('.', 4).join('.')}.enabled`)) ? '1':'0');
+        cmd += '&start=' + (await this.getValueAsync(`${id.split('.', 4).join('.')}.start_time`));
+        cmd += '&end=' + (await this.getValueAsync(`${id.split('.', 4).join('.')}.end_time`));
+        // robonect.0.timer.0.weekdays.friday
+        cmd += '&mo=' + ((await this.getValueAsync(`${id.split('.', 4).join('.')}.weekdays.monday`)) ? '1':'0');
+        cmd += '&tu=' + ((await this.getValueAsync(`${id.split('.', 4).join('.')}.weekdays.tuesday`)) ? '1':'0');
+        cmd += '&we=' + ((await this.getValueAsync(`${id.split('.', 4).join('.')}.weekdays.wednesday`)) ? '1':'0');
+        cmd += '&th=' + ((await this.getValueAsync(`${id.split('.', 4).join('.')}.weekdays.thursday`)) ? '1':'0');
+        cmd += '&fr=' + ((await this.getValueAsync(`${id.split('.', 4).join('.')}.weekdays.friday`)) ? '1':'0');
+        cmd += '&sa=' + ((await this.getValueAsync(`${id.split('.', 4).join('.')}.weekdays.saturday`)) ? '1':'0');
+        cmd += '&su=' + ((await this.getValueAsync(`${id.split('.', 4).join('.')}.weekdays.sunday`)) ? '1':'0');
+        try {
+            await this.sendApiCmd(cmd);
+            await this.pollApi('timer');
+        }
+        catch(err){
+            this.log.warn(`Sending the command ${cmd} failed with: ${JSON.stringify(err)}`);
+        }
+    }
+
+    async getValueAsync(id){
+        this.log.debug(`getValueAsync for id: ${id}`);
+        const state = await this.getStateAsync(id);
+        return state.val;
     }
 
     /**
@@ -275,6 +426,7 @@ class Robonect extends utils.Adapter {
         const objects_version = require('./lib/objects_version.json');
         const objects_weather = require('./lib/objects_weather.json');
         const objects_wlan = require('./lib/objects_wlan.json');
+        const objects_commands = require('./lib/objects_commands.json');
 
         const objects = {
             ...objects_battery,
@@ -291,6 +443,7 @@ class Robonect extends utils.Adapter {
             ...objects_version,
             ...objects_weather,
             ...objects_wlan,
+            ...objects_commands,
         };
 
         for (const id in objects) {
@@ -416,6 +569,34 @@ class Robonect extends utils.Adapter {
      * Is called to poll the Robonect module
      * @param {string} cmd
      */
+    async sendApiCmd(cmd) {
+        const adapter = this;
+        this.log.debug(`Sending of command [${cmd}] started`);
+        return new Promise((resolve, reject) => {
+            axios.get(adapter.apiUrl + cmd)
+                .then( function (response){
+                    adapter.log.debug('Data returned from robonect device: '+JSON.stringify(response.data));
+                    if (response.data.successful === true) {
+                        adapter.log.info(`Sending of command [${cmd}] - done!`);
+                        resolve(response.data);
+                    } else {
+                        adapter.log.debug(`Sending of command [${cmd}] - failed!`);
+                        reject(response.data);
+                    }
+
+                })
+                .catch((err)=>{
+                    this.log.silly(`Axios says: ${err}`);
+                    adapter.log.silly('Error-data returned from axios: '+JSON.stringify(err));
+                    reject(err);
+                });
+        });
+    }
+
+    /**
+     * Is called to poll the Robonect module
+     * @param {string} cmd
+     */
     async pollApi(cmd) {
         const adapter = this;
         this.log.debug(`API call with command [${cmd}] started`);
@@ -436,7 +617,7 @@ class Robonect extends utils.Adapter {
                 })
                 .catch((err)=>{
                     this.log.silly(`Axios says: ${err}`);
-                    adapter.log.silly('Error-data returned from robonect device: '+JSON.stringify(err));
+                    adapter.log.silly('Error-data returned from axios: '+JSON.stringify(err));
                     reject(err);
                 });
         });
