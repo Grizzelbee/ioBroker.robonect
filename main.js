@@ -326,7 +326,7 @@ class Robonect extends utils.Adapter {
                 command = `push&interval=${value*1000}`;
                 break;
             case 'enter': {
-                const leave = await this.getState(`${id.split('.', 5).join('.')}.leave`);
+                const leave = await this.getStateAsync(`${id.split('.', 5).join('.')}.leave`);
                 if (value) {
                     result += 1;
                 }
@@ -337,7 +337,7 @@ class Robonect extends utils.Adapter {
                 break;
             }
             case 'leave': {
-                const enter = await this.getState(`${id.split('.', 5).join('.')}.enter`);
+                const enter = await this.getStateAsync(`${id.split('.', 5).join('.')}.enter`);
                 if (value) {
                     result += 2;
                 }
@@ -466,15 +466,15 @@ class Robonect extends utils.Adapter {
      * @param {string} pollType
      */
     async updateRobonectData(pollType) {
-        ping.sys.probe(this.robonectIp, async function (isAlive) {
+        await ping.sys.probe(this.robonectIp, async function (isAlive) {
             if (isAlive) {
                 let doRegularPoll = false;
                 const isRestTime = this.isRestTime();
 
-                this.setState('last_sync', {val: this.formatDate(new Date(), 'YYYY-MM-DD hh:mm:ss'), ack: true});
-                this.setState('online', {val: isAlive, ack: true});
-                this.setState('rest_time', {val: isRestTime, ack: true});
-                this.setState('info.connection', {val: isAlive, ack: true});
+                await this.setState('last_sync', {val: this.formatDate(new Date(), 'YYYY-MM-DD hh:mm:ss'), ack: true});
+                await this.setState('online', {val: isAlive, ack: true});
+                await this.setState('rest_time', {val: isRestTime, ack: true});
+                await this.setState('info.connection', {val: isAlive, ack: true});
 
                 this.log.debug('Polling started');
 
