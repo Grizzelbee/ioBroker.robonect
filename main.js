@@ -276,7 +276,7 @@ class Robonect extends utils.Adapter {
                     break;
                 case 'timer':
                     if (id.split('.').pop() === 'update_timer'){
-                        this.handleTimerUpdate(id, state.val);
+                        this.handleTimerUpdate(id);
                     }
                     break;
                 default:
@@ -358,7 +358,7 @@ class Robonect extends utils.Adapter {
     }
 
 
-    async handleTimerUpdate(id, value){
+    async handleTimerUpdate(id){
         /**
          * /json?cmd=Timer
          * ....Timer
@@ -403,8 +403,9 @@ class Robonect extends utils.Adapter {
     }
 
     async getValueAsync(id){
-        this.log.debug(`getValueAsync for id: ${id}`);
+        this.log.silly(`getValueAsync for id: ${id}`);
         const state = await this.getStateAsync(id);
+        this.log.silly(`Returning value: ${state.val}`);
         return state.val;
     }
 
