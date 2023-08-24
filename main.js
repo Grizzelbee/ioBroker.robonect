@@ -184,6 +184,7 @@ class Robonect extends utils.Adapter {
                     });
                 }
                 const objects = require('./lib/objects_pushedStatus.json');
+                params.stopped = (params.stopped === 1);
                 adapter.updateObjects(objects, params);
 
             };
@@ -269,9 +270,11 @@ class Robonect extends utils.Adapter {
                     break;
                 case 'start':
                     this.sendApiCmd('start');
+                    this.pollApi('status');
                     break;
                 case 'stop':
                     this.sendApiCmd('stop');
+                    this.pollApi('status');
                     break;
                 case 'timer':
                     if (id.split('.').pop() === 'update_timer'){
