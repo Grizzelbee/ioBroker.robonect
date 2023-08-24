@@ -24,14 +24,7 @@
             "unit": "sec"
         },
         "native": {},
-        "value": {
-            "/": [
-                {
-                    "var": "push.trigger.interval"
-                },
-                1000
-            ]
-        }
+        "value":  "push.trigger.interval"
     },
     "push.trigger.0.name": {
         "type": "state",
