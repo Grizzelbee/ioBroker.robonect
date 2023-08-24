@@ -144,7 +144,7 @@ class Robonect extends utils.Adapter {
             this.log.warn('Rest period 2 configured (' + this.restPeriod2Start + ' - ' + this.restPeriod2End + '). Only API call /json?cmd=status will be done.');
         }
 
-        this.testPushServiceConfig();
+        await this.testPushServiceConfig();
 
         this.currentStatus = null;
 
@@ -258,9 +258,6 @@ class Robonect extends utils.Adapter {
                 this.updateMode(state.val);
             }
             switch (trigger){
-                case 'door':
-                    this.handleDoorUpdate(id, state.val);
-                    break;
                 case 'name':
                     this.sendApiCmd(`name&name=${state.val}`);
                     break;
@@ -286,26 +283,6 @@ class Robonect extends utils.Adapter {
             }
         }
     }
-
-    handleDoorUpdate(){
-        /**
-         * /json?door <Danke an LegoSpieler!>
-         * ....door
-         * ........enabled
-         * ........open
-         * ........arrested
-         * ........delay
-         * ...............total
-         *
-         * /json?door&delay= [0 (Aus), -1 (An), 0-240 Zeit]
-         * /json?door&release (geöffnetes Tor bestätigen)
-         * /json?door&open=1 (Tor öffnen) <Danke an 9.st.h.2!>
-         * /json?door&close=1 (Tor schließen)
-         */
-
-    }
-
-
 
     async handlePushUpdate(id, value){
         this.log.debug(`Received push update for ID:${id} - new value: ${value}`);
