@@ -144,6 +144,8 @@ class Robonect extends utils.Adapter {
             this.log.warn('Rest period 2 configured (' + this.restPeriod2Start + ' - ' + this.restPeriod2End + '). Only API call /json?cmd=status will be done.');
         }
 
+        this.testPushServiceConfig();
+
         this.currentStatus = null;
 
         // Inititalize objects
@@ -320,13 +322,14 @@ class Robonect extends utils.Adapter {
         let result = 0;
         // id = robonect.0.push.trigger.0.enter
         const triggerNum=id.split('.', 5).pop();
+        const basePath=id.split('.', 5).join('.');
         let command= '';
         switch (id.split('.').pop()) {
             case 'interval':
-                command = `push&interval=${value*1000}`;
+                command = `push&interval=${value}`;
                 break;
             case 'enter': {
-                const leave = await this.getStateAsync(`${id.split('.', 5).join('.')}.leave`);
+                const leave = await this.getStateAsync(`${basePath}.leave`);
                 if (value) {
                     result += 1;
                 }
@@ -337,7 +340,7 @@ class Robonect extends utils.Adapter {
                 break;
             }
             case 'leave': {
-                const enter = await this.getStateAsync(`${id.split('.', 5).join('.')}.enter`);
+                const enter = await this.getStateAsync(`${basePath}.enter`);
                 if (value) {
                     result += 2;
                 }
@@ -381,18 +384,19 @@ class Robonect extends utils.Adapter {
          */
         // robonect.0.timer.0.id
         const timer = Number.parseInt(id.split('.', 4).pop())+1;
+        const basePath = id.split('.', 4).join('.');
         let cmd = `timer&timer=${timer}&save=1`;
-        cmd += '&enable=' + ((await this.getValueAsync(`${id.split('.', 4).join('.')}.enabled`)) ? '1':'0');
-        cmd += '&start=' + (await this.getValueAsync(`${id.split('.', 4).join('.')}.start_time`));
-        cmd += '&end=' + (await this.getValueAsync(`${id.split('.', 4).join('.')}.end_time`));
+        cmd += '&enable=' + ((await this.getValueAsync(`${basePath}.enabled`)) ? '1':'0');
+        cmd += '&start=' + (await this.getValueAsync(`${basePath}.start_time`));
+        cmd += '&end=' + (await this.getValueAsync(`${basePath}.end_time`));
         // robonect.0.timer.0.weekdays.friday
-        cmd += '&mo=' + ((await this.getValueAsync(`${id.split('.', 4).join('.')}.weekdays.monday`)) ? '1':'0');
-        cmd += '&tu=' + ((await this.getValueAsync(`${id.split('.', 4).join('.')}.weekdays.tuesday`)) ? '1':'0');
-        cmd += '&we=' + ((await this.getValueAsync(`${id.split('.', 4).join('.')}.weekdays.wednesday`)) ? '1':'0');
-        cmd += '&th=' + ((await this.getValueAsync(`${id.split('.', 4).join('.')}.weekdays.thursday`)) ? '1':'0');
-        cmd += '&fr=' + ((await this.getValueAsync(`${id.split('.', 4).join('.')}.weekdays.friday`)) ? '1':'0');
-        cmd += '&sa=' + ((await this.getValueAsync(`${id.split('.', 4).join('.')}.weekdays.saturday`)) ? '1':'0');
-        cmd += '&su=' + ((await this.getValueAsync(`${id.split('.', 4).join('.')}.weekdays.sunday`)) ? '1':'0');
+        cmd += '&mo=' + ((await this.getValueAsync(`${basePath}.weekdays.monday`)) ? '1':'0');
+        cmd += '&tu=' + ((await this.getValueAsync(`${basePath}.weekdays.tuesday`)) ? '1':'0');
+        cmd += '&we=' + ((await this.getValueAsync(`${basePath}.weekdays.wednesday`)) ? '1':'0');
+        cmd += '&th=' + ((await this.getValueAsync(`${basePath}.weekdays.thursday`)) ? '1':'0');
+        cmd += '&fr=' + ((await this.getValueAsync(`${basePath}.weekdays.friday`)) ? '1':'0');
+        cmd += '&sa=' + ((await this.getValueAsync(`${basePath}.weekdays.saturday`)) ? '1':'0');
+        cmd += '&su=' + ((await this.getValueAsync(`${basePath}.weekdays.sunday`)) ? '1':'0');
         try {
             await this.sendApiCmd(cmd);
             await this.pollApi('timer');
@@ -407,6 +411,13 @@ class Robonect extends utils.Adapter {
         const state = await this.getStateAsync(id);
         this.log.silly(`Returning value: ${state.val}`);
         return state.val;
+    }
+
+    async testPushServiceConfig(){
+        const url = await this.getValueAsync(`push.server_url`);
+        if (this.config.pushService && (url !== `${this.config.pushServiceIp}:${this.config.pushServicePort}`) ){
+            this.log.warn(`Push Service is enabled in config, but misconfigured. Please update your Robonect configuration.`);
+        }
     }
 
     /**
