@@ -1,0 +1,60 @@
+{
+  "start": {
+    "type": "state",
+    "common": {
+      "name": "Start Mower",
+      "type": "boolean",
+      "role": "button",
+      "read": true,
+      "write": true,
+      "desc": ""
+    },
+    "native": {},
+    "value": "start"
+  },
+  "stop": {
+    "type": "state",
+    "common": {
+      "name": "Stop Mower",
+      "type": "boolean",
+      "role": "button",
+      "read": true,
+      "write": true,
+      "desc": ""
+    },
+    "native": {},
+    "value": "stop"
+  },
+  "service": {
+    "type": "state",
+    "common": {
+      "name": "reboot, shutdown or sleep Robonect module",
+      "type": "string",
+      "role": "state",
+      "read": true,
+      "write": true,
+      "desc": "",
+      "states": {
+        "": "",
+        "reboot": "reboot",
+        "shutdown": "shutdown",
+        "sleep": "sleep"
+      }
+    },
+    "native": {},
+    "value": "status.status"
+  },
+  "timer.0.update_timer": {
+  "type": "state",
+  "common": {
+    "name": "Write timer data to robot",
+    "type": "boolean",
+    "role": "button",
+    "read": true,
+    "write": true,
+    "desc": ""
+  },
+  "native": {},
+  "value": "timer.0.update_timer"
+}
+}
