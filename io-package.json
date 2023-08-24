@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.1.0",
+        "version": "1.1.1",
         "news": {
+            "1.1.1": {
+                "en": "Fix: Fixed status.stopped for push messages.",
+                "de": "Fix: Status.stopped für Push-Nachrichten behoben.",
+                "ru": "Исправлено: исправлен статус status.stopped для push-сообщений.",
+                "pt": "Correção: Corrigido status.stopped para mensagens push.",
+                "nl": "Fix: Vaste status. Gestopt voor push-berichten.",
+                "fr": "Correctif : Correction du statut arrêté pour les messages push.",
+                "it": "Correzione: corretto status.stopped per i messaggi push.",
+                "es": "Solución: estado fijo. Detenido para mensajes push.",
+                "pl": "Poprawka: Naprawiono status zatrzymany dla wiadomości push.",
+                "uk": "Виправлення: виправлено status.stopped для push-повідомлень.",
+                "zh-cn": "修复：修复推送消息的 status.stopped。"
+            },
             "1.1.0": {
                 "en": "Fix: Showing values for battery with fractions (again)*New: Added START button*New: Added STOP button*New: Added SERVICE button to reboot, shutdown or sleep Robonect module*New: Push states and interval can be set*New: Nickname of the mower can be set*New: Timers of the mower can be set ",
                 "de": "Behoben: Werte für Batterie werden (wieder) mit Brüchen angezeigt*Neu: START-Taste hinzugefügt*Neu: STOP-Taste hinzugefügt*Neu: SERVICE-Taste hinzugefügt, um das Robonect-Modul neu zu starten, herunterzufahren oder in den Ruhezustand zu versetzen*Neu: Push-Zustände und Intervall können eingestellt werden*Neu: Spitzname des Mähers kann eingestellt werden*Neu: Timer des Mähers können eingestellt werden",

@@ -46,6 +46,9 @@ It is possible to control the extensions GPIO 1, GPIO 2, OUT 1 and OUT 2 of the 
 ### Work in progress
 * to use timePickers in admin at least admin version 6.4.3 is required - will implement as soon as admin >= 6.4.3 is in stable repo.
 
+### 1.1.1 (2023-08-24)
+* (grizzelbee) Fix: Fixed status.stopped for push messages.
+
 ### 1.1.0 (2023-08-23)
 * (grizzelbee) Fix: [#18](https://github.com/Grizzelbee/ioBroker.robonect/issues/18) Showing values for battery with fractions (again)
 * (grizzelbee) New: Added START button
