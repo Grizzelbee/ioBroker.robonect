@@ -1,6 +1,6 @@
 {
   "name": "iobroker.robonect",
-  "version": "1.1.1",
+  "version": "1.1.3",
   "description": "Robonect HX for lawn mower robots from Husquarna, Flymo, McCulloch and Gardena",
   "keywords": [
     "ioBroker",
@@ -14,8 +14,8 @@
   },
   "license": "MIT",
   "author": {
-    "name": "braindead1",
-    "email": "os.braindead1@gmail.com"
+    "name": "grizzelbee",
+    "email": "open.source@hingsen.de"
   },
   "contributors": [
     {
@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^3.0.3",
-    "axios": "^1.4.0",
+    "axios": "^1.5.0",
     "http": "^0.0.1-security",
     "json-logic-js": "^2.0.2",
     "ping": "^0.4.4",
@@ -64,13 +64,13 @@
     "@types/chai-as-promised": "^7.1.5",
     "@types/gulp": "^4.0.13",
     "@types/mocha": "^10.0.1",
-    "@types/node": "^20.5.4",
+    "@types/node": "^20.5.8",
     "@types/proxyquire": "^1.3.28",
     "@types/sinon": "^10.0.16",
     "@types/sinon-chai": "^3.2.9",
-    "chai": "^4.3.7",
+    "chai": "^4.3.8",
     "chai-as-promised": "^7.1.1",
-    "eslint": "^8.47.0",
+    "eslint": "^8.48.0",
     "mocha": "^10.2.0",
     "proxyquire": "^2.1.3",
     "sinon": "^15.2.0",
@@ -83,6 +83,7 @@
     "test:unit": "mocha test/unit --exit",
     "test:integration": "mocha test/integration --exit",
     "test": "npm run test:js && npm run test:package",
-    "lint": "eslint"
+    "lint": "eslint",
+    "release": "release-script"
   }
 }

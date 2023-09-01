@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.1.1",
+        "version": "1.1.3",
         "news": {
+            "1.1.3": {
+                "en": "New: Added release script for easier publishing to stable repo",
+                "de": "Neu: Release-Skript zur einfacheren Veröffentlichung im Stable Repo hinzugefügt",
+                "ru": "Новое: добавлен скрипт выпуска для упрощения публикации в стабильном репозитории.",
+                "pt": "Novo: Adicionado script de lançamento para publicação mais fácil em repositório estável",
+                "nl": "Nieuw: Releasescript toegevoegd voor eenvoudiger publiceren naar stabiele opslagplaats",
+                "fr": "Nouveau : ajout d'un script de publication pour une publication plus facile sur un dépôt stable",
+                "it": "Novità: aggiunto script di rilascio per una pubblicazione più semplice su repository stabili",
+                "es": "Nuevo: Se agregó un script de lanzamiento para facilitar la publicación en el repositorio estable.",
+                "pl": "Nowość: Dodano skrypt wydania dla łatwiejszego publikowania w stabilnym repozytorium",
+                "uk": "Нове: додано сценарій випуску для легшої публікації в стабільному репо",
+                "zh-cn": "新增内容：添加了发布脚本，以便更轻松地发布到稳定的存储库"
+            },
             "1.1.1": {
                 "en": "Fix: Fixed status.stopped for push messages.",
                 "de": "Fix: Status.stopped für Push-Nachrichten behoben.",

@@ -389,7 +389,7 @@ class Robonect extends utils.Adapter {
     async getValueAsync(id){
         this.log.silly(`getValueAsync for id: ${id}`);
         const state = await this.getStateAsync(id);
-        this.log.silly(`Returning value: ${state.val}`);
+        if (state) this.log.silly(`Returning value: ${state.val}`);
         return state.val;
     }
 
