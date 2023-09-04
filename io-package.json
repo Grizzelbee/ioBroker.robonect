@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.1.3",
+        "version": "1.1.4",
         "news": {
+            "1.1.4": {
+                "en": "Fix: Attempting to fix the error: Cannot read properties of null (reading 'val')",
+                "de": "Fix: Versuch, den Fehler zu beheben: Eigenschaften von Null können nicht gelesen werden (es wird „val“ gelesen)",
+                "ru": "Исправлено: попытка исправить ошибку: невозможно прочитать свойства со значением null (чтение «val»).",
+                "pt": "Correção: Tentativa de corrigir o erro: Não é possível ler propriedades de nulo (lendo 'val')",
+                "nl": "Oplossing: poging om de fout op te lossen: kan eigenschappen van null niet lezen (leest 'val')",
+                "fr": "Correctif : tentative de correction de l'erreur : impossible de lire les propriétés de null (lecture de 'val')",
+                "it": "Correzione: tentativo di correggere l'errore: impossibile leggere le proprietà di null (lettura 'val')",
+                "es": "Solución: intentando corregir el error: no se pueden leer las propiedades de nulo (leyendo 'val')",
+                "pl": "Poprawka: próba naprawienia błędu: nie można odczytać właściwości null (czytanie „val”)",
+                "uk": "Виправлення: спроба виправити помилку: неможливо прочитати властивості null (читання 'val')",
+                "zh-cn": "修复：尝试修复错误：无法读取 null 的属性（读取“val”）"
+            },
             "1.1.3": {
                 "en": "New: Added release script for easier publishing to stable repo",
                 "de": "Neu: Release-Skript zur einfacheren Veröffentlichung im Stable Repo hinzugefügt",

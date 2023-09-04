@@ -366,17 +366,22 @@ class Robonect extends utils.Adapter {
         const timer = Number.parseInt(id.split('.', 4).pop())+1;
         const basePath = id.split('.', 4).join('.');
         let cmd = `timer&timer=${timer}&save=1`;
-        cmd += '&enable=' + ((await this.getValueAsync(`${basePath}.enabled`)) ? '1':'0');
-        cmd += '&start=' + (await this.getValueAsync(`${basePath}.start_time`));
-        cmd += '&end=' + (await this.getValueAsync(`${basePath}.end_time`));
-        // robonect.0.timer.0.weekdays.friday
-        cmd += '&mo=' + ((await this.getValueAsync(`${basePath}.weekdays.monday`)) ? '1':'0');
-        cmd += '&tu=' + ((await this.getValueAsync(`${basePath}.weekdays.tuesday`)) ? '1':'0');
-        cmd += '&we=' + ((await this.getValueAsync(`${basePath}.weekdays.wednesday`)) ? '1':'0');
-        cmd += '&th=' + ((await this.getValueAsync(`${basePath}.weekdays.thursday`)) ? '1':'0');
-        cmd += '&fr=' + ((await this.getValueAsync(`${basePath}.weekdays.friday`)) ? '1':'0');
-        cmd += '&sa=' + ((await this.getValueAsync(`${basePath}.weekdays.saturday`)) ? '1':'0');
-        cmd += '&su=' + ((await this.getValueAsync(`${basePath}.weekdays.sunday`)) ? '1':'0');
+        try {
+            cmd += '&enable=' + ((await this.getValueAsync(`${basePath}.enabled`)) ? '1' : '0');
+            cmd += '&start=' + (await this.getValueAsync(`${basePath}.start_time`));
+            cmd += '&end=' + (await this.getValueAsync(`${basePath}.end_time`));
+            // robonect.0.timer.0.weekdays.friday
+            cmd += '&mo=' + ((await this.getValueAsync(`${basePath}.weekdays.monday`)) ? '1' : '0');
+            cmd += '&tu=' + ((await this.getValueAsync(`${basePath}.weekdays.tuesday`)) ? '1' : '0');
+            cmd += '&we=' + ((await this.getValueAsync(`${basePath}.weekdays.wednesday`)) ? '1' : '0');
+            cmd += '&th=' + ((await this.getValueAsync(`${basePath}.weekdays.thursday`)) ? '1' : '0');
+            cmd += '&fr=' + ((await this.getValueAsync(`${basePath}.weekdays.friday`)) ? '1' : '0');
+            cmd += '&sa=' + ((await this.getValueAsync(`${basePath}.weekdays.saturday`)) ? '1' : '0');
+            cmd += '&su=' + ((await this.getValueAsync(`${basePath}.weekdays.sunday`)) ? '1' : '0');
+        }
+        catch(err){
+            this.log.error(err);
+        }
         try {
             await this.sendApiCmd(cmd);
             await this.pollApi('timer');
@@ -387,16 +392,27 @@ class Robonect extends utils.Adapter {
     }
 
     async getValueAsync(id){
-        this.log.silly(`getValueAsync for id: ${id}`);
-        const state = await this.getStateAsync(id);
-        if (state) this.log.silly(`Returning value: ${state.val}`);
-        return state.val;
+        return new Promise((resolve, reject) => {
+            this.log.silly(`getValueAsync for id: ${id}`);
+            const state = this.getStateAsync(id);
+            if (state){
+                this.log.silly(`Returning value: ${state.val}`);
+                resolve (state.val);
+            } else {
+                reject(`The ID: ${id} has no value. Please fix.`);
+            }
+        });
     }
 
     async testPushServiceConfig(){
-        const url = await this.getValueAsync(`push.server_url`);
-        if (this.config.pushService && (url !== `${this.config.pushServiceIp}:${this.config.pushServicePort}`) ){
-            this.log.warn(`Push Service is enabled in config, but misconfigured. Please update your Robonect configuration.`);
+        try {
+            const url = await this.getValueAsync(`push.server_url`);
+            if (this.config.pushService && (url !== `${this.config.pushServiceIp}:${this.config.pushServicePort}`)) {
+                this.log.warn(`Push Service is enabled in config, but misconfigured. Please update your Robonect configuration.`);
+            }
+        }
+        catch(err){
+            this.log.error(err);
         }
     }
 
