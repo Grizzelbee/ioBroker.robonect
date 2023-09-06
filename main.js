@@ -111,7 +111,7 @@ class Robonect extends utils.Adapter {
             this.apiUrl = `http://${this.robonectIp}/api/json?user=${this.username}&pass=${this.password}&cmd=`;
             // this.apiUrl = `http://${this.robonectIp}/api/json?user=${this.username}&pass=${this.password}`;
         } else {
-            this.apiUrl = 'http://' + this.robonectIp;
+            this.apiUrl = `http://${this.robonectIp}/api/json?cmd=`;
         }
 
         if (isNaN(this.statusInterval) || this.statusInterval < 1) {
