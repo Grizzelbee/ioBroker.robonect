@@ -111,7 +111,7 @@ class Robonect extends utils.Adapter {
             this.apiUrl = `http://${this.robonectIp}/api/json?user=${this.username}&pass=${this.password}&cmd=`;
             // this.apiUrl = `http://${this.robonectIp}/api/json?user=${this.username}&pass=${this.password}`;
         } else {
-            this.apiUrl = 'http://' + this.robonectIp;
+            this.apiUrl = `http://${this.robonectIp}/api/json?cmd=`;
         }
 
         if (isNaN(this.statusInterval) || this.statusInterval < 1) {
@@ -159,41 +159,7 @@ class Robonect extends utils.Adapter {
 
         // test whether to use robonect push service
         if (this.config.pushService){
-            const adapter= this;
-            // http-Server for Robonect PushService
-            const requestListener = function (req, res) {
-                let params;
-                if (req.method === 'GET') {
-                    adapter.log.debug(`Received GET request`);
-                    adapter.log.debug(`req.url=[${req.url}]`);
-                    params = url.parse(req.url, true).query;
-                    res.writeHead(200, { 'Content-Type': 'text/html' });
-                    res.end();
-                } else if (req.method === 'POST') {
-                    adapter.log.debug(`Received POST request`);
-                    adapter.log.debug(`req.url=[${req.url}]`);
-                    let body = '';
-                    req.on('data', function (chunk) {
-                        body += chunk;
-                    });
-                    req.on('end', function(){
-                        params = url.parse(req.url, true).query;
-                        res.writeHead(200, { 'Content-Type': 'text/html' });
-                        res.end(body);
-                        adapter.log.debug(`body=[${params}]`);
-                    });
-                }
-                const objects = require('./lib/objects_pushedStatus.json');
-                params.stopped = (params.stopped === 1);
-                adapter.updateObjects(objects, params);
-
-            };
-
-            const pushService = http.createServer(requestListener);
-            pushService.listen(this.ps_port, this.ps_host, () => {
-                this.log.info(`Server for Robonect push-service is listening on http://${this.ps_host}:${this.ps_port}`);
-            });
-
+            this.initPushServiceServer();
         }
 
         // Start regular pollings
@@ -220,6 +186,43 @@ class Robonect extends utils.Adapter {
         // this.log.info('Done');
 
         return true;
+    }
+
+    initPushServiceServer() {
+        const adapter = this;
+        // http-Server for Robonect PushService
+        const requestListener = function (req, res) {
+            let params;
+            if (req.method === 'GET') {
+                adapter.log.debug(`Received GET request`);
+                adapter.log.debug(`req.url=[${req.url}]`);
+                params = url.parse(req.url, true).query;
+                res.writeHead(200, { 'Content-Type': 'text/html' });
+                res.end();
+            } else if (req.method === 'POST') {
+                adapter.log.debug(`Received POST request`);
+                adapter.log.debug(`req.url=[${req.url}]`);
+                let body = '';
+                req.on('data', function (chunk) {
+                    body += chunk;
+                });
+                req.on('end', function () {
+                    params = url.parse(req.url, true).query;
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    res.end(body);
+                    adapter.log.debug(`body=[${params}]`);
+                });
+            }
+            const objects = require('./lib/objects_pushedStatus.json');
+            params.stopped = (params.stopped === 1);
+            adapter.updateObjects(objects, params);
+
+        };
+
+        const pushService = http.createServer(requestListener);
+        pushService.listen(this.ps_port, this.ps_host, () => {
+            this.log.info(`Server for Robonect push-service is listening on http://${this.ps_host}:${this.ps_port}`);
+        });
     }
 
     /**
