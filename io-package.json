@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.1.4",
+        "version": "1.1.5",
         "news": {
+            "1.1.5": {
+                "en": "Command-URL was invalid when Robonect UI wasn't protected by username and password\nminor code refactoring",
+                "de": "Die Befehls-URL war ungültig, wenn die Robonect-Benutzeroberfläche nicht durch Benutzername und Passwort geschützt war\nGeringfügige Code-Umgestaltung",
+                "ru": "URL-адрес команды недействителен, когда пользовательский интерфейс Robonect не был защищен именем пользователя и паролем\nнезначительный рефакторинг кода",
+                "pt": "O URL do comando era inválido quando a UI do Robonect não estava protegida por nome de usuário e senha\nrefatoração de código secundária",
+                "nl": "Command-URL was ongeldig toen de gebruikersinterface van Robonect niet werd beschermd door gebruikersnaam en wachtwoord\nrefactoring van kleine codes",
+                "fr": "L'URL de commande n'était pas valide lorsque l'interface utilisateur de Robonect n'était pas protégée par le nom d'utilisateur et le mot de passe \n refactorisation mineure du code",
+                "it": "L'URL del comando non era valido quando l'interfaccia utente di Robonect non era protetta dal refactoring del codice minore di nome utente e password",
+                "es": "La URL de comando no era válida cuando la interfaz de usuario de Robonect no estaba protegida por nombre de usuario y contraseña\nrefactorización de código menor",
+                "pl": "Adres URL polecenia był nieprawidłowy, gdy interfejs użytkownika Robonect nie był chroniony nazwą użytkownika i hasłem\nrefaktoryzacja drobnego kodu",
+                "uk": "URL-адреса команди була недійсною, коли інтерфейс користувача Robonect не був захищений іменем користувача та паролем\nнезначним рефакторингом коду",
+                "zh-cn": "当 Robonect UI 不受用户名和密码保护时，Command-URL 无效\n次要代码重构"
+            },
             "1.1.4": {
                 "en": "Fix: Attempting to fix the error: Cannot read properties of null (reading 'val')",
                 "de": "Fix: Versuch, den Fehler zu beheben: Eigenschaften von Null können nicht gelesen werden (es wird „val“ gelesen)",
@@ -43,30 +56,30 @@
                 "zh-cn": "修复：修复推送消息的 status.stopped。"
             },
             "1.1.0": {
-                "en": "Fix: Showing values for battery with fractions (again)*New: Added START button*New: Added STOP button*New: Added SERVICE button to reboot, shutdown or sleep Robonect module*New: Push states and interval can be set*New: Nickname of the mower can be set*New: Timers of the mower can be set ",
-                "de": "Behoben: Werte für Batterie werden (wieder) mit Brüchen angezeigt*Neu: START-Taste hinzugefügt*Neu: STOP-Taste hinzugefügt*Neu: SERVICE-Taste hinzugefügt, um das Robonect-Modul neu zu starten, herunterzufahren oder in den Ruhezustand zu versetzen*Neu: Push-Zustände und Intervall können eingestellt werden*Neu: Spitzname des Mähers kann eingestellt werden*Neu: Timer des Mähers können eingestellt werden",
-                "ru": "Исправлено: Отображение значений батареи с дробями (снова) * Новое: добавлена ​​кнопка START * Новое: добавлена ​​кнопка STOP * Новое: добавлена ​​кнопка SERVICE для перезагрузки, выключения или перехода в спящий режим модуля Robonect * Новое: можно установить состояния и интервал нажатия * Новое: Можно установить имя косилки. *Новое: можно установить таймеры косилки.",
-                "pt": "Correção: Mostrando valores para bateria com frações (novamente)*Novo: Adicionado botão START*Novo: Adicionado botão STOP*Novo: Adicionado botão SERVICE para reiniciar, desligar ou suspender o módulo Robonect*Novo: Estados de push e intervalo podem ser definidos*Novo: O apelido do cortador pode ser definido*Novo: Os temporizadores do cortador podem ser definidos",
-                "nl": "Fix: waarden voor batterij met breuken (opnieuw) tonen*Nieuw: START-knop toegevoegd*Nieuw: STOP-knop toegevoegd*Nieuw: SERVICE-knop toegevoegd om de Robonect-module opnieuw op te starten, uit te schakelen of te slapen*Nieuw: Push-statussen en interval kunnen worden ingesteld*Nieuw: Bijnaam van de maaier kan worden ingesteld*Nieuw: Timers van de maaier kunnen worden ingesteld",
-                "fr": "Correction : affichage des valeurs de la batterie avec des fractions (à nouveau)*Nouveau : bouton START ajouté*Nouveau : bouton STOP ajouté*Nouveau : bouton SERVICE ajouté pour redémarrer, arrêter ou mettre en veille le module Robonect*Nouveau : les états de poussée et l'intervalle peuvent être définis*Nouveau : Le surnom de la tondeuse peut être défini*Nouveau : les minuteries de la tondeuse peuvent être définies",
-                "it": "Correzione: visualizzazione dei valori per la batteria con frazioni (di nuovo)*Nuovo: aggiunto pulsante START*Nuovo: aggiunto pulsante STOP*Nuovo: aggiunto pulsante SERVICE per riavviare, spegnere o sospendere il modulo Robonect*Nuovo: è possibile impostare gli stati di push e l'intervallo*Nuovo: È possibile impostare il soprannome del tagliaerba*Nuovo: è possibile impostare i timer del tagliaerba",
-                "es": "Corrección: Mostrar valores para la batería con fracciones (nuevamente)*Nuevo: Botón INICIO agregado*Nuevo: Botón DETENER agregado*Nuevo: Botón SERVICIO agregado para reiniciar, apagar o suspender el módulo Robonect*Nuevo: Se pueden configurar estados de pulsación e intervalos*Nuevo: Se puede configurar el apodo del cortacésped * Nuevo: se pueden configurar los temporizadores del cortacésped",
-                "pl": "Poprawka: Wyświetlanie wartości baterii z ułamkami (ponownie) * Nowość: Dodano przycisk START * Nowość: Dodano przycisk STOP * Nowość: Dodano przycisk SERVICE do ponownego uruchomienia, wyłączenia lub uśpienia modułu Robonect * Nowość: Można ustawić stany push i interwał * Nowość: Możliwość ustawienia pseudonimu kosiarki*Nowość: Możliwość ustawienia timerów kosiarki",
-                "uk": "Виправлення: відображення значень для батареї з частками (знову)*Нове: додано кнопку СТАРТ*Нове: додано кнопку СТОП*Нове: додано кнопку СЕРВІС для перезавантаження, вимкнення або переходу в режим сну Robonect*Нове: стани натискання та інтервал можна встановити*Нове: Можна встановити псевдонім косарки*Нове: можна встановити таймери косарки",
-                "zh-cn": "修复：再次显示带分数的电池值*新功能：添加了“开始”按钮*新功能：添加了“停止”按钮*新功能：添加了用于重新启动、关闭或睡眠 Robonect 模块的“服务”按钮*新功能：可以设置推送状态和间隔*新功能：可设置割草机的昵称*新增：可设置割草机的定时器"
+                "en": "Fix: Showing values for battery with fractions (again)\nNew: Added START button\nNew: Added STOP button\nNew: Added SERVICE button to reboot, shutdown or sleep Robonect module\nNew: Push states and interval can be set\nNew: Nickname of the mower can be set\nNew: Timers of the mower can be set ",
+                "de": "Behoben: Werte für Batterie werden (wieder) mit Brüchen angezeigt\nNeu: START-Taste hinzugefügt\nNeu: STOP-Taste hinzugefügt\nNeu: SERVICE-Taste hinzugefügt, um das Robonect-Modul neu zu starten, herunterzufahren oder in den Ruhezustand zu versetzen\nNeu: Push-Zustände und Intervall können eingestellt werden\nNeu: Spitzname des Mähers kann eingestellt werden\nNeu: Timer des Mähers können eingestellt werden",
+                "ru": "Исправлено: Отображение значений батареи с дробями (снова) \n Новое: добавлена ​​кнопка START \n Новое: добавлена ​​кнопка STOP \n Новое: добавлена ​​кнопка SERVICE для перезагрузки, выключения или перехода в спящий режим модуля Robonect \n Новое: можно установить состояния и интервал нажатия \n Новое: Можно установить имя косилки. \nНовое: можно установить таймеры косилки.",
+                "pt": "Correção: Mostrando valores para bateria com frações (novamente)\nNovo: Adicionado botão START\nNovo: Adicionado botão STOP\nNovo: Adicionado botão SERVICE para reiniciar, desligar ou suspender o módulo Robonect\nNovo: Estados de push e intervalo podem ser definidos\nNovo: O apelido do cortador pode ser definido\nNovo: Os temporizadores do cortador podem ser definidos",
+                "nl": "Fix: waarden voor batterij met breuken (opnieuw) tonen\nNieuw: START-knop toegevoegd\nNieuw: STOP-knop toegevoegd\nNieuw: SERVICE-knop toegevoegd om de Robonect-module opnieuw op te starten, uit te schakelen of te slapen\nNieuw: Push-statussen en interval kunnen worden ingesteld\nNieuw: Bijnaam van de maaier kan worden ingesteld\nNieuw: Timers van de maaier kunnen worden ingesteld",
+                "fr": "Correction : affichage des valeurs de la batterie avec des fractions (à nouveau)\nNouveau : bouton START ajouté\nNouveau : bouton STOP ajouté\nNouveau : bouton SERVICE ajouté pour redémarrer, arrêter ou mettre en veille le module Robonect\nNouveau : les états de poussée et l'intervalle peuvent être définis\nNouveau : Le surnom de la tondeuse peut être défini\nNouveau : les minuteries de la tondeuse peuvent être définies",
+                "it": "Correzione: visualizzazione dei valori per la batteria con frazioni (di nuovo)\nNuovo: aggiunto pulsante START\nNuovo: aggiunto pulsante STOP\nNuovo: aggiunto pulsante SERVICE per riavviare, spegnere o sospendere il modulo Robonect\nNuovo: è possibile impostare gli stati di push e l'intervallo\nNuovo: È possibile impostare il soprannome del tagliaerba\nNuovo: è possibile impostare i timer del tagliaerba",
+                "es": "Corrección: Mostrar valores para la batería con fracciones (nuevamente)\nNuevo: Botón INICIO agregado\nNuevo: Botón DETENER agregado\nNuevo: Botón SERVICIO agregado para reiniciar, apagar o suspender el módulo Robonect\nNuevo: Se pueden configurar estados de pulsación e intervalos\nNuevo: Se puede configurar el apodo del cortacésped \n Nuevo: se pueden configurar los temporizadores del cortacésped",
+                "pl": "Poprawka: Wyświetlanie wartości baterii z ułamkami (ponownie) \n Nowość: Dodano przycisk START \n Nowość: Dodano przycisk STOP \n Nowość: Dodano przycisk SERVICE do ponownego uruchomienia, wyłączenia lub uśpienia modułu Robonect \n Nowość: Można ustawić stany push i interwał \n Nowość: Możliwość ustawienia pseudonimu kosiarki\nNowość: Możliwość ustawienia timerów kosiarki",
+                "uk": "Виправлення: відображення значень для батареї з частками (знову)\nНове: додано кнопку СТАРТ\nНове: додано кнопку СТОП\nНове: додано кнопку СЕРВІС для перезавантаження, вимкнення або переходу в режим сну Robonect\nНове: стани натискання та інтервал можна встановити\nНове: Можна встановити псевдонім косарки\nНове: можна встановити таймери косарки",
+                "zh-cn": "修复：再次显示带分数的电池值\n新功能：添加了“开始”按钮\n新功能：添加了“停止”按钮\n新功能：添加了用于重新启动、关闭或睡眠 Robonect 模块的“服务”按钮\n新功能：可以设置推送状态和间隔\n新功能：可设置割草机的昵称\n新增：可设置割草机的定时器"
             },
             "1.0.5": {
-                "en": "Added new state #18 - Garage door is opening*Status.stopped gets correctly updated",
-                "de": "Neuer Status Nr. 18 hinzugefügt – Garagentor öffnet sich*Status.stopped wird korrekt aktualisiert",
-                "ru": "Добавлено новое состояние № 18 — Дверь гаража открывается * Статус.остановлено корректно обновляется.",
-                "pt": "Adicionado novo estado #18 - A porta da garagem está abrindo*Status.stopped é atualizado corretamente",
-                "nl": "Nieuwe status #18 toegevoegd - Garagedeur gaat open*Status.stopped wordt correct bijgewerkt",
-                "fr": "Ajout d'un nouvel état #18 - La porte de garage s'ouvre*Status.stopped est correctement mis à jour",
-                "it": "Aggiunto il nuovo stato n. 18 - La porta del garage si sta aprendo*Status.stopped viene aggiornato correttamente",
-                "es": "Se agregó un nuevo estado #18: La puerta del garaje se está abriendo*El estado.detenido se actualiza correctamente",
-                "pl": "Dodano nowy stan nr 18 – Brama garażowa się otwiera.*Status.stopped zostaje poprawnie zaktualizowany",
-                "uk": "Додано новий стан №18 - Двері гаража відчиняються*Status.stopped правильно оновлюється",
-                "zh-cn": "添加了新状态 #18 - 车库门正在打开*Status.stopped 得到正确更新"
+                "en": "Added new state #18 - Garage door is opening\nStatus.stopped gets correctly updated",
+                "de": "Neuer Status Nr. 18 hinzugefügt – Garagentor öffnet sich\nStatus.stopped wird korrekt aktualisiert",
+                "ru": "Добавлено новое состояние № 18 — Дверь гаража открывается \n Статус.остановлено корректно обновляется.",
+                "pt": "Adicionado novo estado #18 - A porta da garagem está abrindo\nStatus.stopped é atualizado corretamente",
+                "nl": "Nieuwe status #18 toegevoegd - Garagedeur gaat open\nStatus.stopped wordt correct bijgewerkt",
+                "fr": "Ajout d'un nouvel état #18 - La porte de garage s'ouvre\nStatus.stopped est correctement mis à jour",
+                "it": "Aggiunto il nuovo stato n. 18 - La porta del garage si sta aprendo\nStatus.stopped viene aggiornato correttamente",
+                "es": "Se agregó un nuevo estado #18: La puerta del garaje se está abriendo\nEl estado.detenido se actualiza correctamente",
+                "pl": "Dodano nowy stan nr 18 – Brama garażowa się otwiera.\nStatus.stopped zostaje poprawnie zaktualizowany",
+                "uk": "Додано новий стан №18 - Двері гаража відчиняються\nStatus.stopped правильно оновлюється",
+                "zh-cn": "添加了新状态 #18 - 车库门正在打开\nStatus.stopped 得到正确更新"
             },
             "1.0.4": {
                 "en": "Improved error handling",
