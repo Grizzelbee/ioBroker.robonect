@@ -1,0 +1,7 @@
+{
+	"dry": false,
+	"plugins": [
+		"iobroker",
+		"license"
+	]
+}

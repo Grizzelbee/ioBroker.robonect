@@ -10,7 +10,7 @@ iobroker.*.tgz
 Thumbs.db
 
 # i18n intermediate files
-admin/i18n
+# admin/i18n
 
 # ioBroker dev-server
 .dev-server/
