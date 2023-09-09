@@ -13,6 +13,8 @@ const ping = require('ping');
 const request = require('request');
 const jsonLogic = require('./lib/json_logic.js');
 
+let no_connection = 0;
+
 class Robonect extends utils.Adapter {
 
     /**
@@ -24,6 +26,7 @@ class Robonect extends utils.Adapter {
             name: 'robonect',
         });
         this.on('ready', this.onReady.bind(this));
+        this.on('objectChange', this.onObjectChange.bind(this));
         this.on('stateChange', this.onStateChange.bind(this));
         this.on('unload', this.onUnload.bind(this));
 
@@ -190,6 +193,21 @@ class Robonect extends utils.Adapter {
     }
 
     /**
+    * Is called if a subscribed object changes
+    * @param {string} id
+    * @param {ioBroker.Object | null | undefined} obj
+    */
+        onObjectChange(id, obj) {
+            if (obj) {
+                // The object was changed
+                this.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
+            } else {
+                // The object was deleted
+                this.log.info(`object ${id} deleted`);
+            }
+        }
+    
+    /**
 	 * Is called if a subscribed state changes
 	 * @param {string} id
 	 * @param {ioBroker.State | null | undefined} state
@@ -197,7 +215,11 @@ class Robonect extends utils.Adapter {
     onStateChange(id, state) {
         if (typeof state == 'object' && !state.ack) {
             // The state was changed
-            if (id === this.namespace + '.extension.gpio1.status') {
+            if (id === this.namespace + ".error.clear") {
+                this.updateErrorClearReset('clear=1', state.val);
+            } else if (id === this.namespace + ".error.reset") {
+                this.updateErrorClearReset('reset=1', state.val);
+            } else if (id === this.namespace + '.extension.gpio1.status') {
                 this.updateExtensionStatus('gpio1', state.val);
             } else if (id === this.namespace + '.extension.gpio2.status') {
                 this.updateExtensionStatus('gpio2', state.val);
@@ -216,8 +238,9 @@ class Robonect extends utils.Adapter {
      */
     async initializeObjects() {
         const objects_battery = require('./lib/objects_battery.json');
-        const objects_door = require('./lib/objects_door.json');
         const objects_error = require('./lib/objects_error.json');
+        const objects_remerr = require('./lib/objects_remerr.json');
+        const objects_door = require('./lib/objects_door.json');
         const objects_ext = require('./lib/objects_ext.json');
         const objects_gps = require('./lib/objects_gps.json');
         const objects_hour = require('./lib/objects_hour.json');
@@ -234,6 +257,7 @@ class Robonect extends utils.Adapter {
             ...objects_battery,
             ...objects_door,
             ...objects_error,
+            ...objects_remerr,
             ...objects_ext,
             ...objects_gps,
             ...objects_hour,
@@ -268,8 +292,17 @@ class Robonect extends utils.Adapter {
     async updateRobonectData(pollType) {
         ping.sys.probe(this.robonectIp, async function (isAlive) {
             if (isAlive) {
+                no_connection = 0;
+
                 let doRegularPoll = false;
                 const isRestTime = this.isRestTime();
+
+                if (pollType === 'Initial') {
+                    this.setState('error.clear', { val: false, ack: true });
+                    this.setState('error.reset', { val: false, ack: true });
+                    this.setState('error.code', { val: 0, ack: true });
+                    this.setState('error.message', { val: 'no error', ack: true });
+                }
 
                 this.setState('last_sync', { val: this.formatDate(new Date(), 'YYYY-MM-DD hh:mm:ss'), ack: true });
                 this.setState('online', { val: isAlive, ack: true });
@@ -293,36 +326,31 @@ class Robonect extends utils.Adapter {
                 this.log.debug('currentStatus: ' + this.currentStatus);
                 this.log.debug('doRegularPoll: ' + doRegularPoll);
 
-                if (this.batteryPollType !== 'NoPoll' && (pollType === 'Initial' || (this.batteryPollType === pollType && doRegularPoll)))
-                    await this.pollApi('battery');
-                if (this.doorPollType !== 'NoPoll' && (pollType === 'Initial' || (this.doorPollType === pollType && doRegularPoll)))
-                    await this.pollApi('door');
-                if (this.errorsPollType !== 'NoPoll' && (pollType === 'Initial' || (this.errorsPollType === pollType && doRegularPoll)))
-                    await this.pollApi('error');
-                if (this.extensionPollType !== 'NoPoll' && (pollType === 'Initial' || (this.extensionPollType === pollType && doRegularPoll)))
-                    await this.pollApi('ext');
-                if (this.gpsPollType !== 'NoPoll' && (pollType === 'Initial' || (this.gpsPollType === pollType && doRegularPoll)))
-                    await this.pollApi('gps');
-                if (this.hoursPollType !== 'NoPoll' && (pollType === 'Initial' || (this.hoursPollType === pollType && doRegularPoll)))
-                    await this.pollApi('hour');
-                if (this.motorPollType !== 'NoPoll' && (pollType === 'Initial' || (this.motorPollType === pollType && doRegularPoll)))
-                    await this.pollApi('motor');
-                if (this.portalPollType !== 'NoPoll' && (pollType === 'Initial' || (this.portalPollType === pollType && doRegularPoll)))
-                    await this.pollApi('portal');
-                if (this.pushPollType !== 'NoPoll' && (pollType === 'Initial' || (this.pushPollType === pollType && doRegularPoll)))
-                    await this.pollApi('push');
-                if (this.timerPollType !== 'NoPoll' && (pollType === 'Initial' || (this.timerPollType === pollType && doRegularPoll)))
-                    await this.pollApi('timer');
-                if (this.versionPollType !== 'NoPoll' && (pollType === 'Initial' || (this.versionPollType === pollType && doRegularPoll)))
-                    await this.pollApi('version');
-                if (this.weatherPollType !== 'NoPoll' && (pollType === 'Initial' || (this.weatherPollType === pollType && doRegularPoll)))
-                    await this.pollApi('weather');
-                if (this.wlanPollType !== 'NoPoll' && (pollType === 'Initial' || (this.wlanPollType === pollType && doRegularPoll)))
-                    await this.pollApi('wlan');
+                if (pollType === 'Initial' || doRegularPoll) {
+                    if (this.batteryPollType === pollType)      await this.pollApi('battery');
+                    if (this.errorsPollType === pollType)       await this.pollApi('error');
+                    if (this.extensionPollType === pollType)    await this.pollApi('ext');
+                    if (this.gpsPollType === pollType)          await this.pollApi('gps');
+                    if (this.hoursPollType === pollType)        await this.pollApi('hour');
+                    if (this.motorPollType === pollType)        await this.pollApi('motor');
+                    if (this.portalPollType === pollType)       await this.pollApi('portal');
+                    if (this.pushPollType === pollType)         await this.pollApi('push');
+                    if (this.timerPollType === pollType)        await this.pollApi('timer');
+                    if (this.versionPollType === pollType)      await this.pollApi('version');
+                    if (this.weatherPollType === pollType)      await this.pollApi('weather');
+                    if (this.wlanPollType === pollType)         await this.pollApi('wlan');
+                }
 
                 this.log.debug('Polling done');
             } else {
-                this.log.error('No connection to lawn mower. Check network connection.');
+                no_connection++;
+                if (no_connection > 5) {
+                   no_connection = 5;
+                   this.log.error('No connection to lawn mower. Check network connection.');
+                   this.setState('info.connection', false, true);
+                } else {
+                   this.log.info('No connection to lawn mower (' + no_connection + ').');
+                }
             }
         }.bind(this));
     }
@@ -344,7 +372,7 @@ class Robonect extends utils.Adapter {
                 try {
                     data = this.parseResponse(err, response, body);
 
-                    if (data.successful === true) {
+                    if (data.successful !== undefined && data.successful === true) {
                         const objects = require('./lib/objects_' + cmd + '.json');
 
                         this.updateObjects(objects, data);
@@ -357,7 +385,7 @@ class Robonect extends utils.Adapter {
                     }
                 }
                 catch (errorMessage) {
-                    this.log.error(errorMessage);
+                    this.log.error('pollApi: ' + errorMessage);
                 }
 
                 this.log.debug('API call ' + apiUrl + ' done');
@@ -388,7 +416,7 @@ class Robonect extends utils.Adapter {
             try {
                 const data = this.parseResponse(err, response, body);
 
-                if (data.successful === true) {
+                if (data.successful !== undefined && data.successful === true) {
                     this.setState('extension.gpio1.inverted', { val: data['ext']['gpio1']['inverted'], ack: true });
                     this.setState('extension.gpio1.status', { val: data['ext']['gpio1']['status'], ack: true });
                     this.setState('extension.gpio2.inverted', { val: data['ext']['gpio2']['inverted'], ack: true });
@@ -412,9 +440,57 @@ class Robonect extends utils.Adapter {
                 }
             }
             catch (errorMessage) {
-                this.log.error(errorMessage);
+                this.log.error('updateExtensionStatus: ' + errorMessage);
             }
 
+            this.log.debug('API call ' + apiUrl + ' done');
+        }.bind(this));
+    }
+
+    /**
+         * Update/Set errors
+         * @param {string} errclrrst
+         */
+    updateErrorClearReset(errclrrst, status) {
+
+        const apiUrl = '/json?cmd=error&' + errclrrst;
+
+        this.log.debug('API call ' + apiUrl + ' started');
+
+        this.request.get({ url: apiUrl, timeout: 15000 }, function (err, response, body) {
+            try {
+            const data = this.parseResponse(err, response, body);
+            this.setState('error.clear', { val: false, ack: true });
+            this.setState('error.reset', { val: false, ack: true });
+            if (data.successful !== undefined && data.successful === true) {
+                this.log.info(errclrrst + ' error successfull');
+                this.setState('error.code', { val: 0, ack: true });
+                this.setState('error.message', { val: 'no error', ack: true });
+            } else {
+                this.log.info(errclrrst + ' error failed. Code ' + data.error_code + "=" + data.error_message );
+                this.setState('error.code', { val: data.error_code, ack: true });
+                this.setState('error.message', { val: data.error_message, ack: true });
+                if (errclrrst === 'reset=1' && data.error_code === 13) {
+                    this.log.info('Try to reset status....');
+                    this.request.get({ url: "/status?reset= " }, function (err, response, body) {
+                        try {
+                        const data = this.parseResponse(err, response, body);
+                        if (data.successful !== undefined && data.successful === true) {
+                            this.log.info('Success!');
+                        } else {
+                            this.log.info('Failed');
+                        }
+                        }
+                        catch (errorMessage) {
+                        this.log.debug('Reset done, but not in failure mode...');
+                        }
+                    }.bind(this))
+                }
+            }
+            }
+            catch (errorMessage) {
+                this.log.error('updateErrorClearReset: ' + errorMessage);
+            }
             this.log.debug('API call ' + apiUrl + ' done');
         }.bind(this));
     }
@@ -450,11 +526,11 @@ class Robonect extends utils.Adapter {
 
         this.log.debug('API call ' + apiUrl + ' started');
 
-        this.request.get({ url: apiUrl }, function (err, response, body) {
+        this.request.get({ url: apiUrl, timeout: 1000 }, function (err, response, body) {
             try {
                 const data = this.parseResponse(err, response, body);
 
-                if (data.successful === true) {
+                if (data.successful !== undefined && data.successful === true) {
                     this.setState('status.mode', { val: mode, ack: true });
 
                     this.log.info('Mode set to ' + paramMode);
@@ -467,7 +543,7 @@ class Robonect extends utils.Adapter {
                 }
             }
             catch (errorMessage) {
-                this.log.error(errorMessage);
+                this.log.error('updateMode: ' + errorMessage);
             }
 
             this.log.debug('API call ' + apiUrl + ' done');

@@ -2,8 +2,21 @@
     "common": {
         "name": "robonect",
         "title": "Robonect",
-        "version": "0.1.4",
+        "version": "1.0.0",
         "news": {
+            "1.0.0": {
+                "en": "First release from Andreas",
+                "de": "Erste Veröffentlichung von Andreas",
+                "ru": "Первый релиз от Andreas",
+                "pt": "Primeiro lançamento de Andreas",
+                "nl": "Eerste vrijlating van Andreas",
+                "fr": "Première sortie d'Andreas",
+                "it": "Prima uscita da Andreas",
+                "es": "Primer lanzamiento de Andreas",
+                "pl": "Pierwsze wydanie",
+                "uk": "Перший реліз від Andreas",
+                "zh-cn": "安德烈斯先获释"
+            },
             "0.1.4": {
                 "en": "Changed polling log level from info to debug\r\nimplemented polling of garage door status",
                 "de": "Die Abfrageprotokollstufe wurde von \"Info\" auf \"Debug\" geändert\r\nAbfrage des Garagentorstatus implementiert",
