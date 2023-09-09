@@ -10,14 +10,16 @@ const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
 const ping = require('ping');
-const request = require('request');
 const jsonLogic = require('./lib/json_logic.js');
+const axios = require('axios');
+const http = require('http');
+const url = require('url');
 
 class Robonect extends utils.Adapter {
 
     /**
-	 * @param {Partial<ioBroker.AdapterOptions>} [options={}]
-	 */
+     * @param {Partial<ioBroker.AdapterOptions>} [options={}]
+     */
     constructor(options) {
         super({
             ...options,
@@ -39,7 +41,7 @@ class Robonect extends utils.Adapter {
         this.restPeriod2Start;
         this.restPeriod2End;
 
-        this.currentStatus;        
+        this.currentStatus;
 
         this.batteryPollType;
         this.doorPollType;
@@ -57,15 +59,21 @@ class Robonect extends utils.Adapter {
 
         this.infoTimeout;
         this.statusTimeout;
+        // http-server for Robonect PushService
+        this.ps;
+        this.ps_host;
+        this.ps_port;
     }
 
+
     /**
-	 * Is called when databases are connected and adapter received configuration.
-	 */
+     * Is called when databases are connected and adapter received configuration.
+     */
     async onReady() {
         if (this.config.robonectIp === undefined || this.config.robonectIp === '') {
+            // todo: Support FQDN in addition
             this.log.error('No IP address set. Adapter will not be executed.');
-            this.setState('info.connection', false, true);
+            await this.setState('info.connection', false, true);
 
             return;
         }
@@ -95,11 +103,15 @@ class Robonect extends utils.Adapter {
         this.versionPollType = this.config.versionPollType;
         this.weatherPollType = this.config.weatherPollType;
         this.wlanPollType = this.config.wlanPollType;
+        //
+        this.ps_host = this.config.pushServiceIp;
+        this.ps_port = this.config.pushServicePort;
 
         if (this.username !== '' && this.password !== '') {
-            this.url = 'http://' + this.username + ':' + this.password + '@' + this.robonectIp;
+            this.apiUrl = `http://${this.robonectIp}/api/json?user=${this.username}&pass=${this.password}&cmd=`;
+            // this.apiUrl = `http://${this.robonectIp}/api/json?user=${this.username}&pass=${this.password}`;
         } else {
-            this.url = 'http://' + this.robonectIp;
+            this.apiUrl = `http://${this.robonectIp}/api/json?cmd=`;
         }
 
         if (isNaN(this.statusInterval) || this.statusInterval < 1) {
@@ -132,6 +144,8 @@ class Robonect extends utils.Adapter {
             this.log.warn('Rest period 2 configured (' + this.restPeriod2Start + ' - ' + this.restPeriod2End + '). Only API call /json?cmd=status will be done.');
         }
 
+        await this.testPushServiceConfig();
+
         this.currentStatus = null;
 
         // Inititalize objects
@@ -140,12 +154,18 @@ class Robonect extends utils.Adapter {
         this.subscribeStates('*');
 
         // Do the initial polling
-        this.updateRobonectData('Initial');
+        await this.updateRobonectData('Initial');
+
+
+        // test whether to use robonect push service
+        if (this.config.pushService){
+           this.initPushServiceServer();
+        }
 
         // Start regular pollings
         const pollStatus = () => {
             this.updateRobonectData('Status');
-        
+
             this.statusTimeout = setTimeout(pollStatus, this.statusInterval * 1000);
         };
 
@@ -155,23 +175,60 @@ class Robonect extends utils.Adapter {
 
         const pollInfo = () => {
             this.updateRobonectData('Info');
-        
+
             this.infoTimeout = setTimeout(pollInfo, this.infoInterval * 1000);
-        };        
+        };
 
         if (this.infoInterval > 0) {
             this.infoTimeout = setTimeout(pollInfo, this.infoInterval * 1000);
         }
 
-        this.log.info('Done');
+        // this.log.info('Done');
 
         return true;
     }
 
+    initPushServiceServer() {
+        const adapter = this;
+        // http-Server for Robonect PushService
+        const requestListener = function (req, res) {
+            let params;
+            if (req.method === 'GET') {
+                adapter.log.debug(`Received GET request`);
+                adapter.log.debug(`req.url=[${req.url}]`);
+                params = url.parse(req.url, true).query;
+                res.writeHead(200, { 'Content-Type': 'text/html' });
+                res.end();
+            } else if (req.method === 'POST') {
+                adapter.log.debug(`Received POST request`);
+                adapter.log.debug(`req.url=[${req.url}]`);
+                let body = '';
+                req.on('data', function (chunk) {
+                    body += chunk;
+                });
+                req.on('end', function () {
+                    params = url.parse(req.url, true).query;
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    res.end(body);
+                    adapter.log.debug(`body=[${params}]`);
+                });
+            }
+            const objects = require('./lib/objects_pushedStatus.json');
+            params.stopped = (params.stopped === 1);
+            adapter.updateObjects(objects, params);
+
+        };
+
+        const pushService = http.createServer(requestListener);
+        pushService.listen(this.ps_port, this.ps_host, () => {
+            this.log.info(`Server for Robonect push-service is listening on http://${this.ps_host}:${this.ps_port}`);
+        });
+    }
+
     /**
-	 * Is called when adapter shuts down - callback has to be called under any circumstances!
-	 * @param {() => void} callback
-	 */
+     * Is called when adapter shuts down - callback has to be called under any circumstances!
+     * @param {() => void} callback
+     */
     onUnload(callback) {
         try {
             clearTimeout(this.infoTimeout);
@@ -185,14 +242,19 @@ class Robonect extends utils.Adapter {
     }
 
     /**
-	 * Is called if a subscribed state changes
-	 * @param {string} id
-	 * @param {ioBroker.State | null | undefined} state
-	 */
+     * Is called if a subscribed state changes
+     * @param {string} id
+     * @param {ioBroker.State | null | undefined} state
+     */
     onStateChange(id, state) {
         if (typeof state == 'object' && !state.ack) {
             // The state was changed
-            if (id === this.namespace + '.extension.gpio1.status') {
+            const trigger = id.split('.', 3).pop();
+             if (id === this.namespace + ".error.clear") {
+                this.updateErrorClearReset('clear=1', state.val);
+            } else if (id === this.namespace + ".error.reset") {
+                this.updateErrorClearReset('reset=1', state.val);
+            } else if (id === this.namespace + '.extension.gpio1.status') {
                 this.updateExtensionStatus('gpio1', state.val);
             } else if (id === this.namespace + '.extension.gpio2.status') {
                 this.updateExtensionStatus('gpio2', state.val);
@@ -203,6 +265,165 @@ class Robonect extends utils.Adapter {
             } else if (id === this.namespace + '.status.mode') {
                 this.updateMode(state.val);
             }
+            switch (trigger){
+                case 'name':
+                    this.sendApiCmd(`name&name=${state.val}`);
+                    break;
+                case 'push':
+                    this.handlePushUpdate(id, state.val);
+                    break;
+                case 'service':
+                    if (state.val !== '') this.sendApiCmd('service&'+state.val);
+                    break;
+                case 'start':
+                    this.sendApiCmd('start');
+                    this.pollApi('status');
+                    break;
+                case 'stop':
+                    this.sendApiCmd('stop');
+                    this.pollApi('status');
+                    break;
+                case 'timer':
+                    if (id.split('.').pop() === 'update_timer'){
+                        this.handleTimerUpdate(id);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    async handlePushUpdate(id, value){
+        this.log.debug(`Received push update for ID:${id} - new value: ${value}`);
+        /*
+         * /json?cmd=push&url=192.168.1.1:80
+         * /json?cmd=push&interval=n (n Sekunden)
+         * /json?cmd=push&trigger%i=[0 (AUS), 1 (Enter EIN, Leave AUS), 2 (Enter AUS Leave EIN), 3 (Enter EIN, Leave EIN)]
+         * ....mit i=0..9
+         * Info: Die einzelnen Anweisungen können verkettet werden; z.B.: /json?cmd=push&trigger0=1&trigger4=3
+         * &mode=get oder mode=post (deaktivieren hab ich noch nicht rausgefunden)
+         * name="LegoSpieler" (name="" deaktiviert Benutzerdaten)
+         * pass="12345678"
+         */
+        let result = 0;
+        // id = robonect.0.push.trigger.0.enter
+        const triggerNum=id.split('.', 5).pop();
+        const basePath=id.split('.', 5).join('.');
+        let command= '';
+        switch (id.split('.').pop()) {
+            case 'interval':
+                command = `push&interval=${value}`;
+                break;
+            case 'enter': {
+                const leave = await this.getStateAsync(`${basePath}.leave`);
+                if (value) {
+                    result += 1;
+                }
+                if (leave.val) {
+                    result += 2;
+                }
+                command = `push&trigger${triggerNum}=${result}`;
+                break;
+            }
+            case 'leave': {
+                const enter = await this.getStateAsync(`${basePath}.enter`);
+                if (value) {
+                    result += 2;
+                }
+                if (enter.val) {
+                    result += 1;
+                }
+                command = `push&trigger${triggerNum}=${result}`;
+                break;
+            }
+        }
+        try {
+            await this.sendApiCmd(command);
+            await this.pollApi('push');
+        }
+        catch(err){
+            this.log.warn(`Sending the command ${command} failed with: ${err}`);
+        }
+    }
+
+
+    async handleTimerUpdate(id){
+        /**
+         * /json?cmd=Timer
+         * ....Timer
+         * ........0..13
+         * ............id
+         * ............enabled
+         * ............start
+         * ............end
+         * ............weekdays
+         * ................mo
+         * ................tu
+         * ................we
+         * ................th
+         * ................fr
+         * ................sa
+         * ................su
+         * ........save=1 // Sichert die Daten im Roboter <Danke an kobelka>
+         *
+         * /json?cmd=Timer&Timer=1&start=06:00&end=09:00&mo=1&tu=1&we=1&th=1&fr=1&sa=1&su=1&enable=1
+         */
+        // robonect.0.timer.0.id
+        const timer = Number.parseInt(id.split('.', 4).pop())+1;
+        const basePath = id.split('.', 4).join('.');
+        let cmd = `timer&timer=${timer}&save=1`;
+        try {
+            cmd += '&enable=' + ((await this.getValueAsync(`${basePath}.enabled`)) ? '1' : '0');
+            cmd += '&start=' + (await this.getValueAsync(`${basePath}.start_time`));
+            cmd += '&end=' + (await this.getValueAsync(`${basePath}.end_time`));
+            // robonect.0.timer.0.weekdays.friday
+            cmd += '&mo=' + ((await this.getValueAsync(`${basePath}.weekdays.monday`)) ? '1' : '0');
+            cmd += '&tu=' + ((await this.getValueAsync(`${basePath}.weekdays.tuesday`)) ? '1' : '0');
+            cmd += '&we=' + ((await this.getValueAsync(`${basePath}.weekdays.wednesday`)) ? '1' : '0');
+            cmd += '&th=' + ((await this.getValueAsync(`${basePath}.weekdays.thursday`)) ? '1' : '0');
+            cmd += '&fr=' + ((await this.getValueAsync(`${basePath}.weekdays.friday`)) ? '1' : '0');
+            cmd += '&sa=' + ((await this.getValueAsync(`${basePath}.weekdays.saturday`)) ? '1' : '0');
+            cmd += '&su=' + ((await this.getValueAsync(`${basePath}.weekdays.sunday`)) ? '1' : '0');
+        }
+        catch(err){
+            this.log.error(err);
+        }
+        try {
+            await this.sendApiCmd(cmd);
+            await this.pollApi('timer');
+        }
+        catch(err){
+            this.log.warn(`Sending the command ${cmd} failed with: ${JSON.stringify(err)}`);
+        }
+    }
+
+    async getValueAsync(id){
+        try {
+            this.log.debug(`getValueAsync for id: ${id}`);
+            const state = await this.getStateAsync(id);
+            if (state && state.val){
+                this.log.silly(`Returning value: ${state.val}`);
+                return state.val;
+            } else {
+                this.log.silly(`The ID: ${id} has no value. Please fix.`);
+
+            }
+        } catch (error) {
+            this.log.error(`getValueAsync, unexpected error - ${error}`);
+        }
+    }
+
+    async testPushServiceConfig(){
+        try {
+            const url = await this.getValueAsync(`push.server_url`);
+            if (this.config.pushService && (url !== `${this.config.pushServiceIp}:${this.config.pushServicePort}`)) {
+                this.log.warn(`Push Service is enabled in config, but misconfigured. Please update your Robonect configuration.`);
+                this.log.warn(`URL:${url}, IP:${this.config.pushServiceIp}, Port:${this.config.pushServicePort}`);
+            }
+        }
+        catch(err){
+            this.log.error(err);
         }
     }
 
@@ -225,12 +446,13 @@ class Robonect extends utils.Adapter {
         const objects_version = require('./lib/objects_version.json');
         const objects_weather = require('./lib/objects_weather.json');
         const objects_wlan = require('./lib/objects_wlan.json');
+        const objects_commands = require('./lib/objects_commands.json');
 
         const objects = {
             ...objects_battery,
             ...objects_door,
             ...objects_error,
-				...objects_remerr,
+            ...objects_remerr,
             ...objects_ext,
             ...objects_gps,
             ...objects_hour,
@@ -242,6 +464,7 @@ class Robonect extends utils.Adapter {
             ...objects_version,
             ...objects_weather,
             ...objects_wlan,
+            ...objects_commands,
         };
 
         for (const id in objects) {
@@ -253,7 +476,7 @@ class Robonect extends utils.Adapter {
 
                 await this.setObjectAsync(id, object);
 
-                this.log.debug('Object \'' + id + '\' created');
+                this.log.silly('Object \'' + id + '\' created');
             }
         }
     }
@@ -263,24 +486,38 @@ class Robonect extends utils.Adapter {
      * @param {string} pollType
      */
     async updateRobonectData(pollType) {
-        ping.sys.probe(this.robonectIp, async function (isAlive) {
+        await ping.sys.probe(this.robonectIp, async function (isAlive) {
             if (isAlive) {
                 let doRegularPoll = false;
                 const isRestTime = this.isRestTime();
 
-                this.setState('last_sync', { val: this.formatDate(new Date(), 'YYYY-MM-DD hh:mm:ss'), ack: true });
-                this.setState('online', { val: isAlive, ack: true });
-                this.setState('rest_time', { val: isRestTime, ack: true });
-                this.setState('info.connection', { val: isAlive, ack: true });
+                if (pollType === 'Initial') {
+                    this.setState('error.clear', { val: false, ack: true });
+                    this.setState('error.reset', { val: false, ack: true });
+                    this.setState('error.code', { val: 0, ack: true });
+                    this.setState('error.message', { val: 'no error', ack: true });
+                }
+
+                await this.setState('last_sync', {val: this.formatDate(new Date(), 'YYYY-MM-DD hh:mm:ss'), ack: true});
+                await this.setState('online', {val: isAlive, ack: true});
+                await this.setState('rest_time', {val: isRestTime, ack: true});
+                await this.setState('info.connection', {val: isAlive, ack: true});
 
                 this.log.debug('Polling started');
 
                 // Poll status
-                const data = await this.pollApi('status');
-                this.currentStatus = data['status']['status'];
+                await this.pollApi('status')
+                    .then((data) => {
+                        this.log.silly(`Data from poll: ${JSON.stringify(data)}`);
+                        this.currentStatus = data['status']['status'];
+                    })
+                    .catch((err) => {
+                        // this.log.error(`Polling robonect status: ${JSON.stringify(err)}`);
+                        this.doErrorHandling(err);
+                    });
 
                 if (isRestTime === false) {
-                    if (this.currentStatus != null && this.currentStatus != 16 /*abgeschaltet*/ && this.currentStatus != 17 /*schlafen*/) {
+                    if (this.currentStatus != null && this.currentStatus !== 16 /*abgeschaltet*/ && this.currentStatus !== 17 /*schlafen*/) {
                         doRegularPoll = true;
                     }
                 }
@@ -289,85 +526,207 @@ class Robonect extends utils.Adapter {
                 this.log.debug('isRestTime: ' + isRestTime);
                 this.log.debug('currentStatus: ' + this.currentStatus);
                 this.log.debug('doRegularPoll: ' + doRegularPoll);
-
-                if (this.batteryPollType !== 'NoPoll' && (pollType === 'Initial' || (this.batteryPollType === pollType && doRegularPoll)))
-                    await this.pollApi('battery');
-                if (this.doorPollType !== 'NoPoll' && (pollType === 'Initial' || (this.doorPollType === pollType && doRegularPoll)))
-                    await this.pollApi('door');
-                if (this.errorsPollType !== 'NoPoll' && (pollType === 'Initial' || (this.errorsPollType === pollType && doRegularPoll)))
-                    await this.pollApi('error');
-                if (this.extensionPollType !== 'NoPoll' && (pollType === 'Initial' || (this.extensionPollType === pollType && doRegularPoll)))
-                    await this.pollApi('ext');
-                if (this.gpsPollType !== 'NoPoll' && (pollType === 'Initial' || (this.gpsPollType === pollType && doRegularPoll)))
-                    await this.pollApi('gps');
-                if (this.hoursPollType !== 'NoPoll' && (pollType === 'Initial' || (this.hoursPollType === pollType && doRegularPoll)))
-                    await this.pollApi('hour');
-                if (this.motorPollType !== 'NoPoll' && (pollType === 'Initial' || (this.motorPollType === pollType && doRegularPoll)))
-                    await this.pollApi('motor');
-                if (this.portalPollType !== 'NoPoll' && (pollType === 'Initial' || (this.portalPollType === pollType && doRegularPoll)))
-                    await this.pollApi('portal');
-                if (this.pushPollType !== 'NoPoll' && (pollType === 'Initial' || (this.pushPollType === pollType && doRegularPoll)))
-                    await this.pollApi('push');
-                if (this.timerPollType !== 'NoPoll' && (pollType === 'Initial' || (this.timerPollType === pollType && doRegularPoll)))
-                    await this.pollApi('timer');
-                if (this.versionPollType !== 'NoPoll' && (pollType === 'Initial' || (this.versionPollType === pollType && doRegularPoll)))
-                    await this.pollApi('version');
-                if (this.weatherPollType !== 'NoPoll' && (pollType === 'Initial' || (this.weatherPollType === pollType && doRegularPoll)))
-                    await this.pollApi('weather');
-                if (this.wlanPollType !== 'NoPoll' && (pollType === 'Initial' || (this.wlanPollType === pollType && doRegularPoll)))
-                    await this.pollApi('wlan');
-
-                this.log.debug('Polling done');
+                try {
+                    if (this.batteryPollType !== 'NoPoll' && (pollType === 'Initial' || (this.batteryPollType === pollType && doRegularPoll)))
+                        await this.pollApi('battery');
+                    if (this.doorPollType !== 'NoPoll' && (pollType === 'Initial' || (this.doorPollType === pollType && doRegularPoll)))
+                        await this.pollApi('door');
+                    if (this.errorsPollType !== 'NoPoll' && (pollType === 'Initial' || (this.errorsPollType === pollType && doRegularPoll)))
+                        await this.pollApi('error');
+                    if (this.extensionPollType !== 'NoPoll' && (pollType === 'Initial' || (this.extensionPollType === pollType && doRegularPoll)))
+                        await this.pollApi('ext');
+                    if (this.gpsPollType !== 'NoPoll' && (pollType === 'Initial' || (this.gpsPollType === pollType && doRegularPoll)))
+                        await this.pollApi('gps');
+                    if (this.hoursPollType !== 'NoPoll' && (pollType === 'Initial' || (this.hoursPollType === pollType && doRegularPoll)))
+                        await this.pollApi('hour');
+                    if (this.motorPollType !== 'NoPoll' && (pollType === 'Initial' || (this.motorPollType === pollType && doRegularPoll)))
+                        await this.pollApi('motor');
+                    if (this.portalPollType !== 'NoPoll' && (pollType === 'Initial' || (this.portalPollType === pollType && doRegularPoll)))
+                        await this.pollApi('portal');
+                    if (this.pushPollType !== 'NoPoll' && (pollType === 'Initial' || (this.pushPollType === pollType && doRegularPoll)))
+                        await this.pollApi('push');
+                    if (this.timerPollType !== 'NoPoll' && (pollType === 'Initial' || (this.timerPollType === pollType && doRegularPoll)))
+                        await this.pollApi('timer');
+                    if (this.versionPollType !== 'NoPoll' && (pollType === 'Initial' || (this.versionPollType === pollType && doRegularPoll)))
+                        await this.pollApi('version');
+                    if (this.weatherPollType !== 'NoPoll' && (pollType === 'Initial' || (this.weatherPollType === pollType && doRegularPoll)))
+                        await this.pollApi('weather');
+                    if (this.wlanPollType !== 'NoPoll' && (pollType === 'Initial' || (this.wlanPollType === pollType && doRegularPoll)))
+                        await this.pollApi('wlan');
+                    this.log.debug('Polling done');
+                }
+                catch (err) {
+                    this.doErrorHandling(err);
+                }
             } else {
-                this.log.error('No connection to lawn mower. Check network connection.');
+                this.log.warn('No connection to lawn mower. Check network connection.');
             }
         }.bind(this));
     }
 
+    doErrorHandling(err){
+        try {
+            this.log.debug('Data received for error handling: '+JSON.stringify(err));
+            const errorCode = err.error_code || (err.response? err.response.status : -666);
+            const errorMessage = err.error_message || err.message;
+            this.log.error(errorMessage);
+            switch (errorCode) {
+                case 253 : {
+                    this.gpsPollType = 'NoPoll';
+                    this.log.warn(`Your lawn mower dosen't support GPS. Deactivated polling of GPS. You should deactivate it in the adapters configuration.`);
+                    break;
+                }
+                case 401 : {
+                    this.log.error('Your Robonect has denied access due to incorrect credentials.');
+                    this.log.error(`You used: Username=${this.username}, Password=${this.password} for login. Please double check your credentials and if they are correct - try using an easier password containing only upper- and lowercase letters and numbers.`);
+                    this.terminate(11);
+                    break;
+                }
+                default:
+                    this.log.warn('Error returned from Robonect device: '+JSON.stringify(err));
+            }
+        } catch(error){
+            this.log.error('Error during error handling: '+JSON.stringify(error));
+        }
+
+    }
+
+
+
     /**
      * Is called to poll the Robonect module
-     * @param {string} cmd 
+     * @param {string} cmd
      */
-    async pollApi(cmd) {
-        const apiUrl = '/json?cmd=' + cmd;
-
-        this.log.debug('API call ' + apiUrl + ' started');
-
-        // eslint-disable-next-line no-unused-vars
+    async sendApiCmd(cmd) {
+        const adapter = this;
+        this.log.debug(`Sending of command [${cmd}] started`);
         return new Promise((resolve, reject) => {
-            this.request.get({ url: apiUrl }, function (err, response, body) {
-                let data;
-
-                try {
-                    data = this.parseResponse(err, response, body);
-
-                    if (data.successful === true) {
-                        const objects = require('./lib/objects_' + cmd + '.json');
-
-                        this.updateObjects(objects, data);
+            axios.get(adapter.apiUrl + cmd)
+                .then( function (response){
+                    adapter.log.debug('Data returned from robonect device: '+JSON.stringify(response.data));
+                    if (response.data.successful === true) {
+                        adapter.log.info(`Sending of command [${cmd}] - done!`);
+                        resolve(response.data);
                     } else {
-                        if (data.error_message && data.error_message !== '') {
-                            throw new Error(data.error_message);
-                        } else {
-                            throw new Error('Something went wrong');
-                        }
+                        adapter.log.debug(`Sending of command [${cmd}] - failed!`);
+                        reject(response.data);
                     }
-                }
-                catch (errorMessage) {
-                    this.log.error(errorMessage);
-                }
 
-                this.log.debug('API call ' + apiUrl + ' done');
-
-                resolve(data);
-            }.bind(this));
+                })
+                .catch((err)=>{
+                    this.log.silly(`Axios says: ${err}`);
+                    adapter.log.silly('Error-data returned from axios: '+JSON.stringify(err));
+                    reject(err);
+                });
         });
     }
 
     /**
+     * Is called to poll the Robonect module
+     * @param {string} cmd
+     */
+    async pollApi(cmd) {
+        const adapter = this;
+        this.log.debug(`API call with command [${cmd}] started`);
+        return new Promise((resolve, reject) => {
+            axios.get(adapter.apiUrl + cmd)
+                .then( function (response){
+                    adapter.log.debug('Data returned from robonect device: '+JSON.stringify(response.data));
+                    if (response.data.successful === true) {
+                        const objects = require('./lib/objects_' + cmd + '.json');
+                        adapter.updateObjects(objects, response.data);
+                        adapter.log.debug(`API call with command [${cmd}] - done!`);
+                        resolve(response.data);
+                    } else {  // try again
+                        axios.get(adapter.apiUrl + cmd)
+                        .then( function (response){
+                            adapter.log.debug('Data returned from robonect device: '+JSON.stringify(response.data));
+                            if (response.data.successful === true) {
+                                const objects = require('./lib/objects_' + cmd + '.json');
+                                adapter.updateObjects(objects, response.data);
+                                adapter.log.debug(`API call with command [${cmd}] - done!`);
+                                resolve(response.data);
+                            } else {
+                                adapter.log.debug(`API call with command [${cmd}] - failed!`);
+                                reject(response.data);
+                            }
+                        })
+                    }
+
+                })
+                .catch((err)=>{
+                    this.log.silly(`Axios says: ${err}`);
+                    adapter.log.silly('Error-data returned from axios: '+JSON.stringify(err));
+                    reject(err);
+                });
+        });
+    }
+
+    /**
+     * Update/Set errors
+     * @param {string} errclrrst
+    */
+    updateErrorClearReset(errclrrst, status) {
+         let paramStatus;
+        if (status === true) {
+            paramStatus = 1;
+        } else {
+            paramStatus = 0;
+        }
+        const apiUrl =`${this.apiUrl}error&${errclrrst}`;
+        const adapter = this;
+        this.log.debug('API call ' + apiUrl + ' started');
+
+        axios.get(apiUrl)
+           .then((response)=>{
+           try {
+              if (response.data.successful === true) {
+                 adapter.setState('error.clear', { val: false, ack: true });
+                 adapter.setState('error.reset', { val: false, ack: true });
+                 if (errclrrst === 'reset=1' && response.data.error_code === 13) {
+                    this.log.info('Try to reset status....');
+                    axios.get(`http://${this.username}:${this.password}@${this.robonectIp}/status?reset= `)
+                       .then((response)=>{
+                       try {
+                          if (response.data.successful === true) {
+                             adapter.setState('error.code', { val: 0, ack: true });
+                             adapter.setState('error.message', { val: 'no error', ack: true });
+                          } else {
+                             this.doErrorHandling(response.data);
+                          }
+                       }
+                       catch (errorMessage) {
+                       this.doErrorHandling(errorMessage);
+                       }
+                    })
+                    .catch((err)=>{
+                       adapter.log.error(`updateErrorClearReset(Reset): ${err}`);
+                    });
+                 }
+                 if (response.data['ext'][ext]['status'] === paramStatus) {
+                    adapter.log.info(ext + ' set to ' + status);
+                 } else {
+                    this.log.error(ext + ' could not be set to ' + status + '.');
+                 }
+              } else {
+                 this.doErrorHandling(response.data);
+              }
+           }
+           catch (errorMessage) {
+           this.doErrorHandling(errorMessage);
+           }
+        })
+        .catch((err)=>{
+           adapter.log.error(`updateErrorClearReset: ${err}`);
+        });
+        this.log.debug('API call ' + apiUrl + ' done');
+    }
+
+    /**
+    /**
      * Update extension status
-     * @param {string} ext 
-     * @param {*} status 
+     * @param {string} ext
+     * @param {*} status
      */
     updateExtensionStatus(ext, status) {
         let paramStatus;
@@ -376,49 +735,45 @@ class Robonect extends utils.Adapter {
         } else {
             paramStatus = 0;
         }
+        const apiUrl =`${this.apiUrl}ext&${ext}=${paramStatus}`;
+        const adapter = this;
+        this.log.debug('API call [' + apiUrl + '] started');
+        axios.get(apiUrl)
+            .then((response)=>{
+                try {
+                    if (response.data.successful === true) {
+                        adapter.setState('extension.gpio1.inverted', { val: response.data['ext']['gpio1']['inverted'], ack: true });
+                        adapter.setState('extension.gpio1.status', { val: response.data['ext']['gpio1']['status'], ack: true });
+                        adapter.setState('extension.gpio2.inverted', { val: response.data['ext']['gpio2']['inverted'], ack: true });
+                        adapter.setState('extension.gpio2.status', { val: response.data['ext']['gpio2']['status'], ack: true });
+                        adapter.setState('extension.out1.inverted', { val: response.data['ext']['out1']['inverted'], ack: true });
+                        adapter.setState('extension.out1.status', { val: response.data['ext']['out1']['status'], ack: true });
+                        adapter.setState('extension.out2.inverted', { val: response.data['ext']['out2']['inverted'], ack: true });
+                        adapter.setState('extension.out2.status', { val: response.data['ext']['out2']['status'], ack: true });
 
-        const apiUrl = '/json?cmd=ext&' + ext + '=' + paramStatus;
-
-        this.log.debug('API call ' + apiUrl + ' started');
-
-        this.request.get({ url: apiUrl }, function (err, response, body) {
-            try {
-                const data = this.parseResponse(err, response, body);
-
-                if (data.successful === true) {
-                    this.setState('extension.gpio1.inverted', { val: data['ext']['gpio1']['inverted'], ack: true });
-                    this.setState('extension.gpio1.status', { val: data['ext']['gpio1']['status'], ack: true });
-                    this.setState('extension.gpio2.inverted', { val: data['ext']['gpio2']['inverted'], ack: true });
-                    this.setState('extension.gpio2.status', { val: data['ext']['gpio2']['status'], ack: true });
-                    this.setState('extension.out1.inverted', { val: data['ext']['out1']['inverted'], ack: true });
-                    this.setState('extension.out1.status', { val: data['ext']['out1']['status'], ack: true });
-                    this.setState('extension.out2.inverted', { val: data['ext']['out2']['inverted'], ack: true });
-                    this.setState('extension.out2.status', { val: data['ext']['out2']['status'], ack: true });
-
-                    if (data['ext'][ext]['status'] == paramStatus) {
-                        this.log.info(ext + ' set to ' + status);
+                        if (response.data['ext'][ext]['status'] === paramStatus) {
+                            adapter.log.info(ext + ' set to ' + status);
+                        } else {
+                            this.log.error(ext + ' could not be set to ' + status + '. Is the extension mode set to API?');
+                        }
                     } else {
-                        throw new Error(ext + ' could not be set to ' + status + '. Is the extension mode set to API?');
-                    }
-                } else {
-                    if (data.error_message && data.error_message !== '') {
-                        throw new Error(data.error_message);
-                    } else {
-                        throw new Error('Something went wrong');
+                        this.doErrorHandling(response.data);
                     }
                 }
-            }
-            catch (errorMessage) {
-                this.log.error(errorMessage);
-            }
+                catch (errorMessage) {
+                    this.doErrorHandling(errorMessage);
+                }
 
-            this.log.debug('API call ' + apiUrl + ' done');
-        }.bind(this));
+            })
+            .catch((err)=>{
+                adapter.log.error(`updateExtensionStatus: ${err}`);
+            });
+        this.log.debug('API call ' + apiUrl + ' done');
     }
 
     /**
      * Update mode
-     * @param {*} mode 
+     * @param {*} mode
      */
     updateMode(mode) {
         let paramMode;
@@ -443,68 +798,28 @@ class Robonect extends utils.Adapter {
                 return;
         }
 
-        const apiUrl = '/json?cmd=mode&mode=' + paramMode;
-
+        const apiUrl = `${this.apiUrl}mode&mode=${paramMode}`;
+        const adapter = this;
         this.log.debug('API call ' + apiUrl + ' started');
-
-        this.request.get({ url: apiUrl }, function (err, response, body) {
-            try {
-                const data = this.parseResponse(err, response, body);
-
-                if (data.successful === true) {
-                    this.setState('status.mode', { val: mode, ack: true });
-
-                    this.log.info('Mode set to ' + paramMode);
-                } else {
-                    if (data.error_message && data.error_message !== '') {
-                        throw new Error(data.error_message);
+        axios.get(apiUrl)
+            .then((response) => {
+                try {
+                    if (response.data.successful === true) {
+                        adapter.setState('status.mode', { val: mode, ack: true });
+                        adapter.log.info('Mode set to ' + paramMode);
                     } else {
-                        throw new Error('Something went wrong');
+                        this.doErrorHandling(response.data);
                     }
                 }
-            }
-            catch (errorMessage) {
-                this.log.error(errorMessage);
-            }
-
-            this.log.debug('API call ' + apiUrl + ' done');
-        }.bind(this));
-    }
-
-    /**
-     * Parse response
-     * @param {*} err 
-     * @param {*} response 
-     * @param {*} body 
-     */
-    parseResponse(err, response, body) {
-        if (!err) {
-            if (response && response.statusCode === 200) {
-                if (body !== '') {
-                    try {
-                        const data = JSON.parse(body);
-
-                        // Handle non-exception-throwing cases:
-                        // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
-                        // but... JSON.parse(null) returns null, and typeof null === 'object', 
-                        // so we must check for that, too. Thankfully, null is falsey, so this suffices:
-                        if (data && typeof data === 'object') {
-                            return data;
-                        }
-                    }
-                    catch (e) {
-                        throw new Error('JSON not valid');
-                    }
-                } else {
-                    throw new Error('Empty body');
+                catch (errorMessage) {
+                    this.doErrorHandling(errorMessage);
                 }
-            } else {
-                throw new Error('Bad response: ' + JSON.stringify(response));
-            }
-        } else {
-            throw new Error(err);
-        }
+            } )
+            .catch( (err) => {
+                this.doErrorHandling(err);
+            });
     }
+
 
     /**
      * Check if current time is in a rest period
@@ -527,9 +842,9 @@ class Robonect extends utils.Adapter {
 
     /**
      * Check if time is between two others
-     * @param {*} testTime 
-     * @param {*} startTime 
-     * @param {*} endTime 
+     * @param {*} testTime
+     * @param {*} startTime
+     * @param {*} endTime
      */
     isBetweenTimes(testTime, startTime, endTime) {
         const [testHour, testMinute] = testTime.split(':');
@@ -555,7 +870,7 @@ class Robonect extends utils.Adapter {
 
     /**
      * Check for valid time format
-     * @param {*} time 
+     * @param {*} time
      */
     isValidTimeFormat(time) {
         const timeReg = /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/;
@@ -564,8 +879,8 @@ class Robonect extends utils.Adapter {
 
     /**
      * Update objects
-     * @param {*} objects 
-     * @param {*} data 
+     * @param {*} objects
+     * @param {*} data
      */
     updateObjects(objects, data) {
         for (const item in objects) {
@@ -576,11 +891,11 @@ class Robonect extends utils.Adapter {
                 rule = { 'var': [itemValue] };
             }
 
-            const val = jsonLogic.apply(
+            let val = jsonLogic.apply(
                 rule,
                 data
             );
-
+            if (objects[item].common.type === 'number') val=Number.parseFloat(val);
             this.setState(item, { val: val, ack: true });
         }
     }
@@ -590,10 +905,11 @@ class Robonect extends utils.Adapter {
 if (module.parent) {
     // Export the constructor in compact mode
     /**
-	 * @param {Partial<ioBroker.AdapterOptions>} [options={}]
-	 */
+     * @param {Partial<ioBroker.AdapterOptions>} [options={}]
+     */
     module.exports = (options) => new Robonect(options);
 } else {
     // otherwise start the instance directly
     new Robonect();
 }
+
