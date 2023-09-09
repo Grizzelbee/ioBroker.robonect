@@ -1,334 +1,417 @@
 {
-    "common": {
-        "name": "robonect",
-        "title": "Robonect",
-        "version": "1.0.0",
-        "news": {
-            "1.0.0": {
-                "en": "First release from Andreas",
-                "de": "Erste Veröffentlichung von Andreas",
-                "ru": "Первый релиз от Andreas",
-                "pt": "Primeiro lançamento de Andreas",
-                "nl": "Eerste vrijlating van Andreas",
-                "fr": "Première sortie d'Andreas",
-                "it": "Prima uscita da Andreas",
-                "es": "Primer lanzamiento de Andreas",
-                "pl": "Pierwsze wydanie",
-                "uk": "Перший реліз від Andreas",
-                "zh-cn": "安德烈斯先获释"
-            },
-            "0.1.4": {
-                "en": "Changed polling log level from info to debug\r\nimplemented polling of garage door status",
-                "de": "Die Abfrageprotokollstufe wurde von \"Info\" auf \"Debug\" geändert\r\nAbfrage des Garagentorstatus implementiert",
-                "ru": "Изменен уровень журнала опроса с информации на отладку\r\nреализован опрос статуса ворот гаража",
-                "pt": "Nível de registro de pesquisa alterado de informações para depuração\r\nimplementou a sondagem do status da porta da garagem",
-                "nl": "Veranderd polling-log-niveau van info naar debug\r\ngeïmplementeerd polling van garagedeurstatus",
-                "fr": "Changement du niveau du journal d'interrogation des informations au débogage\r\nimplémentation de l'interrogation de l'état de la porte de garage",
-                "it": "Cambiato il livello di log del polling da info a debug\r\nimplementato il polling dello stato della porta del garage",
-                "es": "Se modificó el nivel de registro de sondeo de información a depuración\r\nencuesta implementada del estado de la puerta del garaje",
-                "pl": "Zmieniono poziom dziennika sondowania z informacji na debugowanie\r\nwdrożono odpytywanie stanu bramy garażowej",
-                "zh-cn": "将轮询日志级别从信息更改为调试\r\n实施了车库门状态的轮询"
-            },
-            "0.1.3": {
-                "en": "implemented JsonLogic & refactoring",
-                "de": "JsonLogic implementiert & Refactoring",
-                "ru": "реализовал JsonLogic и рефакторинг",
-                "pt": "JsonLogic implementado e refatoração",
-                "nl": "JsonLogic & refactoring geïmplementeerd",
-                "fr": "implémenté JsonLogic et refactoring",
-                "it": "implementato JsonLogic e refactoring",
-                "es": "implementado JsonLogic y refactorización",
-                "pl": "zaimplementowano JsonLogic i refaktoryzację",
-                "zh-cn": "实现的JsonLogic和重构"
-            },
-            "0.1.2": {
-                "en": "fixed GPS",
-                "de": "festes GPS",
-                "ru": "фиксированный GPS",
-                "pt": "GPS fixo",
-                "nl": "vaste GPS",
-                "fr": "GPS fixe",
-                "it": "GPS fisso",
-                "es": "GPS fijo",
-                "pl": "naprawiony GPS",
-                "zh-cn": "固定GPS"
-            },
-            "0.1.1": {
-                "en": "fixed typo",
-                "de": "Tippfehler behoben",
-                "ru": "исправлена опечатка",
-                "pt": "erro de digitação fixo",
-                "nl": "vaste typefout",
-                "fr": "faute de frappe fixe",
-                "it": "errore di battitura fisso",
-                "es": "error tipográfico fijo",
-                "pl": "poprawiona literówka",
-                "zh-cn": "固定错字"
-            },
-            "0.1.0": {
-                "en": "implemented rest periods",
-                "de": "Ruhezeiten implementiert",
-                "ru": "реализованные периоды отдыха",
-                "pt": "períodos de descanso implementados",
-                "nl": "geïmplementeerde rusttijden",
-                "fr": "périodes de repos mises en œuvre",
-                "it": "periodi di riposo implementati",
-                "es": "períodos de descanso implementados",
-                "pl": "wprowadzone okresy odpoczynku",
-                "zh-cn": "已实施的休息时间"
-            },
-            "0.0.12": {
-                "en": "improved polling",
-                "de": "Abfragen verbessert",
-                "ru": "улучшенный опрос",
-                "pt": "polling aprimorado",
-                "nl": "verbeterde polling",
-                "fr": "sondage amélioré",
-                "it": "polling migliorato",
-                "es": "sondeo mejorado",
-                "pl": "poprawione odpytywanie",
-                "zh-cn": "改进的轮询"
-            },
-            "0.0.11": {
-                "en": "implemented weather and GPS polls",
-                "de": "Wetter- und GPS-Abfragen implementiert",
-                "ru": "реализованы прогнозы погоды и GPS",
-                "pt": "implementadas pesquisas meteorológicas e GPS",
-                "nl": "geïmplementeerde weer- en GPS-polls",
-                "fr": "sondages météorologiques et GPS mis en œuvre",
-                "it": "implementato sondaggi meteo e GPS",
-                "es": "encuestas meteorológicas y GPS implementadas",
-                "pl": "zaimplementowane ankiety pogodowe i GPS",
-                "zh-cn": "实施天气和GPS民意测验"
-            },
-            "0.0.10": {
-                "en": "first stable version",
-                "de": "erste stabile Version",
-                "ru": "первая стабильная версия",
-                "pt": "primeira versão estável",
-                "nl": "eerste stabiele versie",
-                "fr": "première version stable",
-                "it": "prima versione stabile",
-                "es": "primera versión estable",
-                "pl": "pierwsza stabilna wersja",
-                "zh-cn": "第一个稳定版本"
-            },
-            "0.0.9": {
-                "en": "adapter improvements",
-                "de": "Adapter Verbesserungen",
-                "ru": "улучшения адаптера",
-                "pt": "melhorias no adaptador",
-                "nl": "adapter verbeteringen",
-                "fr": "améliorations de l'adaptateur",
-                "it": "miglioramenti dell'adattatore",
-                "es": "mejoras del adaptador",
-                "pl": "ulepszenia adaptera",
-                "zh-cn": "适配器改进"
-            },
-            "0.0.8": {
-                "en": "fixed some issues caused by different configurations",
-                "de": "Einige Probleme behoben, die durch unterschiedliche Konfigurationen verursacht wurden",
-                "ru": "исправлены некоторые проблемы, вызванные различными конфигурациями",
-                "pt": "corrigidos alguns problemas causados por diferentes configurações",
-                "nl": "enkele problemen opgelost veroorzaakt door verschillende configuraties",
-                "fr": "correction de certains problèmes causés par différentes configurations",
-                "it": "risolti alcuni problemi causati da diverse configurazioni",
-                "es": "solucionó algunos problemas causados por diferentes configuraciones",
-                "pl": "naprawiono niektóre problemy spowodowane przez różne konfiguracje",
-                "zh-cn": "修复了不同配置导致的一些问题"
-            },
-            "0.0.7": {
-                "en": "prepared adapter for latest repository",
-                "de": "Adapter vorbereitet für das latest Repository",
-                "ru": "подготовленный адаптер для репозитория",
-                "pt": "adaptador preparado para o repositório mais recente",
-                "nl": "voorbereide adapter voor de laatste repository",
-                "fr": "adaptateur préparé pour le dernier référentiel",
-                "it": "adattatore preparato per il repository più recente",
-                "es": "Adaptador preparado para el último repositorio",
-                "pl": "przygotowany adapter do najnowszego repozytorium",
-                "zh-cn": "为最新存储库准备的适配器"
-            },
-            "0.0.6": {
-                "en": "fixed minor issues",
-                "de": "kleinere Probleme behoben",
-                "ru": "исправлены мелкие проблемы",
-                "pt": "problemas menores corrigidos",
-                "nl": "kleine problemen opgelost",
-                "fr": "correction de problèmes mineurs",
-                "it": "risolti problemi minori",
-                "es": "problemas menores solucionados",
-                "pl": "naprawiono drobne problemy",
-                "zh-cn": "解决小问题"
-            },
-            "0.0.5": {
-                "en": "updated to work with Robonect HX version 1.1b",
-                "de": "aktualisiert für Robonect HX Version 1.1b",
-                "ru": "обновлен для работы с Robonect HX версии 1.1b",
-                "pt": "atualizado para funcionar com o Robonect HX versão 1.1b",
-                "nl": "bijgewerkt om te werken met Robonect HX versie 1.1b",
-                "fr": "mis à jour pour fonctionner avec Robonect HX version 1.1b",
-                "it": "aggiornato per funzionare con Robonect HX versione 1.1b",
-                "es": "actualizado para trabajar con Robonect HX versión 1.1b",
-                "pl": "zaktualizowano do pracy z Robonect HX wersja 1.1b",
-                "zh-cn": "更新为可与Robonect HX版本1.1b一起使用"
-            },
-            "0.0.4": {
-                "en": "updated to work with Robonect HX version 1.0 Beta5",
-                "de": "aktualisiert für Robonect HX Version 1.0 Beta5",
-                "ru": "обновлен для работы с Robonect HX версии 1.0 Beta5",
-                "pt": "atualizado para funcionar com o Robonect HX versão 1.0 Beta5",
-                "nl": "bijgewerkt om te werken met Robonect HX versie 1.0 Beta5",
-                "fr": "mis à jour pour fonctionner avec Robonect HX version 1.0 Beta5",
-                "it": "aggiornato per funzionare con Robonect HX versione 1.0 Beta5",
-                "es": "actualizado para trabajar con Robonect HX versión 1.0 Beta5",
-                "pl": "zaktualizowano do pracy z Robonect HX wersja 1.0 Beta5",
-                "zh-cn": "更新为可与Robonect HX版本1.0 Beta5一起使用"
-            },
-            "0.0.3": {
-                "en": "support of Admin3",
-                "de": "Unterstützung von Admin3",
-                "ru": "поддержка Admin3",
-                "pt": "suporte de Admin3",
-                "nl": "ondersteuning van Admin3",
-                "fr": "prise en charge d'Admin3",
-                "it": "supporto di Admin3",
-                "es": "soporte de Admin3",
-                "pl": "obsługa Admin3",
-                "zh-cn": "支持Admin3"
-            },
-            "0.0.2": {
-                "en": "updated to work with Robonect HX version 1.0 Beta2",
-                "de": "aktualisiert für Robonect HX Version 1.0 Beta2",
-                "ru": "обновлен для работы с Robonect HX версии 1.0 Beta2",
-                "pt": "atualizado para funcionar com o Robonect HX versão 1.0 Beta2",
-                "nl": "bijgewerkt om te werken met Robonect HX versie 1.0 Beta2",
-                "fr": "mis à jour pour fonctionner avec Robonect HX version 1.0 Beta2",
-                "it": "aggiornato per funzionare con Robonect HX versione 1.0 Beta2",
-                "es": "actualizado para trabajar con Robonect HX versión 1.0 Beta2",
-                "pl": "zaktualizowano do pracy z Robonect HX wersja 1.0 Beta2",
-                "zh-cn": "更新为可与Robonect HX版本1.0 Beta2"
-            },
-            "0.0.1": {
-                "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Первый выпуск",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "初始发行"
-            }
-        },
-        "desc": {
-            "en": "Robonect HX adapter",
-            "de": "Robonect HX Adapter",
-            "ru": "Адаптер Robonect HX",
-            "pt": "Adaptador Robonect HX",
-            "nl": "Robonect HX-adapter",
-            "fr": "Adaptateur Robonect HX",
-            "it": "Adattatore Robonect HX",
-            "es": "Adaptador Robonect HX",
-            "pl": "Adapter Robonect HX",
-            "zh-cn": "Robonect HX适配器"
-        },
-        "mode": "daemon",
-        "materialize": true,
-        "compact": true,
-        "platform": "Javascript/Node.js",
-        "loglevel": "info",
-        "icon": "robonect.png",
-        "enabled": false,
-        "extIcon": "https://raw.githubusercontent.com/braindead1/ioBroker.robonect/master/admin/robonect.png",
-        "keywords": [
-            "robonect",
-            "lawn mower"
-        ],
-        "localLink": "http://%robonectIp%",
-        "readme": "https://github.com/braindead1/ioBroker.robonect/blob/master/README.md",
-        "authors": [
-            "braindead1 <os.braindead1@gmail.com>",
-            "StefSign <hufnagl@hotmail.com>"
-        ],
-        "type": "garden",
-        "license": "MIT"
+  "common": {
+    "name": "robonect",
+    "version": "1.1.5",
+    "news": {
+      "1.1.5": {
+        "en": "Command-URL was invalid when Robonect UI wasn't protected by username and password\nminor code refactoring",
+        "de": "Die Befehls-URL war ungültig, wenn die Robonect-Benutzeroberfläche nicht durch Benutzername und Passwort geschützt war\nGeringfügige Code-Umgestaltung",
+        "ru": "URL-адрес команды недействителен, когда пользовательский интерфейс Robonect не был защищен именем пользователя и паролем\nнезначительный рефакторинг кода",
+        "pt": "O URL do comando era inválido quando a UI do Robonect não estava protegida por nome de usuário e senha\nrefatoração de código secundária",
+        "nl": "Command-URL was ongeldig toen de gebruikersinterface van Robonect niet werd beschermd door gebruikersnaam en wachtwoord\nrefactoring van kleine codes",
+        "fr": "L'URL de commande n'était pas valide lorsque l'interface utilisateur de Robonect n'était pas protégée par le nom d'utilisateur et le mot de passe \n refactorisation mineure du code",
+        "it": "L'URL del comando non era valido quando l'interfaccia utente di Robonect non era protetta dal refactoring del codice minore di nome utente e password",
+        "es": "La URL de comando no era válida cuando la interfaz de usuario de Robonect no estaba protegida por nombre de usuario y contraseña\nrefactorización de código menor",
+        "pl": "Adres URL polecenia był nieprawidłowy, gdy interfejs użytkownika Robonect nie był chroniony nazwą użytkownika i hasłem\nrefaktoryzacja drobnego kodu",
+        "uk": "URL-адреса команди була недійсною, коли інтерфейс користувача Robonect не був захищений іменем користувача та паролем\nнезначним рефакторингом коду",
+        "zh-cn": "当 Robonect UI 不受用户名和密码保护时，Command-URL 无效\n次要代码重构"
+      },
+      "1.1.4": {
+        "en": "Fix: Attempting to fix the error: Cannot read properties of null (reading 'val')",
+        "de": "Fix: Versuch, den Fehler zu beheben: Eigenschaften von Null können nicht gelesen werden (es wird „val“ gelesen)",
+        "ru": "Исправлено: попытка исправить ошибку: невозможно прочитать свойства со значением null (чтение «val»).",
+        "pt": "Correção: Tentativa de corrigir o erro: Não é possível ler propriedades de nulo (lendo 'val')",
+        "nl": "Oplossing: poging om de fout op te lossen: kan eigenschappen van null niet lezen (leest 'val')",
+        "fr": "Correctif : tentative de correction de l'erreur : impossible de lire les propriétés de null (lecture de 'val')",
+        "it": "Correzione: tentativo di correggere l'errore: impossibile leggere le proprietà di null (lettura 'val')",
+        "es": "Solución: intentando corregir el error: no se pueden leer las propiedades de nulo (leyendo 'val')",
+        "pl": "Poprawka: próba naprawienia błędu: nie można odczytać właściwości null (czytanie „val”)",
+        "uk": "Виправлення: спроба виправити помилку: неможливо прочитати властивості null (читання 'val')",
+        "zh-cn": "修复：尝试修复错误：无法读取 null 的属性（读取“val”）"
+      },
+      "1.1.3": {
+        "en": "New: Added release script for easier publishing to stable repo",
+        "de": "Neu: Release-Skript zur einfacheren Veröffentlichung im Stable Repo hinzugefügt",
+        "ru": "Новое: добавлен скрипт выпуска для упрощения публикации в стабильном репозитории.",
+        "pt": "Novo: Adicionado script de lançamento para publicação mais fácil em repositório estável",
+        "nl": "Nieuw: Releasescript toegevoegd voor eenvoudiger publiceren naar stabiele opslagplaats",
+        "fr": "Nouveau : ajout d'un script de publication pour une publication plus facile sur un dépôt stable",
+        "it": "Novità: aggiunto script di rilascio per una pubblicazione più semplice su repository stabili",
+        "es": "Nuevo: Se agregó un script de lanzamiento para facilitar la publicación en el repositorio estable.",
+        "pl": "Nowość: Dodano skrypt wydania dla łatwiejszego publikowania w stabilnym repozytorium",
+        "uk": "Нове: додано сценарій випуску для легшої публікації в стабільному репо",
+        "zh-cn": "新增内容：添加了发布脚本，以便更轻松地发布到稳定的存储库"
+      },
+      "1.1.1": {
+        "en": "Fix: Fixed status.stopped for push messages.",
+        "de": "Fix: Status.stopped für Push-Nachrichten behoben.",
+        "ru": "Исправлено: исправлен статус status.stopped для push-сообщений.",
+        "pt": "Correção: Corrigido status.stopped para mensagens push.",
+        "nl": "Fix: Vaste status. Gestopt voor push-berichten.",
+        "fr": "Correctif : Correction du statut arrêté pour les messages push.",
+        "it": "Correzione: corretto status.stopped per i messaggi push.",
+        "es": "Solución: estado fijo. Detenido para mensajes push.",
+        "pl": "Poprawka: Naprawiono status zatrzymany dla wiadomości push.",
+        "uk": "Виправлення: виправлено status.stopped для push-повідомлень.",
+        "zh-cn": "修复：修复推送消息的 status.stopped。"
+      },
+      "1.1.0": {
+        "en": "Fix: Showing values for battery with fractions (again)\nNew: Added START button\nNew: Added STOP button\nNew: Added SERVICE button to reboot, shutdown or sleep Robonect module\nNew: Push states and interval can be set\nNew: Nickname of the mower can be set\nNew: Timers of the mower can be set ",
+        "de": "Behoben: Werte für Batterie werden (wieder) mit Brüchen angezeigt\nNeu: START-Taste hinzugefügt\nNeu: STOP-Taste hinzugefügt\nNeu: SERVICE-Taste hinzugefügt, um das Robonect-Modul neu zu starten, herunterzufahren oder in den Ruhezustand zu versetzen\nNeu: Push-Zustände und Intervall können eingestellt werden\nNeu: Spitzname des Mähers kann eingestellt werden\nNeu: Timer des Mähers können eingestellt werden",
+        "ru": "Исправлено: Отображение значений батареи с дробями (снова) \n Новое: добавлена ​​кнопка START \n Новое: добавлена ​​кнопка STOP \n Новое: добавлена ​​кнопка SERVICE для перезагрузки, выключения или перехода в спящий режим модуля Robonect \n Новое: можно установить состояния и интервал нажатия \n Новое: Можно установить имя косилки. \nНовое: можно установить таймеры косилки.",
+        "pt": "Correção: Mostrando valores para bateria com frações (novamente)\nNovo: Adicionado botão START\nNovo: Adicionado botão STOP\nNovo: Adicionado botão SERVICE para reiniciar, desligar ou suspender o módulo Robonect\nNovo: Estados de push e intervalo podem ser definidos\nNovo: O apelido do cortador pode ser definido\nNovo: Os temporizadores do cortador podem ser definidos",
+        "nl": "Fix: waarden voor batterij met breuken (opnieuw) tonen\nNieuw: START-knop toegevoegd\nNieuw: STOP-knop toegevoegd\nNieuw: SERVICE-knop toegevoegd om de Robonect-module opnieuw op te starten, uit te schakelen of te slapen\nNieuw: Push-statussen en interval kunnen worden ingesteld\nNieuw: Bijnaam van de maaier kan worden ingesteld\nNieuw: Timers van de maaier kunnen worden ingesteld",
+        "fr": "Correction : affichage des valeurs de la batterie avec des fractions (à nouveau)\nNouveau : bouton START ajouté\nNouveau : bouton STOP ajouté\nNouveau : bouton SERVICE ajouté pour redémarrer, arrêter ou mettre en veille le module Robonect\nNouveau : les états de poussée et l'intervalle peuvent être définis\nNouveau : Le surnom de la tondeuse peut être défini\nNouveau : les minuteries de la tondeuse peuvent être définies",
+        "it": "Correzione: visualizzazione dei valori per la batteria con frazioni (di nuovo)\nNuovo: aggiunto pulsante START\nNuovo: aggiunto pulsante STOP\nNuovo: aggiunto pulsante SERVICE per riavviare, spegnere o sospendere il modulo Robonect\nNuovo: è possibile impostare gli stati di push e l'intervallo\nNuovo: È possibile impostare il soprannome del tagliaerba\nNuovo: è possibile impostare i timer del tagliaerba",
+        "es": "Corrección: Mostrar valores para la batería con fracciones (nuevamente)\nNuevo: Botón INICIO agregado\nNuevo: Botón DETENER agregado\nNuevo: Botón SERVICIO agregado para reiniciar, apagar o suspender el módulo Robonect\nNuevo: Se pueden configurar estados de pulsación e intervalos\nNuevo: Se puede configurar el apodo del cortacésped \n Nuevo: se pueden configurar los temporizadores del cortacésped",
+        "pl": "Poprawka: Wyświetlanie wartości baterii z ułamkami (ponownie) \n Nowość: Dodano przycisk START \n Nowość: Dodano przycisk STOP \n Nowość: Dodano przycisk SERVICE do ponownego uruchomienia, wyłączenia lub uśpienia modułu Robonect \n Nowość: Można ustawić stany push i interwał \n Nowość: Możliwość ustawienia pseudonimu kosiarki\nNowość: Możliwość ustawienia timerów kosiarki",
+        "uk": "Виправлення: відображення значень для батареї з частками (знову)\nНове: додано кнопку СТАРТ\nНове: додано кнопку СТОП\nНове: додано кнопку СЕРВІС для перезавантаження, вимкнення або переходу в режим сну Robonect\nНове: стани натискання та інтервал можна встановити\nНове: Можна встановити псевдонім косарки\nНове: можна встановити таймери косарки",
+        "zh-cn": "修复：再次显示带分数的电池值\n新功能：添加了“开始”按钮\n新功能：添加了“停止”按钮\n新功能：添加了用于重新启动、关闭或睡眠 Robonect 模块的“服务”按钮\n新功能：可以设置推送状态和间隔\n新功能：可设置割草机的昵称\n新增：可设置割草机的定时器"
+      },
+      "1.0.5": {
+        "en": "Added new state #18 - Garage door is opening\nStatus.stopped gets correctly updated",
+        "de": "Neuer Status Nr. 18 hinzugefügt – Garagentor öffnet sich\nStatus.stopped wird korrekt aktualisiert",
+        "ru": "Добавлено новое состояние № 18 — Дверь гаража открывается \n Статус.остановлено корректно обновляется.",
+        "pt": "Adicionado novo estado #18 - A porta da garagem está abrindo\nStatus.stopped é atualizado corretamente",
+        "nl": "Nieuwe status #18 toegevoegd - Garagedeur gaat open\nStatus.stopped wordt correct bijgewerkt",
+        "fr": "Ajout d'un nouvel état #18 - La porte de garage s'ouvre\nStatus.stopped est correctement mis à jour",
+        "it": "Aggiunto il nuovo stato n. 18 - La porta del garage si sta aprendo\nStatus.stopped viene aggiornato correttamente",
+        "es": "Se agregó un nuevo estado #18: La puerta del garaje se está abriendo\nEl estado.detenido se actualiza correctamente",
+        "pl": "Dodano nowy stan nr 18 – Brama garażowa się otwiera.\nStatus.stopped zostaje poprawnie zaktualizowany",
+        "uk": "Додано новий стан №18 - Двері гаража відчиняються\nStatus.stopped правильно оновлюється",
+        "zh-cn": "添加了新状态 #18 - 车库门正在打开\nStatus.stopped 得到正确更新"
+      },
+      "1.0.4": {
+        "en": "Improved error handling",
+        "de": "Verbesserte Fehlerbehandlung",
+        "ru": "Улучшена обработка ошибок",
+        "pt": "Tratamento de erros aprimorado",
+        "nl": "Verbeterde foutafhandeling",
+        "fr": "Amélioration de la gestion des erreurs",
+        "it": "Gestione degli errori migliorata",
+        "es": "Manejo de errores mejorado",
+        "pl": "Ulepszona obsługa błędów",
+        "uk": "Покращена обробка помилок",
+        "zh-cn": "改进了错误处理"
+      },
+      "1.0.3": {
+        "en": "Improved error handling\nRenamed jsonConfig.json5 to jsonConfig.json to get better compatibility\nSome bug fixes",
+        "de": "Verbesserte Fehlerbehandlung\nJsonConfig.json5 in jsonConfig.json umbenannt, um eine bessere Kompatibilität zu erreichen\nEinige Fehlerbehebungen",
+        "ru": "Улучшена обработка ошибок \n Переименован jsonConfig.json5 в jsonConfig.json для лучшей совместимости \n Некоторые исправления ошибок",
+        "pt": "Tratamento de erros aprimorado\nJsonConfig.json5 renomeado para jsonConfig.json para obter melhor compatibilidade\nAlgumas correções de bugs",
+        "nl": "Verbeterde foutafhandeling \n Hernoemd jsonConfig.json5 naar jsonConfig.json voor betere compatibiliteit \n Enkele bugfixes",
+        "fr": "Amélioration de la gestion des erreurs \n JsonConfig.json5 renommé en jsonConfig.json pour une meilleure compatibilité \n Quelques corrections de bogues",
+        "it": "Gestione degli errori migliorata\n Rinominato jsonConfig.json5 in jsonConfig.json per ottenere una migliore compatibilità\n Alcune correzioni di bug",
+        "es": "Manejo de errores mejorado\n Cambió el nombre de jsonConfig.json5 a jsonConfig.json para obtener una mejor compatibilidad\n Algunas correcciones de errores",
+        "pl": "Ulepszona obsługa błędów \n Zmieniono nazwę jsonConfig.json5 na jsonConfig.json, aby uzyskać lepszą kompatybilność \n Niektóre poprawki błędów",
+        "uk": "Покращена обробка помилок\nПерейменовано jsonConfig.json5 на jsonConfig.json для кращої сумісності\nДеякі виправлення помилок",
+        "zh-cn": "改进了错误处理\n将 jsonConfig.json5 重命名为 jsonConfig.json 以获得更好的兼容性\n修复了一些错误"
+      },
+      "1.0.2": {
+        "en": "Updated package.json to deliver jsonConfig.json5",
+        "de": "package.json aktualisiert, um jsonConfig.json5 bereitzustellen",
+        "ru": "Обновлен package.json для доставки jsonConfig.json5.",
+        "pt": "Package.json atualizado para entregar jsonConfig.json5",
+        "nl": "Bijgewerkt package.json om jsonConfig.json5 te leveren",
+        "fr": "Mise à jour de package.json pour fournir jsonConfig.json5",
+        "it": "Package.json aggiornato per fornire jsonConfig.json5",
+        "es": "Package.json actualizado para entregar jsonConfig.json5",
+        "pl": "Zaktualizowano plik package.json, aby dostarczał jsonConfig.json5",
+        "uk": "Оновлено package.json для доставки jsonConfig.json5",
+        "zh-cn": "更新了 package.json 以提供 jsonConfig.json5"
+      },
+      "1.0.1": {
+        "en": "Documentation got updated",
+        "de": "Die Dokumentation wurde aktualisiert",
+        "ru": "Документация обновлена",
+        "pt": "A documentação foi atualizada",
+        "nl": "Documentatie is bijgewerkt",
+        "fr": "La documentation a été mise à jour",
+        "it": "La documentazione è stata aggiornata",
+        "es": "La documentación se actualizó",
+        "pl": "Dokumentacja została zaktualizowana",
+        "uk": "Документацію оновлено",
+        "zh-cn": "文档已更新"
+      },
+      "1.0.0": {
+        "en": "\n Dependencies got updated\n Some fixes to make adapter-checker happy\n Updated git workflows\n Dropped requestJS since it's deprecated\n Replaced requestJS by axios for http requests\n Added Webserver for Push-Service API\n Added adapter-dev support\n Added snyk plugin\n Swapped Admin UI to V5",
+        "de": "Abhängigkeiten wurden aktualisiert\n Einige Korrekturen, um den Adapter-Checker glücklich zu machen\n Aktualisierte Git-Workflows\n requestJS wurde gelöscht, da es veraltet ist\n requestJS durch axios für http-Anfragen ersetzt\n Webserver für Push-Service-API hinzugefügt\n Adapter-Dev-Unterstützung hinzugefügt\n Snyk-Plugin hinzugefügt\n Admin-Benutzeroberfläche auf V5 umgestellt",
+        "ru": "Зависимости обновлены\n Некоторые исправления, чтобы сделать программу проверки адаптера счастливой\n Обновлены рабочие процессы git.\n Удален requestJS, так как он устарел\n Заменен requestJS на axios для http-запросов.\n Добавлен веб-сервер для Push-Service API\n Добавлена ​​поддержка адаптера-разработчика\n Добавлен сник-плагин\n Пользовательский интерфейс администратора заменен на V5.",
+        "pt": "As dependências foram atualizadas\n Algumas correções para deixar o verificador de adaptadores feliz\n Fluxos de trabalho git atualizados\n RequestJS descartado, pois está obsoleto\n Substituído requestJS por axios para solicitações http\n Servidor da Web adicionado para API de serviço push\n Adicionado suporte adaptador-dev\n Plugin snyk adicionado\n UI de administrador trocada para V5",
+        "nl": "Afhankelijkheden zijn bijgewerkt\n Enkele oplossingen om adapter-checker blij te maken\n Bijgewerkte git-workflows\n RequestJS verwijderd omdat het verouderd is\n RequestJS vervangen door axios voor http-verzoeken\n Toegevoegd Webserver voor Push-Service API\n Ondersteuning voor adapter-dev toegevoegd\n Snyk-plug-in toegevoegd\n Beheerdersinterface omgewisseld naar V5",
+        "fr": "Les dépendances ont été mises à jour\n Quelques correctifs pour rendre le vérificateur d'adaptateur heureux\n Flux de travail git mis à jour\n Abandon de requestJS car il est obsolète\n Remplacement de requestJS par axios pour les requêtes http\n Serveur Web ajouté pour l'API Push-Service\n Ajout de la prise en charge de l'adaptateur-dev\n Plugin snyk ajouté\n Passage de l'interface utilisateur d'administration à la V5",
+        "it": "Le dipendenze sono state aggiornate\n Alcune correzioni per rendere felice il controllore dell'adattatore\n Flussi di lavoro git aggiornati\n Dropped requestJS poiché è deprecato\n Sostituito requestJS con axios per le richieste http\n Aggiunto server Web per l'API Push-Service\n Aggiunto supporto adattatore-sviluppo\n Aggiunto plugin snyk\n Interfaccia utente di amministrazione sostituita con V5",
+        "es": "Las dependencias se actualizaron\n Algunas correcciones para hacer feliz al verificador de adaptadores\n Flujos de trabajo de git actualizados\n Se eliminó requestJS porque está en desuso\n Se reemplazó requestJS por axios para solicitudes http\n Servidor web agregado para API de servicio de inserción\n Se agregó compatibilidad con adaptador-dev\n Complemento snyk agregado\n Interfaz de usuario de administrador intercambiada a V5",
+        "pl": "Zależności zostały zaktualizowane\n Kilka poprawek, aby uszczęśliwić adapter-checker\n Zaktualizowano przepływy pracy git\n Usunięto requestJS, ponieważ jest przestarzały\n Zastąpiono requestJS przez axios dla żądań http\n Dodano serwer WWW dla interfejsu API Push-Service\n Dodano obsługę adapter-dev\n Dodano wtyczkę snyk\n Zmieniono interfejs administratora na V5",
+        "zh-cn": "依赖项已更新\n 一些使适配器检查器满意的修复\n 更新了 git 工作流程\n 删除了 requestJS，因为它已被弃用\n 将 http 请求的 requestJS 替换为 axios\n 添加了用于推送服务 API 的 Web 服务器\n 添加了适配器开发支持\n 添加了 snyk 插件\n 将管理 UI 切换至 V5",
+        "uk": "Залежності оновлено\n Деякі виправлення для задоволення перевірки адаптера\n Оновлені робочі процеси git\n Вилучено requestJS, оскільки він застарів\n Замінено requestJS на axios для http-запитів\n Додано веб-сервер для Push-Service API\n Додана підтримка adapter-dev\n Додано плагін snyk\n Інтерфейс адміністратора замінено на V5"
+      },
+      "0.1.4": {
+        "en": "Changed polling log level from info to debug\r\nimplemented polling of garage door status",
+        "de": "Die Abfrageprotokollstufe wurde von \"Info\" auf \"Debug\" geändert\r\nAbfrage des Garagentorstatus implementiert",
+        "ru": "Изменен уровень журнала опроса с информации на отладку\r\nреализован опрос статуса ворот гаража",
+        "pt": "Nível de registro de pesquisa alterado de informações para depuração\r\nimplementou a sondagem do status da porta da garagem",
+        "nl": "Veranderd polling-log-niveau van info naar debug\r\ngeïmplementeerd polling van garagedeurstatus",
+        "fr": "Changement du niveau du journal d'interrogation des informations au débogage\r\nimplémentation de l'interrogation de l'état de la porte de garage",
+        "it": "Cambiato il livello di log del polling da info a debug\r\nimplementato il polling dello stato della porta del garage",
+        "es": "Se modificó el nivel de registro de sondeo de información a depuración\r\nencuesta implementada del estado de la puerta del garaje",
+        "pl": "Zmieniono poziom dziennika sondowania z informacji na debugowanie\r\nwdrożono odpytywanie stanu bramy garażowej",
+        "uk": "Рівень журналу опитування змінено з інформації на налагодження\r\nреалізовано опитування стану гаражних воріт",
+        "zh-cn": "将轮询日志级别从信息更改为调试\r\n实施了车库门状态的轮询"
+      },
+      "0.1.3": {
+        "en": "implemented JsonLogic & refactoring",
+        "de": "JsonLogic implementiert & Refactoring",
+        "ru": "реализовал JsonLogic и рефакторинг",
+        "pt": "JsonLogic implementado e refatoração",
+        "nl": "JsonLogic & refactoring geïmplementeerd",
+        "fr": "implémenté JsonLogic et refactoring",
+        "it": "implementato JsonLogic e refactoring",
+        "es": "implementado JsonLogic y refactorización",
+        "pl": "zaimplementowano JsonLogic i refaktoryzację",
+        "uk": "реалізовано JsonLogic і рефакторинг",
+        "zh-cn": "实现的JsonLogic和重构"
+      },
+      "0.1.2": {
+        "en": "fixed GPS",
+        "de": "festes GPS",
+        "ru": "фиксированный GPS",
+        "pt": "GPS fixo",
+        "nl": "vaste GPS",
+        "fr": "GPS fixe",
+        "it": "GPS fisso",
+        "es": "GPS fijo",
+        "pl": "naprawiony GPS",
+        "uk": "фіксований GPS",
+        "zh-cn": "固定GPS"
+      },
+      "0.1.1": {
+        "en": "fixed typo",
+        "de": "Tippfehler behoben",
+        "ru": "исправлена опечатка",
+        "pt": "erro de digitação fixo",
+        "nl": "vaste typefout",
+        "fr": "faute de frappe fixe",
+        "it": "errore di battitura fisso",
+        "es": "error tipográfico fijo",
+        "pl": "poprawiona literówka",
+        "zh-cn": "固定错字",
+        "uk": "виправлена ​​опечатка"
+      },
+      "0.1.0": {
+        "en": "implemented rest periods",
+        "de": "Ruhezeiten implementiert",
+        "ru": "реализованные периоды отдыха",
+        "pt": "períodos de descanso implementados",
+        "nl": "geïmplementeerde rusttijden",
+        "fr": "périodes de repos mises en œuvre",
+        "it": "periodi di riposo implementati",
+        "es": "períodos de descanso implementados",
+        "pl": "wprowadzone okresy odpoczynku",
+        "uk": "реалізовані періоди відпочинку",
+        "zh-cn": "已实施的休息时间"
+      }
     },
-    "native": {
-        "statusInterval": 60,
-        "infoInterval": 900,
-        "restPeriod1Start": "",
-        "restPeriod1End": "",
-        "restPeriod2Start": "",
-        "restPeriod2End": "",
-        "batteryPollType": "Info",
-        "doorPollType": "Info",
-        "errorsPollType": "Info",
-        "extensionPollType": "Info",
-        "gpsPollType": "Info",
-        "hoursPollType": "Info",
-        "motorPollType": "Info",
-        "portalPollType": "Info",
-        "pushPollType": "Info",
-        "timerPollType": "Info",
-        "versionPollType": "Info",
-        "weatherPollType": "Info",
-        "wlanPollType": "Info"
+    "titleLang": {
+      "en": "Robonect HX",
+      "de": "Robonect HX",
+      "ru": "Робонект HX",
+      "pt": "Robonect HX",
+      "nl": "Robonect HX",
+      "fr": "Robonect HX",
+      "it": "Robonect HX",
+      "es": "Robonect HX",
+      "pl": "Robonect HX",
+      "uk": "Robonect HX",
+      "zh-cn": "Robonect HX"
     },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "Connected to lawn mower",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
+    "desc": {
+      "en": "Robonect HX for lawn mower robots from Husquarna, Flymo, McCulloch and Gardena",
+      "de": "Robonect HX für Rasenmäherroboter von Husquarna, Flymo, McCulloch und Gardena",
+      "ru": "Robonect HX для роботов-газонокосилок от Husquarna, Flymo, McCulloch и Gardena",
+      "pt": "Robonect HX para robôs cortadores de grama da Husquarna, Flymo, McCulloch e Gardena",
+      "nl": "Robonect HX voor grasmaaierrobots van Husquarna, Flymo, McCulloch en Gardena",
+      "fr": "Robonect HX pour les robots tondeuses Husquarna, Flymo, McCulloch et Gardena",
+      "it": "Robonect HX per robot tosaerba di Husquarna, Flymo, McCulloch e Gardena",
+      "es": "Robonect HX para robots cortacésped de Husquarna, Flymo, McCulloch y Gardena",
+      "pl": "Robonect HX do robotów koszących Husquarna, Flymo, McCulloch i Gardena",
+      "uk": "Robonect HX для роботів-газонокосарок Husquarna, Flymo, McCulloch і Gardena",
+      "zh-cn": "Robonect HX 适用于 Husquarna、Flymo、McCulloch 和 Gardena 割草机机器人"
+    },
+    "mode": "daemon",
+    "materialize": true,
+    "compact": true,
+    "platform": "Javascript/Node.js",
+    "loglevel": "info",
+    "connectionType": "local",
+    "dataSource": "push",
+    "icon": "robonect.png",
+    "enabled": false,
+    "extIcon": "https://raw.githubusercontent.com/Grizzelbee/ioBroker.robonect/master/admin/robonect.png",
+    "keywords": [
+      "robonect",
+      "lawn mower"
+    ],
+    "localLinks": {
+      "_default": "http://%robonectIp%"
+    },
+    "readme": "https://github.com/Grizzelbee/ioBroker.robonect/blob/master/README.md",
+    "authors": [
+      "grizzelbee <open.source@hingsen.de>",
+      "braindead1 <os.braindead1@gmail.com>",
+      "StefSign <hufnagl@hotmail.com>"
+    ],
+    "type": "garden",
+    "tier": 2,
+    "license": "MIT",
+    "adminUI": {
+      "config": "json"
+    },
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.13"
+      }
+    ],
+    "dependencies": [
+      {
+        "js-controller": ">=3.0.0"
+      }
+    ],
+    "plugins": {
+      "sentry": {
+        "dsn": "https://a0c2e8d5451b4c45240850edba5e25d1@o505019.ingest.sentry.io/4505709924253696"
+      }
+    },
+    "messages": [
+      {
+        "condition": {
+          "operand": "and",
+          "rules": [
+            "oldVersion<1.0.0",
+            "newVersion>=1.0.0"
+          ]
         },
-        {
-            "_id": "last_sync",
-            "type": "state",
-            "common": {
-                "name": "Last synchronization",
-                "type": "string",
-                "role": "state",
-                "read": true,
-                "write": false,
-                "desc": ""
-            },
-            "native": {}
+        "title": {
+          "en": "Instance requires new configuration after update",
+          "de": "Die Instanz erfordert nach dem Update eine neue Konfiguration",
+          "ru": "Экземпляр требует новой конфигурации после обновления",
+          "pt": "A instância requer uma nova configuração após a atualização",
+          "nl": "Instantie vereist nieuwe configuratie na update",
+          "fr": "L'instance nécessite une nouvelle configuration après la mise à jour",
+          "it": "L'istanza richiede una nuova configurazione dopo l'aggiornamento",
+          "es": "La instancia requiere una nueva configuración después de la actualización",
+          "pl": "Instancja wymaga nowej konfiguracji po aktualizacji",
+          "zh-cn": "实例更新后需要新配置",
+          "uk": "Після оновлення екземпляр потребує нової конфігурації"
         },
-        {
-            "_id": "online",
-            "type": "state",
-            "common": {
-                "name": "Mower is online",
-                "type": "boolean",
-                "role": "state",
-                "read": true,
-                "write": false,
-                "desc": ""
-            },
-            "native": {}
+        "text": {
+          "en": "After upgrading to Version 1.0.0 or later you need to reenter your password and check your configuration settings due to the change of the admin interface.",
+          "de": "Nach dem Upgrade auf Version 1.0.0 oder höher müssen Sie aufgrund der Änderung der Admin-Oberfläche Ihr Passwort erneut eingeben und Ihre Konfigurationseinstellungen überprüfen.",
+          "ru": "После обновления до версии 1.0.0 или более поздней вам необходимо повторно ввести пароль и проверить параметры конфигурации в связи с изменением интерфейса администратора.",
+          "pt": "Depois de atualizar para a versão 1.0.0 ou posterior, você precisa digitar novamente sua senha e verificar suas definições de configuração devido à alteração da interface de administração.",
+          "nl": "Na het upgraden naar versie 1.0.0 of later moet u uw wachtwoord opnieuw invoeren en uw configuratie-instellingen controleren vanwege de wijziging van de beheerdersinterface.",
+          "fr": "Après la mise à niveau vers la version 1.0.0 ou ultérieure, vous devez ressaisir votre mot de passe et vérifier vos paramètres de configuration en raison du changement de l'interface d'administration.",
+          "it": "Dopo l'aggiornamento alla versione 1.0.0 o successiva è necessario reinserire la password e controllare le impostazioni di configurazione a causa della modifica dell'interfaccia di amministrazione.",
+          "es": "Después de actualizar a la versión 1.0.0 o posterior, debe volver a ingresar su contraseña y verificar sus ajustes de configuración debido al cambio de la interfaz de administración.",
+          "pl": "Po aktualizacji do wersji 1.0.0 lub nowszej należy ponownie wprowadzić hasło i sprawdzić ustawienia konfiguracyjne ze względu na zmianę interfejsu administratora.",
+          "uk": "Після оновлення до версії 1.0.0 або новішої вам потрібно повторно ввести пароль і перевірити налаштування конфігурації через зміну інтерфейсу адміністратора.",
+          "zh-cn": "升级到版本1.0.0或更高版本后，由于管理界面的更改，您需要重新输入密码并检查您的配置设置。"
         },
-        {
-            "_id": "rest_time",
-            "type": "state",
-            "common": {
-                "name": "Current poll is in rest time",
-                "type": "boolean",
-                "role": "state",
-                "read": true,
-                "write": false,
-                "desc": ""
-            },
-            "native": {}
-        }
-    ]
+        "level": "warn",
+        "buttons": [
+          "agree",
+          "cancel"
+        ]
+      }
+    ],
+    "installedFrom": "Grizzelbee/ioBroker.robonect#b04e23669b99ef5c6977a91d1b8438689d321ea7"
+  },
+  "native": {
+    "username": "",
+    "password": "",
+    "robonectIp": "",
+    "pushService": false,
+    "pushServiceIp": "192.168.x.x",
+    "pushServicePort": 55443,
+    "statusInterval": 60,
+    "infoInterval": 900,
+    "restPeriod1Start": "",
+    "restPeriod1End": "",
+    "restPeriod2Start": "",
+    "restPeriod2End": "",
+    "batteryPollType": "Status",
+    "doorPollType": "NoPoll",
+    "errorsPollType": "Info",
+    "extensionPollType": "NoPoll",
+    "gpsPollType": "NoPoll",
+    "hoursPollType": "Info",
+    "motorPollType": "Info",
+    "portalPollType": "Info",
+    "pushPollType": "Info",
+    "timerPollType": "Info",
+    "versionPollType": "Info",
+    "weatherPollType": "NoPoll",
+    "wlanPollType": "Info"
+  },
+  "encryptedNative": [
+    "password"
+  ],
+  "protectedNative": [
+    "Password"
+  ],
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Connected to lawn mower",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "last_sync",
+      "type": "state",
+      "common": {
+        "name": "Last synchronization",
+        "type": "string",
+        "role": "state",
+        "read": true,
+        "write": false,
+        "desc": ""
+      },
+      "native": {}
+    },
+    {
+      "_id": "online",
+      "type": "state",
+      "common": {
+        "name": "Mower is online",
+        "type": "boolean",
+        "role": "state",
+        "read": true,
+        "write": false,
+        "desc": ""
+      },
+      "native": {}
+    },
+    {
+      "_id": "rest_time",
+      "type": "state",
+      "common": {
+        "name": "Current poll is in rest time",
+        "type": "boolean",
+        "role": "state",
+        "read": true,
+        "write": false,
+        "desc": ""
+      },
+      "native": {}
+    }
+  ]
 }

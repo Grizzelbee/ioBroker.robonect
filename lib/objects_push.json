@@ -19,19 +19,12 @@
             "type": "number",
             "role": "value",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": "",
             "unit": "sec"
         },
         "native": {},
-        "value": {
-            "/": [
-                {
-                    "var": "push.trigger.interval"
-                },
-                1000
-            ]
-        }
+        "value":  "push.trigger.interval"
     },
     "push.trigger.0.name": {
         "type": "state",
@@ -53,7 +46,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -66,7 +59,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -92,7 +85,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -105,7 +98,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -131,7 +124,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -144,7 +137,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -170,7 +163,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -183,7 +176,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -209,7 +202,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -222,7 +215,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -248,7 +241,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -261,7 +254,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -274,7 +267,7 @@
             "type": "string",
             "role": "text",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -287,7 +280,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -300,7 +293,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -326,7 +319,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -339,7 +332,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -365,7 +358,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -378,7 +371,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -404,7 +397,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},
@@ -417,7 +410,7 @@
             "type": "boolean",
             "role": "state",
             "read": true,
-            "write": false,
+            "write": true,
             "desc": ""
         },
         "native": {},

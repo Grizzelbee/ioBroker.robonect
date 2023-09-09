@@ -1,0 +1,58 @@
+{
+    "error.clear": {
+        "type": "state",
+        "common": {
+            "name": "Error Clear",
+            "type": "boolean",
+            "role": "state",
+            "read": true,
+            "write": true,
+            "desc": "",
+            "unit": ""
+        },
+        "native": {},
+        "value": "clear"
+    },
+    "error.reset": {
+        "type": "state",
+        "common": {
+            "name": "Error Reset",
+            "type": "boolean",
+            "role": "state",
+            "read": true,
+            "write": true,
+            "desc": "",
+            "unit": ""
+        },
+        "native": {},
+        "value": "reset"
+    },
+    "error.code": {
+        "type": "state",
+        "common": {
+            "name": "Error Code",
+            "type": "number",
+            "role": "state",
+            "read": true,
+            "write": true,
+            "desc": "",
+            "unit": ""
+        },
+        "native": {},
+        "value": "clear"
+    },
+    "error.message": {
+        "type": "state",
+        "common": {
+            "name": "Error Message",
+            "type": "string",
+            "role": "state",
+            "read": true,
+            "write": true,
+            "desc": "",
+            "unit": ""
+        },
+        "native": {},
+        "value": "no error"
+   }
+}
