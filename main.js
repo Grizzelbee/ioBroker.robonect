@@ -159,7 +159,7 @@ class Robonect extends utils.Adapter {
 
         // test whether to use robonect push service
         if (this.config.pushService){
-           this.initPushServiceServer();
+            this.initPushServiceServer();
         }
 
         // Start regular pollings
@@ -250,11 +250,7 @@ class Robonect extends utils.Adapter {
         if (typeof state == 'object' && !state.ack) {
             // The state was changed
             const trigger = id.split('.', 3).pop();
-             if (id === this.namespace + ".error.clear") {
-                this.updateErrorClearReset('clear=1', state.val);
-            } else if (id === this.namespace + ".error.reset") {
-                this.updateErrorClearReset('reset=1', state.val);
-            } else if (id === this.namespace + '.extension.gpio1.status') {
+            if (id === this.namespace + '.extension.gpio1.status') {
                 this.updateExtensionStatus('gpio1', state.val);
             } else if (id === this.namespace + '.extension.gpio2.status') {
                 this.updateExtensionStatus('gpio2', state.val);
@@ -399,27 +395,24 @@ class Robonect extends utils.Adapter {
     }
 
     async getValueAsync(id){
-        try {
-            this.log.debug(`getValueAsync for id: ${id}`);
+        return new Promise(async (resolve, reject) => {
+            this.log.silly(`getValueAsync for id: ${id}`);
             const state = await this.getStateAsync(id);
-            if (state && state.val){
+            if (state){
                 this.log.silly(`Returning value: ${state.val}`);
-                return state.val;
+                resolve (state.val);
             } else {
-                this.log.silly(`The ID: ${id} has no value. Please fix.`);
-
+                reject(`The ID: ${id} has no value. Please fix.`);
             }
-        } catch (error) {
-            this.log.error(`getValueAsync, unexpected error - ${error}`);
-        }
+        });
     }
 
     async testPushServiceConfig(){
         try {
             const url = await this.getValueAsync(`push.server_url`);
             if (this.config.pushService && (url !== `${this.config.pushServiceIp}:${this.config.pushServicePort}`)) {
-                this.log.warn(`Push Service is enabled in config, but misconfigured. Please update your Robonect configuration.`);
-                this.log.warn(`URL:${url}, IP:${this.config.pushServiceIp}, Port:${this.config.pushServicePort}`);
+                this.log.warn(`Push Service is enabled in config, but misconfigured. Please update your Robonect Push-Service configuration.`);
+                this.log.warn(`The configured URL is:${url} -> but should be:${this.config.pushServiceIp}:${this.config.pushServicePort}`);
             }
         }
         catch(err){
@@ -434,7 +427,6 @@ class Robonect extends utils.Adapter {
         const objects_battery = require('./lib/objects_battery.json');
         const objects_door = require('./lib/objects_door.json');
         const objects_error = require('./lib/objects_error.json');
-        const objects_remerr = require('./lib/objects_remerr.json');
         const objects_ext = require('./lib/objects_ext.json');
         const objects_gps = require('./lib/objects_gps.json');
         const objects_hour = require('./lib/objects_hour.json');
@@ -452,7 +444,6 @@ class Robonect extends utils.Adapter {
             ...objects_battery,
             ...objects_door,
             ...objects_error,
-            ...objects_remerr,
             ...objects_ext,
             ...objects_gps,
             ...objects_hour,
@@ -490,13 +481,6 @@ class Robonect extends utils.Adapter {
             if (isAlive) {
                 let doRegularPoll = false;
                 const isRestTime = this.isRestTime();
-
-                if (pollType === 'Initial') {
-                    this.setState('error.clear', { val: false, ack: true });
-                    this.setState('error.reset', { val: false, ack: true });
-                    this.setState('error.code', { val: 0, ack: true });
-                    this.setState('error.message', { val: 'no error', ack: true });
-                }
 
                 await this.setState('last_sync', {val: this.formatDate(new Date(), 'YYYY-MM-DD hh:mm:ss'), ack: true});
                 await this.setState('online', {val: isAlive, ack: true});
@@ -637,20 +621,9 @@ class Robonect extends utils.Adapter {
                         adapter.updateObjects(objects, response.data);
                         adapter.log.debug(`API call with command [${cmd}] - done!`);
                         resolve(response.data);
-                    } else {  // try again
-                        axios.get(adapter.apiUrl + cmd)
-                        .then( function (response){
-                            adapter.log.debug('Data returned from robonect device: '+JSON.stringify(response.data));
-                            if (response.data.successful === true) {
-                                const objects = require('./lib/objects_' + cmd + '.json');
-                                adapter.updateObjects(objects, response.data);
-                                adapter.log.debug(`API call with command [${cmd}] - done!`);
-                                resolve(response.data);
-                            } else {
-                                adapter.log.debug(`API call with command [${cmd}] - failed!`);
-                                reject(response.data);
-                            }
-                        })
+                    } else {
+                        adapter.log.debug(`API call with command [${cmd}] - failed!`);
+                        reject(response.data);
                     }
 
                 })
@@ -662,67 +635,6 @@ class Robonect extends utils.Adapter {
         });
     }
 
-    /**
-     * Update/Set errors
-     * @param {string} errclrrst
-    */
-    updateErrorClearReset(errclrrst, status) {
-         let paramStatus;
-        if (status === true) {
-            paramStatus = 1;
-        } else {
-            paramStatus = 0;
-        }
-        const apiUrl =`${this.apiUrl}error&${errclrrst}`;
-        const adapter = this;
-        this.log.debug('API call ' + apiUrl + ' started');
-
-        axios.get(apiUrl)
-           .then((response)=>{
-           try {
-              if (response.data.successful === true) {
-                 adapter.setState('error.clear', { val: false, ack: true });
-                 adapter.setState('error.reset', { val: false, ack: true });
-                 if (errclrrst === 'reset=1' && response.data.error_code === 13) {
-                    this.log.info('Try to reset status....');
-                    axios.get(`http://${this.username}:${this.password}@${this.robonectIp}/status?reset= `)
-                       .then((response)=>{
-                       try {
-                          if (response.data.successful === true) {
-                             adapter.setState('error.code', { val: 0, ack: true });
-                             adapter.setState('error.message', { val: 'no error', ack: true });
-                          } else {
-                             this.doErrorHandling(response.data);
-                          }
-                       }
-                       catch (errorMessage) {
-                       this.doErrorHandling(errorMessage);
-                       }
-                    })
-                    .catch((err)=>{
-                       adapter.log.error(`updateErrorClearReset(Reset): ${err}`);
-                    });
-                 }
-                 if (response.data['ext'][ext]['status'] === paramStatus) {
-                    adapter.log.info(ext + ' set to ' + status);
-                 } else {
-                    this.log.error(ext + ' could not be set to ' + status + '.');
-                 }
-              } else {
-                 this.doErrorHandling(response.data);
-              }
-           }
-           catch (errorMessage) {
-           this.doErrorHandling(errorMessage);
-           }
-        })
-        .catch((err)=>{
-           adapter.log.error(`updateErrorClearReset: ${err}`);
-        });
-        this.log.debug('API call ' + apiUrl + ' done');
-    }
-
-    /**
     /**
      * Update extension status
      * @param {string} ext
@@ -912,4 +824,3 @@ if (module.parent) {
     // otherwise start the instance directly
     new Robonect();
 }
-
