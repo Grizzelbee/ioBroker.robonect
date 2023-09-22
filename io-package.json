@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.1.5",
+        "version": "1.2.0",
         "news": {
+            "1.2.0": {
+                "en": "(mcm1957) Fix: Adapter requires NodeJs >= 16\n(crocri)  New: Introduced code to clear errors\n (grizzelbee) Fix: Fixed functions getValueAsync() and testPushServerConfig()",
+                "de": "(mcm1957) Fix: Adapter erfordert NodeJs >= 16\n(crocri) Neu: Code zum Löschen von Fehlern eingeführt\n (grizzelbee) Fix: Funktionen getValueAsync() und testPushServerConfig() korrigiert",
+                "ru": "(mcm1957) Исправлено: адаптер требует NodeJs >= 16\n(crocri). Новое: введен код для очистки ошибок\n (grizzelbee). Исправлено: исправлены функции getValueAsync() и testPushServerConfig().",
+                "pt": "(mcm1957) Correção: o adaptador requer NodeJs >= 16\n(crocri) Novo: código introduzido para limpar erros\n (grizzelbee) Correção: funções corrigidas getValueAsync() e testPushServerConfig()",
+                "nl": "(mcm1957) Oplossing: Adapter vereist NodeJs >= 16\n(crocri) Nieuw: Code geïntroduceerd om fouten te wissen\n (grizzelbee) Oplossing: Functies getValueAsync() en testPushServerConfig() opgelost",
+                "fr": "(mcm1957) Correctif : l'adaptateur nécessite NodeJs >= 16\n(crocri) Nouveau : code introduit pour effacer les erreurs\n (grizzelbee) Correctif : fonctions fixes getValueAsync() et testPushServerConfig()",
+                "it": "(mcm1957) Correzione: l'adattatore richiede NodeJs >= 16\n(crocri) Novità: introdotto codice per cancellare errori\n (grizzelbee) Correzione: corrette le funzioni getValueAsync() e testPushServerConfig()",
+                "es": "(mcm1957) Solución: El adaptador requiere NodeJs >= 16\n(crocri) Nuevo: Código introducido para borrar errores\n (grizzelbee) Solución: Funciones fijas getValueAsync() y testPushServerConfig()",
+                "pl": "(mcm1957) Poprawka: Adapter wymaga NodeJs >= 16\n(crocri) Nowość: Wprowadzono kod do usuwania błędów\n (grizzelbee) Poprawka: Naprawiono funkcje getValueAsync() i testPushServerConfig()",
+                "uk": "(mcm1957) Виправлення: для адаптера потрібні NodeJs >= 16\n(crocri) Нове: представлено код для видалення помилок\n (grizzelbee) Виправлення: виправлено функції getValueAsync() і testPushServerConfig()",
+                "zh-cn": "(mcm1957) 修复：适配器需要 NodeJs >= 16\n(crocri) 新增：引入了清除错误的代码\n (grizzelbee) 修复：修复了函数 getValueAsync() 和 testPushServerConfig()"
+            },
             "1.1.5": {
                 "en": "Command-URL was invalid when Robonect UI wasn't protected by username and password\nminor code refactoring",
                 "de": "Die Befehls-URL war ungültig, wenn die Robonect-Benutzeroberfläche nicht durch Benutzername und Passwort geschützt war\nGeringfügige Code-Umgestaltung",
