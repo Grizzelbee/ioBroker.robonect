@@ -261,20 +261,34 @@ class Robonect extends utils.Adapter {
             }
             switch (trigger){
                 case 'name':
-                    this.sendApiCmd(`name&name=${state.val}`);
+                    this.sendApiCmd(`name&name=${state.val}`)
+                        .catch((err) => {
+                            this.doErrorHandling(err);
+                        });
                     break;
                 case 'push':
                     this.handlePushUpdate(id, state.val);
                     break;
                 case 'service':
-                    if (state.val !== '') this.sendApiCmd('service&'+state.val);
+                    if (state.val !== '') this.sendApiCmd('service&'+state.val)
+                        .catch((err) => {
+                            this.doErrorHandling(err);
+                        });
                     break;
                 case 'start':
-                    this.sendApiCmd('start');
+                    this.sendApiCmd('start')
+                        .catch((err) => {
+                            this.doErrorHandling(err);
+                        });
+
                     this.pollApi('status');
                     break;
                 case 'stop':
-                    this.sendApiCmd('stop');
+                    this.sendApiCmd('stop')
+                        .catch((err) => {
+                            this.doErrorHandling(err);
+                        });
+
                     this.pollApi('status');
                     break;
                 case 'timer':
@@ -560,7 +574,10 @@ class Robonect extends utils.Adapter {
             const errorMessage = err.error_message || err.message;
             this.log.error(errorMessage);
             switch (errorCode) {
-                case 253 : {
+                case 7 : // Automower already stopped
+                    this.log.info(errorMessage);
+                    break;
+                case 253 : { // No GPS installed
                     this.gpsPollType = 'NoPoll';
                     this.log.warn(`Your lawn mower dosen't support GPS. Deactivated polling of GPS. You should deactivate it in the adapters configuration.`);
                     break;
