@@ -61,7 +61,8 @@ It is possible to control the extensions GPIO 1, GPIO 2, OUT 1 and OUT 2 of the 
 
 ### 1.3.0 (2023-09-29)
 
-* (grizzelbee) Chg: Changed authentication method from URL-Encoding to basic authentication
+* (grizzelbee) Chg: [#28](https://github.com/Grizzelbee/ioBroker.robonect/issues/28) Changed authentication method from URL-Encoding to basic authentication
+* (grizzelbee) Chg: [#27](https://github.com/Grizzelbee/ioBroker.robonect/issues/27) Improved error handling
 * (grizzelbee) Upd: Dependencies got updated
 
 ### 1.2.0 (2023-09-22)
