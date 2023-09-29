@@ -59,6 +59,11 @@ It is possible to control the extensions GPIO 1, GPIO 2, OUT 1 and OUT 2 of the 
 ### Work in progress
 * Add timePickers to Admin UI for rest times as soon as they work properly
 
+### 1.3.0 (2023-09-29)
+
+* (grizzelbee) Chg: Changed authentication method from URL-Encoding to basic authentication
+* (grizzelbee) Upd: Dependencies got updated
+
 ### 1.2.0 (2023-09-22)
 
 * (mcm1957) Fix: Adapter requires NodeJs >= 16.0.0  

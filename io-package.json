@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.2.0",
+        "version": "1.3.0",
         "news": {
+            "1.3.0": {
+                "en": "Chg: Changed authentication method from URL-Encoding to basic authentication\nUpd: Dependencies got updated",
+                "de": "Änderung: Authentifizierungsmethode von URL-Verschlüsselung auf Basisauthentifizierung geändert\nAktualisiert: Abhängigkeiten wurden aktualisiert",
+                "ru": "Изменение: метод аутентификации изменен с URL-кодирования на базовую аутентификацию \n Обновление: обновлены зависимости.",
+                "pt": "Chg: Método de autenticação alterado de codificação de URL para autenticação básica\nUpd: Dependências atualizadas",
+                "nl": "Chg: Authenticatiemethode gewijzigd van URL-codering naar basisauthenticatie\nUpd: Afhankelijkheden zijn bijgewerkt",
+                "fr": "Chg : modification de la méthode d'authentification de l'encodage d'URL à l'authentification de base\nMise à jour : les dépendances ont été mises à jour",
+                "it": "Modifica: metodo di autenticazione modificato da codifica URL ad autenticazione di base\nAggiornamento: le dipendenze sono state aggiornate",
+                "es": "Cambio: Se cambió el método de autenticación de codificación de URL a autenticación básica. \nActualización: se actualizaron las dependencias.",
+                "pl": "Chg: Zmieniono metodę uwierzytelniania z kodowania URL na uwierzytelnianie podstawowe\nAktualizacja: Zależności zostały zaktualizowane",
+                "uk": "Зміна: метод автентифікації змінено з URL-кодування на базову автентифікацію\nОновлено: залежності оновлено",
+                "zh-cn": "Chg：将身份验证方法从 URL 编码更改为基本身份验证\nUpd：更新了依赖项"
+            },
             "1.2.0": {
                 "en": "(mcm1957) Fix: Adapter requires NodeJs >= 16\n(crocri)  New: Introduced code to clear errors\n (grizzelbee) Fix: Fixed functions getValueAsync() and testPushServerConfig()",
                 "de": "(mcm1957) Fix: Adapter erfordert NodeJs >= 16\n(crocri) Neu: Code zum Löschen von Fehlern eingeführt\n (grizzelbee) Fix: Funktionen getValueAsync() und testPushServerConfig() korrigiert",
