@@ -106,13 +106,7 @@ class Robonect extends utils.Adapter {
         //
         this.ps_host = this.config.pushServiceIp;
         this.ps_port = this.config.pushServicePort;
-
-        if (this.username !== '' && this.password !== '') {
-            this.apiUrl = `http://${this.robonectIp}/api/json?user=${this.username}&pass=${this.password}&cmd=`;
-            // this.apiUrl = `http://${this.robonectIp}/api/json?user=${this.username}&pass=${this.password}`;
-        } else {
-            this.apiUrl = `http://${this.robonectIp}/api/json?cmd=`;
-        }
+        this.apiUrl = `http://${this.robonectIp}/api/json?&cmd=`;
 
         if (isNaN(this.statusInterval) || this.statusInterval < 1) {
             this.statusInterval = 60;
@@ -248,7 +242,7 @@ class Robonect extends utils.Adapter {
      */
     onStateChange(id, state) {
         if (typeof state == 'object' && !state.ack) {
-            // The state was changed
+            // The state changed
             const trigger = id.split('.', 3).pop();
             if (id === this.namespace + '.error.clear') {
                 this.updateErrorClearReset('clear=1', state.val);
@@ -583,7 +577,6 @@ class Robonect extends utils.Adapter {
         } catch(error){
             this.log.error('Error during error handling: '+JSON.stringify(error));
         }
-
     }
 
 
@@ -596,7 +589,7 @@ class Robonect extends utils.Adapter {
         const adapter = this;
         this.log.debug(`Sending of command [${cmd}] started`);
         return new Promise((resolve, reject) => {
-            axios.get(adapter.apiUrl + cmd)
+            axios.post(adapter.apiUrl+cmd, {}, {auth: {username: this.username, password: this.password}})
                 .then( function (response){
                     adapter.log.debug('Data returned from robonect device: '+JSON.stringify(response.data));
                     if (response.data.successful === true) {
@@ -624,7 +617,7 @@ class Robonect extends utils.Adapter {
         const adapter = this;
         this.log.debug(`API call with command [${cmd}] started`);
         return new Promise((resolve, reject) => {
-            axios.get(adapter.apiUrl + cmd)
+            axios.post(adapter.apiUrl+cmd, {}, {auth: {username: this.username, password: this.password}})
                 .then( function (response){
                     adapter.log.debug('Data returned from robonect device: '+JSON.stringify(response.data));
                     if (response.data.successful === true) {
@@ -633,7 +626,7 @@ class Robonect extends utils.Adapter {
                         adapter.log.debug(`API call with command [${cmd}] - done!`);
                         resolve(response.data);
                     } else {// try again
-                        axios.get(adapter.apiUrl + cmd)
+                        axios.post(adapter.apiUrl+cmd, {}, {auth: {username: this.username, password: this.password}})
                             .then( function (response){
                                 adapter.log.debug('Data returned from robonect device: '+JSON.stringify(response.data));
                                 if (response.data.successful === true) {
@@ -671,8 +664,7 @@ class Robonect extends utils.Adapter {
         const apiUrl =`${this.apiUrl}error&${errclrrst}`;
         const adapter = this;
         this.log.debug('API call ' + apiUrl + ' started');
-
-        axios.get(apiUrl)
+        axios.post(adapter.apiUrl+`error&${errclrrst}`, {}, {auth: {username: this.username, password: this.password}})
             .then((response)=>{
                 try {
                     if (response.data.successful === true) {
@@ -680,7 +672,7 @@ class Robonect extends utils.Adapter {
                         adapter.setState('error.reset', { val: false, ack: true });
                         if (errclrrst === 'reset=1' && response.data.error_code === 13) {
                             this.log.info('Try to reset status....');
-                            axios.get(`http://${this.username}:${this.password}@${this.robonectIp}/status?reset= `)
+                            axios.post(`http://${this.robonectIp}/status?reset=`, {}, {auth: {username: this.username, password: this.password}})
                                 .then((response)=>{
                                     try {
                                         if (response.data.successful === true) {
@@ -732,7 +724,7 @@ class Robonect extends utils.Adapter {
         const apiUrl =`${this.apiUrl}ext&${ext}=${paramStatus}`;
         const adapter = this;
         this.log.debug('API call [' + apiUrl + '] started');
-        axios.get(apiUrl)
+        axios.post(adapter.apiUrl, {}, {auth: {username: this.username, password: this.password}})
             .then((response)=>{
                 try {
                     if (response.data.successful === true) {
@@ -795,7 +787,7 @@ class Robonect extends utils.Adapter {
         const apiUrl = `${this.apiUrl}mode&mode=${paramMode}`;
         const adapter = this;
         this.log.debug('API call ' + apiUrl + ' started');
-        axios.get(apiUrl)
+        axios.post(adapter.apiUrl, {}, {auth: {username: this.username, password: this.password}})
             .then((response) => {
                 try {
                     if (response.data.successful === true) {
