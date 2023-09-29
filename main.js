@@ -671,7 +671,7 @@ class Robonect extends utils.Adapter {
                         adapter.setState('error.clear', { val: false, ack: true });
                         adapter.setState('error.reset', { val: false, ack: true });
                         if (errclrrst === 'reset=1' && response.data.error_code === 13) {
-                            this.log.info('Try to reset status....');
+                            this.log.info('Trying to reset status....');
                             axios.post(`http://${this.robonectIp}/status?reset=`, {}, {auth: {username: this.username, password: this.password}})
                                 .then((response)=>{
                                     try {
