@@ -59,6 +59,10 @@ It is possible to control the extensions GPIO 1, GPIO 2, OUT 1 and OUT 2 of the 
 ### Work in progress
 * Add timePickers to Admin UI for rest times as soon as they work properly
 
+### 1.3.1 (2023-10-02)
+
+* (grizzelbee) Chg: removed unnecessary Info log entries 
+
 ### 1.3.0 (2023-10-02)
 
 * (grizzelbee) Chg: [#28](https://github.com/Grizzelbee/ioBroker.robonect/issues/28) Changed authentication method from URL-Encoding to basic authentication

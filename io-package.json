@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.3.0",
+        "version": "1.3.1",
         "news": {
+            "1.3.1": {
+                "en": "Chg: removed unnecessary Info log entries",
+                "de": "Änderung: unnötige Info-Log-Einträge entfernt",
+                "ru": "Измен.: удалены ненужные записи журнала информации.",
+                "pt": "Chg: foram removidas entradas desnecessárias do log de informações",
+                "nl": "Chg: onnodige Info-logboekvermeldingen verwijderd",
+                "fr": "Chg : suppression des entrées inutiles du journal d'informations",
+                "it": "Modifica: rimosse le voci del registro informazioni non necessarie",
+                "es": "Cambio: se eliminaron entradas innecesarias del registro de información",
+                "pl": "Zmień: usunięto niepotrzebne wpisy dziennika informacyjnego",
+                "uk": "Зміна: видалено непотрібні записи журналу інформації",
+                "zh-cn": "Chg：删除了不必要的信息日志条目"
+            },
             "1.3.0": {
                 "en": "Chg: Changed authentication method from URL-Encoding to basic authentication\nImproved error handling\nUpd: Dependencies got updated",
                 "de": "Änderung: Authentifizierungsmethode von URL-Verschlüsselung auf Basisauthentifizierung geändert\nFehlerbehandlung verbessert\nAktualisiert: Abhängigkeiten wurden aktualisiert",

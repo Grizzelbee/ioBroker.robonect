@@ -622,7 +622,7 @@ class Robonect extends utils.Adapter {
                             const objects = require('./lib/objects_' + cmd + '.json');
                             adapter.updateObjects(objects, response.data);
                         }
-                        adapter.log.info(`Sending of command [${cmd}] - done!`);
+                        adapter.log.debug(`Sending of command [${cmd}] - done!`);
                         resolve(response.data);
                     } else {
                         adapter.log.debug(`Sending of command [${cmd}] - failed!`);
