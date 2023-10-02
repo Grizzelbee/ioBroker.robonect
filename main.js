@@ -606,7 +606,11 @@ class Robonect extends utils.Adapter {
     async sendApiCmd(cmd, updateObjectsAfterCall) {
         updateObjectsAfterCall = updateObjectsAfterCall || false;
         const adapter = this;
-        this.log.debug(`Sending of command [${cmd}] started`);
+        if (updateObjectsAfterCall) {
+            this.log.debug(`Polling API for data [${cmd}] started`);
+        } else {
+            this.log.debug(`Sending of command [${cmd}] started`);
+        }
         return new Promise((resolve, reject) => {
             axios.post(adapter.apiUrl+cmd, {}, {auth: {username: this.username, password: this.password}})
                 .then( function (response){
