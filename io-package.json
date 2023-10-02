@@ -4,17 +4,17 @@
         "version": "1.3.0",
         "news": {
             "1.3.0": {
-                "en": "Chg: Changed authentication method from URL-Encoding to basic authentication*Improved error handling*Upd: Dependencies got updated",
-                "de": "Änderung: Authentifizierungsmethode von URL-Verschlüsselung auf Basisauthentifizierung geändert*Fehlerbehandlung verbessert*Aktualisiert: Abhängigkeiten wurden aktualisiert",
-                "ru": "Изменение: изменен метод аутентификации с URL-кодирования на базовую аутентификацию * Улучшена обработка ошибок * Обновление: обновлены зависимости.",
-                "pt": "Chg: Método de autenticação alterado de codificação de URL para autenticação básica* Melhor tratamento de erros* Atualização: Dependências foram atualizadas",
-                "nl": "Chg: Gewijzigde authenticatiemethode van URL-codering naar basisauthenticatie*Verbeterde foutafhandeling*Upd: Afhankelijkheden zijn bijgewerkt",
-                "fr": "Chg : modification de la méthode d'authentification de l'encodage d'URL à l'authentification de base*Gestion des erreurs améliorée*Mise à jour : les dépendances ont été mises à jour",
-                "it": "Modifica: metodo di autenticazione modificato dalla codifica URL all'autenticazione di base*Gestione degli errori migliorata*Aggiornamento: le dipendenze sono state aggiornate",
-                "es": "Cambio: Se cambió el método de autenticación de codificación de URL a autenticación básica * Manejo de errores mejorado * Actualización: Se actualizaron las dependencias",
-                "pl": "Chg: Zmieniono metodę uwierzytelniania z kodowania URL na uwierzytelnianie podstawowe * Poprawiona obsługa błędów * Aktualizacja: Zależności zostały zaktualizowane",
-                "uk": "Зміна: метод автентифікації змінено з URL-кодування на базову автентифікацію*Покращена обробка помилок*Оновлено: залежності оновлено",
-                "zh-cn": "Chg：将身份验证方法从 URL 编码更改为基本身份验证*改进了错误处理*Upd：更新了依赖项"
+                "en": "Chg: Changed authentication method from URL-Encoding to basic authentication\nImproved error handling\nUpd: Dependencies got updated",
+                "de": "Änderung: Authentifizierungsmethode von URL-Verschlüsselung auf Basisauthentifizierung geändert\nFehlerbehandlung verbessert\nAktualisiert: Abhängigkeiten wurden aktualisiert",
+                "ru": "Изменение: изменен метод аутентификации с URL-кодирования на базовую аутентификацию \n Улучшена обработка ошибок \n Обновление: обновлены зависимости.",
+                "pt": "Chg: Método de autenticação alterado de codificação de URL para autenticação básica\n Melhor tratamento de erros\n Atualização: Dependências foram atualizadas",
+                "nl": "Chg: Gewijzigde authenticatiemethode van URL-codering naar basisauthenticatie\nVerbeterde foutafhandeling\nUpd: Afhankelijkheden zijn bijgewerkt",
+                "fr": "Chg : modification de la méthode d'authentification de l'encodage d'URL à l'authentification de base\nGestion des erreurs améliorée\nMise à jour : les dépendances ont été mises à jour",
+                "it": "Modifica: metodo di autenticazione modificato dalla codifica URL all'autenticazione di base\nGestione degli errori migliorata\nAggiornamento: le dipendenze sono state aggiornate",
+                "es": "Cambio: Se cambió el método de autenticación de codificación de URL a autenticación básica \n Manejo de errores mejorado \n Actualización: Se actualizaron las dependencias",
+                "pl": "Chg: Zmieniono metodę uwierzytelniania z kodowania URL na uwierzytelnianie podstawowe \n Poprawiona obsługa błędów \n Aktualizacja: Zależności zostały zaktualizowane",
+                "uk": "Зміна: метод автентифікації змінено з URL-кодування на базову автентифікацію\nПокращена обробка помилок\nОновлено: залежності оновлено",
+                "zh-cn": "Chg：将身份验证方法从 URL 编码更改为基本身份验证\n改进了错误处理\nUpd：更新了依赖项"
             },
             "1.2.0": {
                 "en": "(mcm1957) Fix: Adapter requires NodeJs >= 16\n(crocri)  New: Introduced code to clear errors\n (grizzelbee) Fix: Fixed functions getValueAsync() and testPushServerConfig()",
