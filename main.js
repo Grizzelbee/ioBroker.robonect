@@ -284,12 +284,14 @@ class Robonect extends utils.Adapter {
                     this.sendApiCmd('status', true);
                     break;
                 case 'stop':
-                    this.sendApiCmd('stop')
+                    this.sendApiCmd('stop', false)
                         .catch((err) => {
                             this.doErrorHandling(err);
                         });
-
-                    this.sendApiCmd('status', true);
+                    this.sendApiCmd('status', true)
+                        .catch((err) => {
+                            this.doErrorHandling(err);
+                        });
                     break;
                 case 'timer':
                     if (id.split('.').pop() === 'update_timer'){
