@@ -589,7 +589,7 @@ class Robonect extends utils.Adapter {
                 }
                 case 401 : {
                     this.log.error('Your Robonect has denied access due to incorrect credentials.');
-                    this.log.error(`You used: Username=${this.username}, Password=${this.password} for login. Please double check your credentials and if they are correct - try using an easier password containing only upper- and lowercase letters and numbers.`);
+                    this.log.error(`You used: Username=${this.username}, Password=${this.password} for login. Please double check your credentials.`);
                     this.terminate(11);
                     break;
                 }
