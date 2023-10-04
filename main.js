@@ -106,7 +106,7 @@ class Robonect extends utils.Adapter {
         //
         this.ps_host = this.config.pushServiceIp;
         this.ps_port = this.config.pushServicePort;
-        this.apiUrl = `http://${this.robonectIp}/api/json?&cmd=`;
+        this.apiUrl = `http://${this.robonectIp}/api/json?cmd=`;
 
         if (isNaN(this.statusInterval) || this.statusInterval < 1) {
             this.statusInterval = 60;
@@ -691,29 +691,33 @@ class Robonect extends utils.Adapter {
      * @param {*} status
      */
     updateExtensionStatus(ext, status) {
-        let paramStatus;
-        if (status === true) {
-            paramStatus = 1;
-        } else {
-            paramStatus = 0;
-        }
-        const apiUrl =`${this.apiUrl}ext&${ext}=${paramStatus}`;
         const adapter = this;
-        this.log.debug('API call [' + apiUrl + '] started');
-        axios.post(adapter.apiUrl, {}, {auth: {username: this.username, password: this.password}})
+        const PARAMS = {cmd:'ext'};
+        if (status) {
+            PARAMS[ext]=1;
+        } else {
+            PARAMS[ext]=0;
+        }
+        axios.interceptors.request.use(function(config){
+            adapter.log.debug(JSON.stringify(config));return config;
+        }, function(error) {
+            return Promise.reject(error);
+        });
+        axios.get(`http://${this.robonectIp}/api/json`, {auth: {username: this.username, password: this.password},
+            params:PARAMS })
             .then((response)=>{
                 try {
                     if (response.data.successful === true) {
                         adapter.setState('extension.gpio1.inverted', { val: response.data['ext']['gpio1']['inverted'], ack: true });
-                        adapter.setState('extension.gpio1.status', { val: response.data['ext']['gpio1']['status'], ack: true });
+                        adapter.setState('extension.gpio1.status',   { val: response.data['ext']['gpio1']['status'], ack: true });
                         adapter.setState('extension.gpio2.inverted', { val: response.data['ext']['gpio2']['inverted'], ack: true });
-                        adapter.setState('extension.gpio2.status', { val: response.data['ext']['gpio2']['status'], ack: true });
-                        adapter.setState('extension.out1.inverted', { val: response.data['ext']['out1']['inverted'], ack: true });
-                        adapter.setState('extension.out1.status', { val: response.data['ext']['out1']['status'], ack: true });
-                        adapter.setState('extension.out2.inverted', { val: response.data['ext']['out2']['inverted'], ack: true });
-                        adapter.setState('extension.out2.status', { val: response.data['ext']['out2']['status'], ack: true });
+                        adapter.setState('extension.gpio2.status',   { val: response.data['ext']['gpio2']['status'], ack: true });
+                        adapter.setState('extension.out1.inverted',  { val: response.data['ext']['out1']['inverted'], ack: true });
+                        adapter.setState('extension.out1.status',    { val: response.data['ext']['out1']['status'], ack: true });
+                        adapter.setState('extension.out2.inverted',  { val: response.data['ext']['out2']['inverted'], ack: true });
+                        adapter.setState('extension.out2.status',    { val: response.data['ext']['out2']['status'], ack: true });
                         this.log.debug(`updateExtensionStatus: Response: ${JSON.stringify(response.data)}`);
-                        if (response.data['ext'][ext]['status'] === paramStatus) {
+                        if (response.data['ext'][ext]['status'] === status) {
                             adapter.log.info(ext + ' set to ' + status);
                         } else {
                             this.log.error(ext + ' could not be set to ' + status + '. Is the extension mode set to API?');
@@ -725,12 +729,10 @@ class Robonect extends utils.Adapter {
                 catch (errorMessage) {
                     this.doErrorHandling(errorMessage);
                 }
-
             })
             .catch((err)=>{
                 adapter.log.error(`updateExtensionStatus: ${err}`);
             });
-        this.log.debug('API call ' + apiUrl + ' done');
     }
 
     /**
