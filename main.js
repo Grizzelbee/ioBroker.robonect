@@ -97,8 +97,12 @@ class Robonect extends utils.Adapter {
         this.gpsPollType = this.config.gpsPollType;
         this.hoursPollType = this.config.hoursPollType;
         this.motorPollType = this.config.motorPollType;
+        if (this.config.pushService) {
+            this.pushPollType = 'info';
+        } else {
+            this.pushPollType = this.config.pushPollType;
+        }
         this.portalPollType = this.config.portalPollType;
-        this.pushPollType = this.config.pushPollType;
         this.timerPollType = this.config.timerPollType;
         this.versionPollType = this.config.versionPollType;
         this.weatherPollType = this.config.weatherPollType;
