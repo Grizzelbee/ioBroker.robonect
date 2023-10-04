@@ -66,8 +66,9 @@ It is possible to control the extensions GPIO 1, GPIO 2, OUT 1 and OUT 2 of the 
 
 ### 1.3.3 (2023-10-04)
 
-* (grizzelbee) Chg: Did some code refactoring 
+* (grizzelbee) Chg: massive code refactoring 
 * (grizzelbee) Fix: Fixed false error message when PushService is listening to all IPv4 or IPv6 addresses
+* (grizzelbee) Chg: Forcing pollType info for pushService when enabled it's enabled in config
 
 ### 1.3.2 (2023-10-04)
 
