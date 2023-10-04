@@ -4,7 +4,7 @@
         "common": {
             "name": "Error Clear",
             "type": "boolean",
-            "role": "state",
+            "role": "button",
             "read": true,
             "write": true,
             "desc": "",
@@ -18,7 +18,7 @@
         "common": {
             "name": "Error Reset",
             "type": "boolean",
-            "role": "state",
+            "role": "button",
             "read": true,
             "write": true,
             "desc": "",
