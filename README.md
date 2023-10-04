@@ -59,6 +59,11 @@ It is possible to control the extensions GPIO 1, GPIO 2, OUT 1 and OUT 2 of the 
 ### Work in progress
 * Add timePickers to Admin UI for rest times as soon as they work properly
 
+### 1.3.2 (2023-10-04)
+
+* (grizzelbee) Fix: Switching of extensions works now
+* (grizzelbee) Fix: Fixed false error message when switching extensions
+
 ### 1.3.1 (2023-10-02)
 
 * (grizzelbee) Chg: removed unnecessary Info log entries 
