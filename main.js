@@ -261,7 +261,7 @@ class Robonect extends utils.Adapter {
             }
             switch (trigger){
                 case 'name':
-                    this.sendApiCmd(`name&name=${state.val}`)
+                    this.sendApiCmd(`cmd=name&name=${state.val}`)
                         .catch((err) => {
                             this.doErrorHandling(err);
                         });
@@ -270,25 +270,25 @@ class Robonect extends utils.Adapter {
                     this.handlePushUpdate(id, state.val);
                     break;
                 case 'service':
-                    if (state.val !== '') this.sendApiCmd('service&'+state.val)
+                    if (state.val !== '') this.sendApiCmd('cmd=service&'+state.val)
                         .catch((err) => {
                             this.doErrorHandling(err);
                         });
                     break;
                 case 'start':
-                    this.sendApiCmd('start')
+                    this.sendApiCmd('cmd=start')
                         .catch((err) => {
                             this.doErrorHandling(err);
                         });
 
-                    this.sendApiCmd('status', true);
+                    this.sendApiCmd('cmd=status', true);
                     break;
                 case 'stop':
-                    this.sendApiCmd('stop', false)
+                    this.sendApiCmd('cmd=stop', false)
                         .catch((err) => {
                             this.doErrorHandling(err);
                         });
-                    this.sendApiCmd('status', true)
+                    this.sendApiCmd('cmd=status', true)
                         .catch((err) => {
                             this.doErrorHandling(err);
                         });
@@ -350,7 +350,7 @@ class Robonect extends utils.Adapter {
         }
         try {
             await this.sendApiCmd(command);
-            await this.sendApiCmd('push', true);
+            await this.sendApiCmd('cmd=push', true);
         }
         catch(err){
             this.log.warn(`Sending the command ${command} failed with: ${err}`);
@@ -382,7 +382,7 @@ class Robonect extends utils.Adapter {
         // robonect.0.timer.0.id
         const timer = Number.parseInt(id.split('.', 4).pop())+1;
         const basePath = id.split('.', 4).join('.');
-        let cmd = `timer&timer=${timer}&save=1`;
+        let cmd = `cmd=timer&timer=${timer}&save=1`;
         try {
             cmd += '&enable=' + ((await this.getValueAsync(`${basePath}.enabled`)) ? '1' : '0');
             cmd += '&start=' + (await this.getValueAsync(`${basePath}.start_time`));
@@ -401,7 +401,7 @@ class Robonect extends utils.Adapter {
         }
         try {
             await this.sendApiCmd(cmd);
-            await this.sendApiCmd('timer', true);
+            await this.sendApiCmd('cmd=timer', true);
         }
         catch(err){
             this.log.warn(`Sending the command ${cmd} failed with: ${JSON.stringify(err)}`);
@@ -422,16 +422,19 @@ class Robonect extends utils.Adapter {
     }
 
     async testPushServiceConfig(){
-        try {
-            const url = await this.getValueAsync(`push.server_url`);
-            if (this.config.pushService && (url !== `${this.config.pushServiceIp}:${this.config.pushServicePort}`) && (url !== `0.0.0.0:${this.config.pushServicePort}`)) {
-                this.log.warn(`Push Service is enabled in config, but misconfigured. Please update your Robonect Push-Service configuration.`);
-                this.log.warn(`The configured URL is:${url} -> but should be:${this.config.pushServiceIp}:${this.config.pushServicePort}`);
-            }
-        }
-        catch(err){
-            this.log.error(err);
-        }
+        this.getValueAsync(`push.server_url`)
+            .then((url) => {
+                if (this.config.pushService && (url !== `${this.config.pushServiceIp}:${this.config.pushServicePort}`)
+                    && (this.config.pushServiceIp !== `0.0.0.0`) // listen to all IPV4 adresses
+                    && (this.config.pushServiceIp !== `::`)      // listen to all IPV6 adresses
+                ) {
+                    this.log.warn(`Push Service is enabled in config, but misconfigured. Please update your Robonect Push-Service configuration.`);
+                    this.log.warn(`The configured URL in your Robonect is: [${url}] -> but should be: ${this.config.pushServiceIp}:${this.config.pushServicePort}`);
+                }
+            })
+            .catch((err)=> {
+                this.log.error(err);
+            });
     }
 
     /**
@@ -511,7 +514,7 @@ class Robonect extends utils.Adapter {
                 this.log.debug('Polling started');
 
                 // Poll status
-                await this.sendApiCmd('status', true)
+                await this.sendApiCmd('cmd=status', true)
                     .then((data) => {
                         this.log.silly(`Data from poll: ${JSON.stringify(data)}`);
                         this.currentStatus = data['status']['status'];
@@ -533,31 +536,31 @@ class Robonect extends utils.Adapter {
                 this.log.debug('doRegularPoll: ' + doRegularPoll);
                 try {
                     if (this.batteryPollType !== 'NoPoll' && (pollType === 'Initial' || (this.batteryPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('battery', true);
+                        await this.sendApiCmd('cmd=battery', true);
                     if (this.doorPollType !== 'NoPoll' && (pollType === 'Initial' || (this.doorPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('door', true);
+                        await this.sendApiCmd('cmd=door', true);
                     if (this.errorsPollType !== 'NoPoll' && (pollType === 'Initial' || (this.errorsPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('error', true);
+                        await this.sendApiCmd('cmd=error', true);
                     if (this.extensionPollType !== 'NoPoll' && (pollType === 'Initial' || (this.extensionPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('ext', true);
+                        await this.sendApiCmd('cmd=ext', true);
                     if (this.gpsPollType !== 'NoPoll' && (pollType === 'Initial' || (this.gpsPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('gps', true);
+                        await this.sendApiCmd('cmd=gps', true);
                     if (this.hoursPollType !== 'NoPoll' && (pollType === 'Initial' || (this.hoursPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('hour', true);
+                        await this.sendApiCmd('cmd=hour', true);
                     if (this.motorPollType !== 'NoPoll' && (pollType === 'Initial' || (this.motorPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('motor', true);
+                        await this.sendApiCmd('cmd=motor', true);
                     if (this.portalPollType !== 'NoPoll' && (pollType === 'Initial' || (this.portalPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('portal', true);
+                        await this.sendApiCmd('cmd=portal', true);
                     if (this.pushPollType !== 'NoPoll' && (pollType === 'Initial' || (this.pushPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('push', true);
+                        await this.sendApiCmd('cmd=push', true);
                     if (this.timerPollType !== 'NoPoll' && (pollType === 'Initial' || (this.timerPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('timer', true);
+                        await this.sendApiCmd('cmd=timer', true);
                     if (this.versionPollType !== 'NoPoll' && (pollType === 'Initial' || (this.versionPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('version', true);
+                        await this.sendApiCmd('cmd=version', true);
                     if (this.weatherPollType !== 'NoPoll' && (pollType === 'Initial' || (this.weatherPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('weather', true);
+                        await this.sendApiCmd('cmd=weather', true);
                     if (this.wlanPollType !== 'NoPoll' && (pollType === 'Initial' || (this.wlanPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('wlan', true);
+                        await this.sendApiCmd('cmd=wlan', true);
                     this.log.debug('Polling done');
                 }
                 catch (err) {
@@ -598,6 +601,21 @@ class Robonect extends utils.Adapter {
         }
     }
 
+    /**
+     *
+     * @param command {string}
+     * @returns {{}}
+     */
+    getParamsObj(command){
+        //cmd=timer&timer=1&save=1&enable=1&start=09:00&end=11:00&mo=1&tu=1&we=1&th=1&fr=1&sa=1&su=1
+        const result = {};
+        const cmdArray = command.split('&');
+        for (const cmd of cmdArray){
+            const param = cmd.split('=');
+            result[param[0]]=param[1];
+        }
+        return result;
+    }
 
 
     /**
@@ -608,19 +626,19 @@ class Robonect extends utils.Adapter {
     async sendApiCmd(cmd, updateObjectsAfterCall) {
         updateObjectsAfterCall = updateObjectsAfterCall || false;
         const adapter = this;
-        const PARAMS = {cmd: cmd};
+        const PARAMS = this.getParamsObj(cmd); //{cmd: cmd};
         if (updateObjectsAfterCall) {
-            this.log.debug(`Polling API for data [${cmd}] started`);
+            this.log.debug(`Polling API for data [${JSON.stringify(PARAMS)}] started`);
         } else {
-            this.log.debug(`Sending of command [${cmd}] started`);
+            this.log.debug(`Sending of command [${JSON.stringify(PARAMS)}] started`);
         }
         return new Promise((resolve, reject) => {
-            axios.get(adapter.apiUrl+cmd,  {auth: {username: this.username, password: this.password}, params: PARAMS})
+            axios.get(adapter.apiUrl,  {auth: {username: this.username, password: this.password}, params: PARAMS})
                 .then( function (response){
                     adapter.log.debug('Data returned from robonect device: '+JSON.stringify(response.data));
                     if (response.data.successful === true) {
                         if (updateObjectsAfterCall){
-                            const objects = require('./lib/objects_' + cmd + '.json');
+                            const objects = require('./lib/objects_' + PARAMS.cmd + '.json');
                             adapter.updateObjects(objects, response.data);
                         }
                         adapter.log.debug(`Sending of command [${cmd}] - done!`);
