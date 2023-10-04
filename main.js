@@ -106,7 +106,7 @@ class Robonect extends utils.Adapter {
         //
         this.ps_host = this.config.pushServiceIp;
         this.ps_port = this.config.pushServicePort;
-        this.apiUrl = `http://${this.robonectIp}/api/json?cmd=`;
+        this.apiUrl = `http://${this.robonectIp}/api/json`;
 
         if (isNaN(this.statusInterval) || this.statusInterval < 1) {
             this.statusInterval = 60;
@@ -245,9 +245,9 @@ class Robonect extends utils.Adapter {
             // The state changed
             const trigger = id.split('.', 3).pop();
             if (id === this.namespace + '.error.clear') {
-                this.updateErrorClearReset('clear=1');
+                this.updateErrorClearReset(true, false);
             } else if (id === this.namespace + '.error.reset') {
-                this.updateErrorClearReset('reset=1');
+                this.updateErrorClearReset(false, true);
             } else if (id === this.namespace + '.extension.gpio1.status') {
                 this.updateExtensionStatus('gpio1', state.val);
             } else if (id === this.namespace + '.extension.gpio2.status') {
@@ -608,13 +608,14 @@ class Robonect extends utils.Adapter {
     async sendApiCmd(cmd, updateObjectsAfterCall) {
         updateObjectsAfterCall = updateObjectsAfterCall || false;
         const adapter = this;
+        const PARAMS = {cmd: cmd};
         if (updateObjectsAfterCall) {
             this.log.debug(`Polling API for data [${cmd}] started`);
         } else {
             this.log.debug(`Sending of command [${cmd}] started`);
         }
         return new Promise((resolve, reject) => {
-            axios.post(adapter.apiUrl+cmd, {}, {auth: {username: this.username, password: this.password}})
+            axios.get(adapter.apiUrl+cmd,  {auth: {username: this.username, password: this.password}, params: PARAMS})
                 .then( function (response){
                     adapter.log.debug('Data returned from robonect device: '+JSON.stringify(response.data));
                     if (response.data.successful === true) {
@@ -639,21 +640,24 @@ class Robonect extends utils.Adapter {
 
     /**
      * Update/Set errors
-     * @param {string} errclrrst
+     * @param {boolean} clear
+     * @param {boolean} reset
      */
-    updateErrorClearReset(errclrrst) {
-        const apiUrl =`${this.apiUrl}error&${errclrrst}`;
+    updateErrorClearReset(clear, reset) {
         const adapter = this;
-        this.log.debug('API call ' + apiUrl + ' started');
-        axios.post(adapter.apiUrl+`error&${errclrrst}`, {}, {auth: {username: this.username, password: this.password}})
+        const PARAMS = {cmd: 'error', clear:0, reset:0};
+        if (clear) PARAMS.clear = 1;
+        if (reset) PARAMS.reset = 1;
+        axios.get(adapter.apiUrl, {auth: {username: this.username, password: this.password}, params: PARAMS})
             .then((response)=>{
                 try {
                     if (response.data.successful === true) {
                         adapter.setState('error.clear', { val: false, ack: true });
                         adapter.setState('error.reset', { val: false, ack: true });
-                        if (errclrrst === 'reset=1' && response.data.error_code === 13) {
+                        if (reset && response.data.error_code === 13) {
                             this.log.info('Trying to reset status....');
-                            axios.post(`http://${this.robonectIp}/status?reset=`, {}, {auth: {username: this.username, password: this.password}})
+                            PARAMS.cmd = 'status';
+                            axios.get(adapter.apiUrl, {auth: {username: this.username, password: this.password}, params: PARAMS})
                                 .then((response)=>{
                                     try {
                                         if (response.data.successful === true) {
@@ -682,7 +686,6 @@ class Robonect extends utils.Adapter {
             .catch((err)=>{
                 adapter.log.error(`updateErrorClearReset: ${err}`);
             });
-        this.log.debug('API call ' + apiUrl + ' done');
     }
 
     /**
@@ -703,8 +706,7 @@ class Robonect extends utils.Adapter {
         }, function(error) {
             return Promise.reject(error);
         });
-        axios.get(`http://${this.robonectIp}/api/json`, {auth: {username: this.username, password: this.password},
-            params:PARAMS })
+        axios.get(adapter.apiUrl, {auth: {username: this.username, password: this.password}, params:PARAMS })
             .then((response)=>{
                 try {
                     if (response.data.successful === true) {
@@ -740,37 +742,34 @@ class Robonect extends utils.Adapter {
      * @param {*} mode
      */
     updateMode(mode) {
-        let paramMode;
+        const adapter = this;
+        const PARAMS = {cmd: 'mode', mode:'auto'};
         switch (mode) {
             case 0:
-                paramMode = 'auto';
+                //PARAMS.mode = 'auto';
                 break;
             case 1:
-                paramMode = 'man';
+                PARAMS.mode = 'man';
                 break;
             case 2:
-                paramMode = 'home';
+                PARAMS.mode = 'home';
                 break;
             case 98:
-                paramMode = 'eod';
+                PARAMS.mode = 'eod';
                 break;
             case 99:
-                paramMode = 'job';
+                PARAMS.mode = 'job';
                 break;
             default:
                 this.log.warn('Mode is invalid');
                 return;
         }
-
-        const apiUrl = `${this.apiUrl}mode&mode=${paramMode}`;
-        const adapter = this;
-        this.log.debug('API call ' + apiUrl + ' started');
-        axios.post(adapter.apiUrl, {}, {auth: {username: this.username, password: this.password}})
+        axios.get(adapter.apiUrl, {auth: {username: this.username, password: this.password}, params: PARAMS})
             .then((response) => {
                 try {
                     if (response.data.successful === true) {
                         adapter.setState('status.mode', { val: mode, ack: true });
-                        adapter.log.info('Mode set to ' + paramMode);
+                        adapter.log.info('Mode set to ' + PARAMS.mode);
                     } else {
                         this.doErrorHandling(response.data);
                     }
