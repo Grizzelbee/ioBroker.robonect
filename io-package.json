@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.3.1",
+        "version": "1.3.2",
         "news": {
+            "1.3.2": {
+                "en": "Fix: Switching of extensions works now\nFix: Fixed false error message when switching extensions",
+                "de": "Fix: Das Umschalten von Erweiterungen funktioniert jetzt\nFix: Falsche Fehlermeldung beim Umschalten von Erweiterungen behoben",
+                "ru": "Исправлено: переключение расширений теперь работает\nИсправлено: исправлено ложное сообщение об ошибке при переключении расширений.",
+                "pt": "Correção: a troca de extensões funciona agora\n Correção: corrigida a falsa mensagem de erro ao trocar de extensões",
+                "nl": "Fix: wisselen van extensie werkt nu\nFix: foutieve foutmelding opgelost bij het wisselen van extensie",
+                "fr": "Correctif : le changement d'extension fonctionne maintenant\nCorrection : correction d'un faux message d'erreur lors du changement d'extension",
+                "it": "Correzione: il cambio di estensione ora funziona\nCorrezione: corretto il messaggio di errore falso quando si cambia estensione",
+                "es": "Solución: el cambio de extensiones funciona ahora \n Solución: se corrigió un mensaje de error falso al cambiar de extensión",
+                "pl": "Poprawka: przełączanie rozszerzeń działa teraz \n Poprawka: naprawiono fałszywy komunikat o błędzie podczas przełączania rozszerzeń",
+                "uk": "Виправлення: перемикання розширень працює зараз\nВиправлення: виправлено помилкове повідомлення про помилку під час перемикання розширень",
+                "zh-cn": "修复：现在可以切换扩展程序\n修复：修复切换扩展程序时出现的错误消息"
+            },
             "1.3.1": {
                 "en": "Chg: removed unnecessary Info log entries",
                 "de": "Änderung: unnötige Info-Log-Einträge entfernt",
