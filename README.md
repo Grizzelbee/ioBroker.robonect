@@ -23,6 +23,11 @@ This is an ioBroker adapter for your Robonect HX enabled lawn mower.
 * For every API request it is possible to choose the polling interval (status or info) or don't poll at all.
 * push service: when activated select the IP address and port the adapter should listen to.
 
+### Password for Robonect
+
+Versions older than v1.3.0 required a simple password - only containing lower- and uppercase letters as well as numbers.
+Starting with v1.3.0 strong passwords became possible due to the implementation of HTTP basic authentication. 
+
 ### Push service
 
 The robonect module has a config option called "Push Service" - it pushes status information depending on some configurable events.
@@ -58,6 +63,11 @@ It is possible to control the extensions GPIO 1, GPIO 2, OUT 1 and OUT 2 of the 
 
 ### Work in progress
 * Add timePickers to Admin UI for rest times as soon as they work properly
+
+### 1.3.3 (2023-10-04)
+
+* (grizzelbee) Chg: Did some code refactoring 
+* (grizzelbee) Fix: Fixed false error message when PushService is listening to all IPv4 or IPv6 addresses
 
 ### 1.3.2 (2023-10-04)
 
