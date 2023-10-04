@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.3.2",
+        "version": "1.3.3",
         "news": {
+            "1.3.3": {
+                "en": "Chg: massive code refactoring*Fix: Fixed false error message when PushService is listening to all IPv4 or IPv6 addresses*Chg: Forcing pollType info for pushService when enabled it's enabled in config",
+                "de": "Änderung: Massives Code-Refactoring*Fix: Falsche Fehlermeldung behoben, wenn PushService alle IPv4- oder IPv6-Adressen abhört*Änderung: PollType-Informationen für pushService werden erzwungen, wenn diese in der Konfiguration aktiviert sind",
+                "ru": "Измен.: масштабный рефакторинг кода. * Исправлено: исправлено ложное сообщение об ошибке, когда PushService прослушивает все адреса IPv4 или IPv6. * Изм.: принудительное использование информации pollType для pushService, когда она включена, она включена в конфигурации.",
+                "pt": "Alteração: refatoração massiva de código* Correção: Corrigida mensagem de erro falsa quando PushService está escutando todos os endereços IPv4 ou IPv6* Alteração: Forçando informações pollType para pushService quando ativado, está ativado na configuração",
+                "nl": "Chg: grootschalige code-refactoring*Fix: foutieve foutmelding opgelost wanneer PushService naar alle IPv4- of IPv6-adressen luistert*Chg: PollType-informatie voor pushService forceren wanneer deze is ingeschakeld in de configuratie",
+                "fr": "Chg : refactorisation massive du code*Correction : correction d'un faux message d'erreur lorsque PushService écoute toutes les adresses IPv4 ou IPv6*Chg : forcer les informations pollType pour pushService lorsqu'il est activé, il est activé dans la configuration",
+                "it": "Modifica: refactoring massiccio del codice*Correzione: risolto il falso messaggio di errore quando PushService è in ascolto su tutti gli indirizzi IPv4 o IPv6*Modifica: forzatura delle informazioni pollType per pushService quando abilitato è abilitato nella configurazione",
+                "es": "Chg: refactorización masiva de código* Solución: se corrigió el mensaje de error falso cuando PushService escucha todas las direcciones IPv4 o IPv6* Chg: Forzar la información pollType para pushService cuando está habilitado, está habilitado en la configuración",
+                "pl": "Chg: masowa refaktoryzacja kodu*Poprawka: Naprawiono fałszywy komunikat o błędzie, gdy PushService nasłuchuje wszystkich adresów IPv4 lub IPv6*Chg: Wymuszanie informacji typu pollType dla usługi pushService, gdy jest włączona, jest włączona w konfiguracji",
+                "uk": "Зміна: масовий рефакторинг коду*Виправлення: виправлено помилкове повідомлення про помилку, коли PushService прослуховує всі адреси IPv4 або IPv6*Зміна: примусове використання інформації pollType для pushService, коли її ввімкнено в конфігурації",
+                "zh-cn": "Chg：大规模代码重构*修复：修复了 PushService 侦听所有 IPv4 或 IPv6 地址时的错误消息*Chg：在启用时强制推送服务的 pollType 信息（在配置中启用）"
+            },
             "1.3.2": {
                 "en": "Fix: Switching of extensions works now\nFix: Fixed false error message when switching extensions",
                 "de": "Fix: Das Umschalten von Erweiterungen funktioniert jetzt\nFix: Falsche Fehlermeldung beim Umschalten von Erweiterungen behoben",
@@ -197,71 +210,6 @@
                 "pl": "Zależności zostały zaktualizowane\n Kilka poprawek, aby uszczęśliwić adapter-checker\n Zaktualizowano przepływy pracy git\n Usunięto requestJS, ponieważ jest przestarzały\n Zastąpiono requestJS przez axios dla żądań http\n Dodano serwer WWW dla interfejsu API Push-Service\n Dodano obsługę adapter-dev\n Dodano wtyczkę snyk\n Zmieniono interfejs administratora na V5",
                 "zh-cn": "依赖项已更新\n 一些使适配器检查器满意的修复\n 更新了 git 工作流程\n 删除了 requestJS，因为它已被弃用\n 将 http 请求的 requestJS 替换为 axios\n 添加了用于推送服务 API 的 Web 服务器\n 添加了适配器开发支持\n 添加了 snyk 插件\n 将管理 UI 切换至 V5",
                 "uk": "Залежності оновлено\n Деякі виправлення для задоволення перевірки адаптера\n Оновлені робочі процеси git\n Вилучено requestJS, оскільки він застарів\n Замінено requestJS на axios для http-запитів\n Додано веб-сервер для Push-Service API\n Додана підтримка adapter-dev\n Додано плагін snyk\n Інтерфейс адміністратора замінено на V5"
-            },
-            "0.1.4": {
-                "en": "Changed polling log level from info to debug\r\nimplemented polling of garage door status",
-                "de": "Die Abfrageprotokollstufe wurde von \"Info\" auf \"Debug\" geändert\r\nAbfrage des Garagentorstatus implementiert",
-                "ru": "Изменен уровень журнала опроса с информации на отладку\r\nреализован опрос статуса ворот гаража",
-                "pt": "Nível de registro de pesquisa alterado de informações para depuração\r\nimplementou a sondagem do status da porta da garagem",
-                "nl": "Veranderd polling-log-niveau van info naar debug\r\ngeïmplementeerd polling van garagedeurstatus",
-                "fr": "Changement du niveau du journal d'interrogation des informations au débogage\r\nimplémentation de l'interrogation de l'état de la porte de garage",
-                "it": "Cambiato il livello di log del polling da info a debug\r\nimplementato il polling dello stato della porta del garage",
-                "es": "Se modificó el nivel de registro de sondeo de información a depuración\r\nencuesta implementada del estado de la puerta del garaje",
-                "pl": "Zmieniono poziom dziennika sondowania z informacji na debugowanie\r\nwdrożono odpytywanie stanu bramy garażowej",
-                "uk": "Рівень журналу опитування змінено з інформації на налагодження\r\nреалізовано опитування стану гаражних воріт",
-                "zh-cn": "将轮询日志级别从信息更改为调试\r\n实施了车库门状态的轮询"
-            },
-            "0.1.3": {
-                "en": "implemented JsonLogic & refactoring",
-                "de": "JsonLogic implementiert & Refactoring",
-                "ru": "реализовал JsonLogic и рефакторинг",
-                "pt": "JsonLogic implementado e refatoração",
-                "nl": "JsonLogic & refactoring geïmplementeerd",
-                "fr": "implémenté JsonLogic et refactoring",
-                "it": "implementato JsonLogic e refactoring",
-                "es": "implementado JsonLogic y refactorización",
-                "pl": "zaimplementowano JsonLogic i refaktoryzację",
-                "uk": "реалізовано JsonLogic і рефакторинг",
-                "zh-cn": "实现的JsonLogic和重构"
-            },
-            "0.1.2": {
-                "en": "fixed GPS",
-                "de": "festes GPS",
-                "ru": "фиксированный GPS",
-                "pt": "GPS fixo",
-                "nl": "vaste GPS",
-                "fr": "GPS fixe",
-                "it": "GPS fisso",
-                "es": "GPS fijo",
-                "pl": "naprawiony GPS",
-                "uk": "фіксований GPS",
-                "zh-cn": "固定GPS"
-            },
-            "0.1.1": {
-                "en": "fixed typo",
-                "de": "Tippfehler behoben",
-                "ru": "исправлена опечатка",
-                "pt": "erro de digitação fixo",
-                "nl": "vaste typefout",
-                "fr": "faute de frappe fixe",
-                "it": "errore di battitura fisso",
-                "es": "error tipográfico fijo",
-                "pl": "poprawiona literówka",
-                "zh-cn": "固定错字",
-                "uk": "виправлена ​​опечатка"
-            },
-            "0.1.0": {
-                "en": "implemented rest periods",
-                "de": "Ruhezeiten implementiert",
-                "ru": "реализованные периоды отдыха",
-                "pt": "períodos de descanso implementados",
-                "nl": "geïmplementeerde rusttijden",
-                "fr": "périodes de repos mises en œuvre",
-                "it": "periodi di riposo implementati",
-                "es": "períodos de descanso implementados",
-                "pl": "wprowadzone okresy odpoczynku",
-                "uk": "реалізовані періоди відпочинку",
-                "zh-cn": "已实施的休息时间"
             }
         },
         "titleLang": {
