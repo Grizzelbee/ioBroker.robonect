@@ -64,7 +64,7 @@ It is possible to control the extensions GPIO 1, GPIO 2, OUT 1 and OUT 2 of the 
 ### Work in progress
 * Add timePickers to Admin UI for rest times as soon as they work properly
 
-### 1.3.3 (2023-10-04)
+### 1.3.4 (2023-10-10)
 
 * (grizzelbee) Chg: massive code refactoring 
 * (grizzelbee) Fix: Fixed false error message when PushService is listening to all IPv4 or IPv6 addresses
