@@ -1,9 +1,9 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.3.3",
+        "version": "1.3.4",
         "news": {
-            "1.3.3": {
+            "1.3.4": {
                 "en": "Chg: massive code refactoring\nFix: Fixed false error message when PushService is listening to all IPv4 or IPv6 addresses\nChg: Forcing pollType info for pushService when enabled it's enabled in config",
                 "de": "Änderung: Massives Code-Refactoring\nFix: Falsche Fehlermeldung behoben, wenn PushService alle IPv4- oder IPv6-Adressen abhört\nÄnderung: PollType-Informationen für pushService werden erzwungen, wenn diese in der Konfiguration aktiviert sind",
                 "ru": "Измен.: масштабный рефакторинг кода. \n Исправлено: исправлено ложное сообщение об ошибке, когда PushService прослушивает все адреса IPv4 или IPv6. \n Изм.: принудительное использование информации pollType для pushService, когда она включена, она включена в конфигурации.",
