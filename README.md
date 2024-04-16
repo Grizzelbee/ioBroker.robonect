@@ -73,6 +73,12 @@ permission issue between the iobroker user and the ping utility.
 
 ### 1.3.4 (2023-10-10)
 
+* (grizzelbee) Upd: Dependencies got updated
+* 
+
+ 
+### 1.3.4 (2023-10-10)
+
 * (grizzelbee) Chg: massive code refactoring 
 * (grizzelbee) Fix: Fixed false error message when PushService is listening to all IPv4 or IPv6 addresses
 * (grizzelbee) Chg: Forcing pollType info for pushService when enabled it's enabled in config
@@ -234,7 +240,7 @@ permission issue between the iobroker user and the ping utility.
 
 The MIT License (MIT)
 
-Copyright (c) 2020 braindead1
+Copyright (c) 2024 grizzelbee
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
