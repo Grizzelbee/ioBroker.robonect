@@ -323,7 +323,11 @@
                     "cancel"
                 ]
             }
-        ]
+        ],
+        "licenseInformation": {
+            "license": "MIT",
+            "type": "free"
+        }
     },
     "native": {
         "username": "",
