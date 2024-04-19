@@ -2,10 +2,10 @@
     "i18n": true,
     "type": "panel",
     "items": {
-        "_networkSection": {
+        "_deviceSection": {
             "newLine": true,
             "type": "header",
-            "text": "Network",
+            "text": "Robonect device",
             "size": 2,
             "sm": 24,
             "md": 8,
@@ -25,18 +25,25 @@
             "type": "text",
             "label": "IP address",
             "tooltip": "IP address_desc",
-            "sm": 12,
-            "md": 4,
-            "lg": 3
+            "sm": 4,
+            "md": 3,
+            "lg": 2
         },
-        "pushService": {
-            "type": "checkbox",
-            "label": "pushService",
-            "tooltip": "pushService_desc",
-            "default": false,
-            "sm": 12,
-            "md": 4,
-            "lg": 3
+        "username": {
+            "type": "text",
+            "label": "Username",
+            "tooltip": "Username_desc",
+            "sm": 4,
+            "md": 3,
+            "lg": 2
+        },
+        "password": {
+            "type": "password",
+            "label": "password",
+            "tooltip": "password_desc",
+            "sm": 4,
+            "md": 3,
+            "lg": 2
         },
         "batteryPollType": {
             "newLine": false,
@@ -86,24 +93,14 @@
             "md": 4,
             "lg": 3
         },
-        "username": {
+        "_pushServiceSection": {
             "newLine": true,
-            "type": "text",
-            "label": "Username",
-            "tooltip": "Username_desc",
-            "sm": 12,
-            "md": 4,
-            "lg": 3
-        },
-        "pushServiceIp": {
-            "newLine": false,
-            "type": "ip",
-            "listenOnAllPorts": true,
-            "label": "pushServiceIp",
-            "tooltip": "pushServiceIp_desc",
-            "sm": 12,
-            "md": 4,
-            "lg": 3
+            "type": "header",
+            "text": "Push Service",
+            "size": 2,
+            "sm": 24,
+            "md": 8,
+            "lg": 6
         },
         "errorsPollType": {
             "newLine": false,
@@ -153,14 +150,25 @@
             "md": 4,
             "lg": 3
         },
-        "password": {
+        "pushService": {
             "newLine": true,
-            "type": "password",
-            "label": "password",
-            "tooltip": "password_desc",
-            "sm": 12,
-            "md": 4,
-            "lg": 3
+            "type": "checkbox",
+            "label": "enabled",
+            "tooltip": "pushService_desc",
+            "default": false,
+            "sm": 4,
+            "md": 3,
+            "lg": 2
+        },
+        "pushServiceIp": {
+            "newLine": false,
+            "type": "ip",
+            "listenOnAllPorts": true,
+            "label": "pushServiceIp",
+            "tooltip": "pushServiceIp_desc",
+            "sm": 4,
+            "md": 3,
+            "lg": 2
         },
         "pushServicePort": {
             "type": "number",
@@ -169,9 +177,9 @@
             "default": 55443,
             "label": "pushServicePort",
             "tooltip": "pushServicePort_desc",
-            "sm": 12,
-            "md": 4,
-            "lg": 3
+            "sm": 4,
+            "md": 3,
+            "lg": 2
         },
         "gpsPollType": {
             "newLine": false,
@@ -278,15 +286,22 @@
             "md": 4,
             "lg": 3
         },
-        "statusInterval": {
+        "pingFirst": {
             "newLine": true,
+            "type": "checkbox",
+            "label": "Ping device before polling",
+            "sm": 4,
+            "md": 3,
+            "lg": 2
+        },
+        "statusInterval": {
             "type": "number",
             "default": 36000,
             "label": "pollTimeStatus",
             "tooltip": "pollTimeStatus_desc",
-            "sm": 12,
-            "md": 4,
-            "lg": 3
+            "sm": 14,
+            "md": 3,
+            "lg": 2
         },
         "infoInterval": {
             "newLine": false,
@@ -294,9 +309,9 @@
             "default": 24000,
             "label": "pollTimeInfo",
             "tooltip": "pollTimeInfo_desc",
-            "sm": 12,
-            "md": 4,
-            "lg": 3
+            "sm": 14,
+            "md": 3,
+            "lg": 2
         },
         "pushPollType": {
             "newLine": false,
@@ -405,18 +420,20 @@
         },
         "restPeriod1Start": {
             "newLine": true,
-            "type": "text",
+            "type": "timePicker",
             "label": "restPeriod1Start",
-            "tooltip": "restPeriodStart_desc",
+            "views": ["hours", "minutes"],
+            "returnFormat": "HH:mm:ss",
             "sm": 12,
             "md": 4,
             "lg": 3
         },
         "restPeriod1End": {
             "newLine": false,
-            "type": "text",
             "label": "restPeriod1End",
-            "tooltip": "restPeriodEnd_desc",
+            "type": "timePicker",
+            "views": ["hours", "minutes"],
+            "returnFormat": "HH:mm:ss",
             "sm": 12,
             "md": 4,
             "lg": 3
@@ -447,17 +464,19 @@
         },
         "restPeriod2Start": {
             "newLine": true,
-            "type": "text",
             "label": "restPeriod2Start",
-            "tooltip": "restPeriodStart_desc",
+            "type": "timePicker",
+            "views": ["hours", "minutes"],
+            "returnFormat": "HH:mm:ss",
             "sm": 12,
             "md": 4,
             "lg": 3
         },
         "restPeriod2End": {
-            "type": "text",
             "label": "restPeriod2End",
-            "tooltip": "restPeriodEnd_desc",
+            "type": "timePicker",
+            "views": ["hours", "minutes"],
+            "returnFormat": "HH:mm:ss",
             "sm": 12,
             "md": 4,
             "lg": 3
