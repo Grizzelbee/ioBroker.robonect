@@ -269,7 +269,7 @@
         },
         "globalDependencies": [
             {
-                "admin": ">=5.1.13"
+                "admin": ">=6.13.16"
             }
         ],
         "dependencies": [
@@ -334,6 +334,7 @@
         "password": "",
         "robonectIp": "",
         "pushService": false,
+        "pingFirst": true,
         "pushServiceIp": "192.168.x.x",
         "pushServicePort": 55443,
         "statusInterval": 60,
