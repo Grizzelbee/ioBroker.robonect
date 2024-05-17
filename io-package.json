@@ -239,7 +239,6 @@
             "zh-cn": "Robonect HX 适用于 Husquarna、Flymo、McCulloch 和 Gardena 割草机机器人"
         },
         "mode": "daemon",
-        "materialize": true,
         "compact": true,
         "platform": "Javascript/Node.js",
         "loglevel": "info",
