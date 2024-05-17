@@ -69,12 +69,15 @@ permission issue between the iobroker user and the ping utility.
 ## Changelog
 
 ### Work in progress
-* Add timePickers to Admin UI for rest times as soon as they work properly
 
-### 1.3.4 (2023-10-10)
+### 1.3.5 (2023-10-10)
 
 * (grizzelbee) Upd: Dependencies got updated
-* 
+* (grizzelbee) Upd: Requires at least admin  v6.13.16
+* (grizzelbee) Upd: Requires at least nodeJs v18.0.2
+* (grizzelbee) Upd: Updated translations
+* (grizzelbee) Upd: Reorganized Admin-UI
+* (grizzelbee) New: Added Ping-Option to admin 
 
  
 ### 1.3.4 (2023-10-10)

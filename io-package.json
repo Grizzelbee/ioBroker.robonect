@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.3.4",
+        "version": "1.3.5",
         "news": {
+            "1.3.5": {
+                "en": "Upd: Dependencies got updated\nUpd: Requires at least admin  v6.13.16\nUpd: Requires at least nodeJs v18.0.2\nUpd: Updated translations\nUpd: Reorganized Admin-UI\nNew: Added Ping-Option to admin ",
+                "de": "Upd: Abhängigkeiten wurden aktualisiert\nUpd: Erfordert mindestens Admin v6.13.16\nUpd: Erfordert mindestens NodeJs v18.0.2\nUpd: Aktualisierte Übersetzungen\nUpd: Neu organisierte Admin-UI\nNeu: Ping-Option zum Admin hinzugefügt",
+                "ru": "Обновление: обновлены зависимости\nОбновление: требуется как минимум администратор v6.13.16\nОбновление: требуется как минимум nodeJs v18.0.2\nОбновление: обновленные переводы\nОбновление: реорганизованный интерфейс администратора\nНовое: добавлена ​​опция Ping для администратора",
+                "pt": "Upd: Dependências foram atualizadas\nUpd: Requer pelo menos admin v6.13.16\nUpd: Requer pelo menos nodeJs v18.0.2\nUpd: Traduções atualizadas\nUpd: UI de administração reorganizada\nNovo: Adicionada opção de Ping para admin",
+                "nl": "Upd: Afhankelijkheden zijn bijgewerkt\nUpd: Vereist minimaal beheerder v6.13.16\nUpd: Vereist minimaal nodeJs v18.0.2\nUpd: Bijgewerkte vertalingen\nUpd: Gereorganiseerde beheerdersinterface\nNieuw: Ping-optie toegevoegd aan beheerder",
+                "fr": "Mise à jour : les dépendances ont été mises à jour\nMise à jour : nécessite au moins l'administrateur v6.13.16\nMise à jour : nécessite au moins nodeJs v18.0.2\nMise à jour : traductions mises à jour\nMise à jour : interface utilisateur d'administration réorganisée\nNouveau : option Ping ajoutée à l'administrateur",
+                "it": "Aggiornamento: le dipendenze sono state aggiornate\nAggiornamento: richiede almeno admin v6.13.16\nAggiornamento: richiede almeno nodeJs v18.0.2\nAggiornamento: traduzioni aggiornate\nAggiornamento: interfaccia utente riorganizzata\nNovità: aggiunta opzione Ping all'amministratore",
+                "es": "Actualización: Se actualizaron las dependencias \n Actualización: Requiere al menos admin v6.13.16 \n Actualización: Requiere al menos nodeJs v18.0.2 \n Actualización: Traducciones actualizadas \n Actualización: UI de administrador reorganizada \n Nuevo: Opción de ping agregada al administrador",
+                "pl": "Aktualizacja: Zależności zostały zaktualizowane\nAktualizacja: Wymaga co najmniej administratora v6.13.16\nAktualizacja: Wymaga co najmniej nodeJs v18.0.2\nAktualizacja: Zaktualizowano tłumaczenia\nAktualizacja: Zreorganizowany interfejs administratora\nNowość: Dodano opcję Ping do administratora",
+                "uk": "Оновлення: Оновлено залежності\nОновлення: Потрібен принаймні admin v6.13.16\nОновлення: Потрібен принаймні nodeJs v18.0.2\nОновлення: Оновлені переклади\nОновлення: Реорганізований інтерфейс адміністратора\nНове: додано Ping-Option для адміністратора",
+                "zh-cn": "更新：依赖项已更新\n更新：至少需要 admin v6.13.16\n更新：至少需要 nodeJs v18.0.2\n更新：更新翻译\n更新：重新组织管理 UI \n新增：向管理添加 Ping 选项"
+            },
             "1.3.4": {
                 "en": "Chg: massive code refactoring\nFix: Fixed false error message when PushService is listening to all IPv4 or IPv6 addresses\nChg: Forcing pollType info for pushService when enabled it's enabled in config",
                 "de": "Änderung: Massives Code-Refactoring\nFix: Falsche Fehlermeldung behoben, wenn PushService alle IPv4- oder IPv6-Adressen abhört\nÄnderung: PollType-Informationen für pushService werden erzwungen, wenn diese in der Konfiguration aktiviert sind",
