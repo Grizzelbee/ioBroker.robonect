@@ -361,11 +361,10 @@
             "md": 4,
             "lg": 3
         },
-        "_noPollSection": {
+        "_placeholder": {
             "newLine": true,
-            "type": "header",
-            "text": "No polling times",
-            "size": 2,
+            "type": "staticText",
+            "label": "",
             "sm": 24,
             "md": 8,
             "lg": 6
@@ -418,25 +417,14 @@
             "md": 4,
             "lg": 3
         },
-        "restPeriod1Start": {
+        "_noPollSection": {
             "newLine": true,
-            "type": "timePicker",
-            "label": "restPeriod1Start",
-            "views": ["hours", "minutes"],
-            "returnFormat": "HH:mm:ss",
-            "sm": 12,
-            "md": 4,
-            "lg": 3
-        },
-        "restPeriod1End": {
-            "newLine": false,
-            "label": "restPeriod1End",
-            "type": "timePicker",
-            "views": ["hours", "minutes"],
-            "returnFormat": "HH:mm:ss",
-            "sm": 12,
-            "md": 4,
-            "lg": 3
+            "type": "header",
+            "text": "No polling times",
+            "size": 2,
+            "sm": 24,
+            "md": 8,
+            "lg": 6
         },
         "wlanPollType": {
             "newLine": false,
@@ -462,24 +450,35 @@
             "md": 4,
             "lg": 3
         },
-        "restPeriod2Start": {
+        "restPeriod1Start": {
             "newLine": true,
+            "type": "text",
+            "label": "restPeriod1Start",
+            "sm": 4,
+            "md": 3,
+            "lg": 2
+        },
+        "restPeriod2Start": {
             "label": "restPeriod2Start",
-            "type": "timePicker",
-            "views": ["hours", "minutes"],
-            "returnFormat": "HH:mm:ss",
-            "sm": 12,
-            "md": 4,
-            "lg": 3
+            "type": "text",
+            "sm": 4,
+            "md": 3,
+            "lg": 2
+        },
+        "restPeriod1End": {
+            "newLine": true,
+            "label": "restPeriod1End",
+            "type": "text",
+            "sm": 4,
+            "md": 3,
+            "lg": 2
         },
         "restPeriod2End": {
             "label": "restPeriod2End",
-            "type": "timePicker",
-            "views": ["hours", "minutes"],
-            "returnFormat": "HH:mm:ss",
-            "sm": 12,
-            "md": 4,
-            "lg": 3
+            "type": "text",
+            "sm": 4,
+            "md": 3,
+            "lg": 2
         }
     }
 }
