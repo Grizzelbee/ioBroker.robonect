@@ -70,7 +70,7 @@ permission issue between the iobroker user and the ping utility.
 
 ### Work in progress
 
-### 1.3.5 (2023-10-10)
+### 1.3.5 (2024-06-04)
 
 * (grizzelbee) Upd: Dependencies got updated
 * (grizzelbee) Upd: Requires at least admin  v6.13.16
