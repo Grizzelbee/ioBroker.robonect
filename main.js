@@ -500,80 +500,89 @@ class Robonect extends utils.Adapter {
      * @param {string} pollType
      */
     async updateRobonectData(pollType) {
-        await ping.sys.probe(this.robonectIp, async function (isAlive) {
-            if (isAlive) {
-                let doRegularPoll = false;
-                const isRestTime = this.isRestTime();
-                if (pollType === 'Initial') {
-                    await this.setState('error.clear', { val: false, ack: true });
-                    await this.setState('error.reset', { val: false, ack: true });
-                    await this.setState('error.code', { val: 0, ack: true });
-                    await this.setState('error.message', { val: 'no error', ack: true });
-                }
-                await this.setState('last_sync', {val: this.formatDate(new Date(), 'YYYY-MM-DD hh:mm:ss'), ack: true});
-                await this.setState('online', {val: isAlive, ack: true});
-                await this.setState('rest_time', {val: isRestTime, ack: true});
-                await this.setState('info.connection', {val: isAlive, ack: true});
-
-                this.log.debug('Polling started');
-
-                // Poll status
-                await this.sendApiCmd('cmd=status', true)
-                    .then((data) => {
-                        this.log.silly(`Data from poll: ${JSON.stringify(data)}`);
-                        this.currentStatus = data['status']['status'];
-                    })
-                    .catch((err) => {
-                        // this.log.error(`Polling robonect status: ${JSON.stringify(err)}`);
-                        this.doErrorHandling(err);
-                    });
-
-                if (isRestTime === false) {
-                    if (this.currentStatus != null && this.currentStatus !== 16 /*abgeschaltet*/ && this.currentStatus !== 17 /*schlafen*/) {
-                        doRegularPoll = true;
-                    }
-                }
-
-                this.log.debug('pollType: ' + pollType);
-                this.log.debug('isRestTime: ' + isRestTime);
-                this.log.debug('currentStatus: ' + this.currentStatus);
-                this.log.debug('doRegularPoll: ' + doRegularPoll);
-                try {
-                    if (this.batteryPollType !== 'NoPoll' && (pollType === 'Initial' || (this.batteryPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('cmd=battery', true);
-                    if (this.doorPollType !== 'NoPoll' && (pollType === 'Initial' || (this.doorPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('cmd=door', true);
-                    if (this.errorsPollType !== 'NoPoll' && (pollType === 'Initial' || (this.errorsPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('cmd=error', true);
-                    if (this.extensionPollType !== 'NoPoll' && (pollType === 'Initial' || (this.extensionPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('cmd=ext', true);
-                    if (this.gpsPollType !== 'NoPoll' && (pollType === 'Initial' || (this.gpsPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('cmd=gps', true);
-                    if (this.hoursPollType !== 'NoPoll' && (pollType === 'Initial' || (this.hoursPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('cmd=hour', true);
-                    if (this.motorPollType !== 'NoPoll' && (pollType === 'Initial' || (this.motorPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('cmd=motor', true);
-                    if (this.portalPollType !== 'NoPoll' && (pollType === 'Initial' || (this.portalPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('cmd=portal', true);
-                    if (this.pushPollType !== 'NoPoll' && (pollType === 'Initial' || (this.pushPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('cmd=push', true);
-                    if (this.timerPollType !== 'NoPoll' && (pollType === 'Initial' || (this.timerPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('cmd=timer', true);
-                    if (this.versionPollType !== 'NoPoll' && (pollType === 'Initial' || (this.versionPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('cmd=version', true);
-                    if (this.weatherPollType !== 'NoPoll' && (pollType === 'Initial' || (this.weatherPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('cmd=weather', true);
-                    if (this.wlanPollType !== 'NoPoll' && (pollType === 'Initial' || (this.wlanPollType === pollType && doRegularPoll)))
-                        await this.sendApiCmd('cmd=wlan', true);
-                    this.log.debug('Polling done');
-                }
-                catch (err) {
-                    this.doErrorHandling(err);
-                }
-            } else {
-                this.log.warn('No connection to lawn mower (Not able to ping it). Check network connection.');
+        let hostOnline= false;
+        const adapter = this;
+        if (this.config.pingFirst){
+            await ping.sys.probe(this.robonectIp, async function (isAlive) {
+                hostOnline = isAlive;
+                adapter.log.debug(`Adapter is configured to ping the robonect device - and it's ${hostOnline? '':'not'} online.`);
+            });
+        } else {
+            // no pingFirst configured - assume device to be online
+            hostOnline = true;
+            adapter.log.debug('Adapter is configured not to ping the robonect device - assuming it´s online.');
+        }
+        if (hostOnline) {
+            let doRegularPoll = false;
+            const isRestTime = adapter.isRestTime();
+            if (pollType === 'Initial') {
+                await adapter.setState('error.clear', { val: false, ack: true });
+                await adapter.setState('error.reset', { val: false, ack: true });
+                await adapter.setState('error.code', { val: 0, ack: true });
+                await adapter.setState('error.message', { val: 'no error', ack: true });
             }
-        }.bind(this));
+            await adapter.setState('last_sync', {val: adapter.formatDate(new Date(), 'YYYY-MM-DD hh:mm:ss'), ack: true});
+            await adapter.setState('online', {val: hostOnline, ack: true});
+            await adapter.setState('rest_time', {val: isRestTime, ack: true});
+            await adapter.setState('info.connection', {val: hostOnline, ack: true});
+
+            adapter.log.debug('Polling started');
+
+            // Poll status
+            await adapter.sendApiCmd('cmd=status', true)
+                .then((data) => {
+                    adapter.log.silly(`Data from poll: ${JSON.stringify(data)}`);
+                    adapter.currentStatus = data['status']['status'];
+                })
+                .catch((err) => {
+                    // adapter.log.error(`Polling robonect status: ${JSON.stringify(err)}`);
+                    adapter.doErrorHandling(err);
+                });
+
+            if (isRestTime === false) {
+                if (adapter.currentStatus != null && adapter.currentStatus !== 16 /*abgeschaltet*/ && adapter.currentStatus !== 17 /*schlafen*/) {
+                    doRegularPoll = true;
+                }
+            }
+            adapter.log.debug('pollType: ' + pollType);
+            adapter.log.debug('isRestTime: ' + isRestTime);
+            adapter.log.debug('currentStatus: ' + adapter.currentStatus);
+            adapter.log.debug('doRegularPoll: ' + doRegularPoll);
+            try {
+                if (adapter.batteryPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.batteryPollType === pollType && doRegularPoll)))
+                    await adapter.sendApiCmd('cmd=battery', true);
+                if (adapter.doorPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.doorPollType === pollType && doRegularPoll)))
+                    await adapter.sendApiCmd('cmd=door', true);
+                if (adapter.errorsPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.errorsPollType === pollType && doRegularPoll)))
+                    await adapter.sendApiCmd('cmd=error', true);
+                if (adapter.extensionPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.extensionPollType === pollType && doRegularPoll)))
+                    await adapter.sendApiCmd('cmd=ext', true);
+                if (adapter.gpsPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.gpsPollType === pollType && doRegularPoll)))
+                    await adapter.sendApiCmd('cmd=gps', true);
+                if (adapter.hoursPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.hoursPollType === pollType && doRegularPoll)))
+                    await adapter.sendApiCmd('cmd=hour', true);
+                if (adapter.motorPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.motorPollType === pollType && doRegularPoll)))
+                    await adapter.sendApiCmd('cmd=motor', true);
+                if (adapter.portalPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.portalPollType === pollType && doRegularPoll)))
+                    await adapter.sendApiCmd('cmd=portal', true);
+                if (adapter.pushPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.pushPollType === pollType && doRegularPoll)))
+                    await adapter.sendApiCmd('cmd=push', true);
+                if (adapter.timerPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.timerPollType === pollType && doRegularPoll)))
+                    await adapter.sendApiCmd('cmd=timer', true);
+                if (adapter.versionPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.versionPollType === pollType && doRegularPoll)))
+                    await adapter.sendApiCmd('cmd=version', true);
+                if (adapter.weatherPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.weatherPollType === pollType && doRegularPoll)))
+                    await adapter.sendApiCmd('cmd=weather', true);
+                if (adapter.wlanPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.wlanPollType === pollType && doRegularPoll)))
+                    await adapter.sendApiCmd('cmd=wlan', true);
+                adapter.log.debug('Polling done');
+            }
+            catch (err) {
+                adapter.doErrorHandling(err);
+            }
+        } else {
+            adapter.log.warn('No connection to lawn mower (Not able to ping it). Check network connection.');
+        }
     }
 
     doErrorHandling(err){
