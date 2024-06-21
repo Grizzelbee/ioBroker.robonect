@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.3.5",
+        "version": "1.3.6",
         "news": {
+            "1.3.6": {
+                "en": "Upd: Dependencies got updated\nFix: minor fixes for adapter checker",
+                "de": "Update: Abhängigkeiten wurden aktualisiert\nFix: kleinere Korrekturen für den Adapter-Checker",
+                "ru": "Обновление: обновлены зависимости \n Исправлено: мелкие исправления для проверки адаптера.",
+                "pt": "Atualização: Dependências foram atualizadas\n Correção: pequenas correções para verificador de adaptador",
+                "nl": "Upd: Afhankelijkheden zijn bijgewerkt \n Oplossing: kleine oplossingen voor adaptercontrole",
+                "fr": "Mise à jour : les dépendances ont été mises à jour\nCorrection : correctifs mineurs pour le vérificateur d'adaptateur",
+                "it": "Aggiornamento: le dipendenze sono state aggiornate\nCorrezione: correzioni minori per il controllo dell'adattatore",
+                "es": "Actualización: Se actualizaron las dependencias\n Solución: correcciones menores para el verificador de adaptadores",
+                "pl": "Aktualizacja: Zależności zostały zaktualizowane \nPoprawka: drobne poprawki dla modułu sprawdzania adaptera",
+                "uk": "Оновлено: залежності оновлено\nВиправлення: незначні виправлення для засобу перевірки адаптерів",
+                "zh-cn": "更新：依赖项已更新\n修复：适配器检查器的小修复"
+            },
             "1.3.5": {
                 "en": "Upd: Dependencies got updated\nUpd: Requires at least admin  v6.13.16\nUpd: Requires at least nodeJs v18.0.2\nUpd: Updated translations\nUpd: Reorganized Admin-UI\nNew: Added Ping-Option to admin ",
                 "de": "Upd: Abhängigkeiten wurden aktualisiert\nUpd: Erfordert mindestens Admin v6.13.16\nUpd: Erfordert mindestens NodeJs v18.0.2\nUpd: Aktualisierte Übersetzungen\nUpd: Neu organisierte Admin-UI\nNeu: Ping-Option zum Admin hinzugefügt",
@@ -132,7 +145,6 @@
         ],
         "type": "garden",
         "tier": 2,
-        "license": "MIT",
         "adminUI": {
             "config": "json"
         },
@@ -230,7 +242,7 @@
         "password"
     ],
     "protectedNative": [
-        "Password"
+        "password"
     ],
     "objects": [],
     "instanceObjects": [
