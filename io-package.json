@@ -1,8 +1,10 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.3.6",
+        "version": "1.4.0",
         "news": {
+            "1.4.0": {
+                "en": "Upd: Dependencies got updated\nFix: minor fixes for adapter checker the require a minor release"},
             "1.3.6": {
                 "en": "Upd: Dependencies got updated\nFix: minor fixes for adapter checker",
                 "de": "Update: Abhängigkeiten wurden aktualisiert\nFix: kleinere Korrekturen für den Adapter-Checker",
@@ -15,84 +17,6 @@
                 "pl": "Aktualizacja: Zależności zostały zaktualizowane \nPoprawka: drobne poprawki dla modułu sprawdzania adaptera",
                 "uk": "Оновлено: залежності оновлено\nВиправлення: незначні виправлення для засобу перевірки адаптерів",
                 "zh-cn": "更新：依赖项已更新\n修复：适配器检查器的小修复"
-            },
-            "1.3.5": {
-                "en": "Upd: Dependencies got updated\nUpd: Requires at least admin  v6.13.16\nUpd: Requires at least nodeJs v18.0.2\nUpd: Updated translations\nUpd: Reorganized Admin-UI\nNew: Added Ping-Option to admin ",
-                "de": "Upd: Abhängigkeiten wurden aktualisiert\nUpd: Erfordert mindestens Admin v6.13.16\nUpd: Erfordert mindestens NodeJs v18.0.2\nUpd: Aktualisierte Übersetzungen\nUpd: Neu organisierte Admin-UI\nNeu: Ping-Option zum Admin hinzugefügt",
-                "ru": "Обновление: обновлены зависимости\nОбновление: требуется как минимум администратор v6.13.16\nОбновление: требуется как минимум nodeJs v18.0.2\nОбновление: обновленные переводы\nОбновление: реорганизованный интерфейс администратора\nНовое: добавлена ​​опция Ping для администратора",
-                "pt": "Upd: Dependências foram atualizadas\nUpd: Requer pelo menos admin v6.13.16\nUpd: Requer pelo menos nodeJs v18.0.2\nUpd: Traduções atualizadas\nUpd: UI de administração reorganizada\nNovo: Adicionada opção de Ping para admin",
-                "nl": "Upd: Afhankelijkheden zijn bijgewerkt\nUpd: Vereist minimaal beheerder v6.13.16\nUpd: Vereist minimaal nodeJs v18.0.2\nUpd: Bijgewerkte vertalingen\nUpd: Gereorganiseerde beheerdersinterface\nNieuw: Ping-optie toegevoegd aan beheerder",
-                "fr": "Mise à jour : les dépendances ont été mises à jour\nMise à jour : nécessite au moins l'administrateur v6.13.16\nMise à jour : nécessite au moins nodeJs v18.0.2\nMise à jour : traductions mises à jour\nMise à jour : interface utilisateur d'administration réorganisée\nNouveau : option Ping ajoutée à l'administrateur",
-                "it": "Aggiornamento: le dipendenze sono state aggiornate\nAggiornamento: richiede almeno admin v6.13.16\nAggiornamento: richiede almeno nodeJs v18.0.2\nAggiornamento: traduzioni aggiornate\nAggiornamento: interfaccia utente riorganizzata\nNovità: aggiunta opzione Ping all'amministratore",
-                "es": "Actualización: Se actualizaron las dependencias \n Actualización: Requiere al menos admin v6.13.16 \n Actualización: Requiere al menos nodeJs v18.0.2 \n Actualización: Traducciones actualizadas \n Actualización: UI de administrador reorganizada \n Nuevo: Opción de ping agregada al administrador",
-                "pl": "Aktualizacja: Zależności zostały zaktualizowane\nAktualizacja: Wymaga co najmniej administratora v6.13.16\nAktualizacja: Wymaga co najmniej nodeJs v18.0.2\nAktualizacja: Zaktualizowano tłumaczenia\nAktualizacja: Zreorganizowany interfejs administratora\nNowość: Dodano opcję Ping do administratora",
-                "uk": "Оновлення: Оновлено залежності\nОновлення: Потрібен принаймні admin v6.13.16\nОновлення: Потрібен принаймні nodeJs v18.0.2\nОновлення: Оновлені переклади\nОновлення: Реорганізований інтерфейс адміністратора\nНове: додано Ping-Option для адміністратора",
-                "zh-cn": "更新：依赖项已更新\n更新：至少需要 admin v6.13.16\n更新：至少需要 nodeJs v18.0.2\n更新：更新翻译\n更新：重新组织管理 UI \n新增：向管理添加 Ping 选项"
-            },
-            "1.3.4": {
-                "en": "Chg: massive code refactoring\nFix: Fixed false error message when PushService is listening to all IPv4 or IPv6 addresses\nChg: Forcing pollType info for pushService when enabled it's enabled in config",
-                "de": "Änderung: Massives Code-Refactoring\nFix: Falsche Fehlermeldung behoben, wenn PushService alle IPv4- oder IPv6-Adressen abhört\nÄnderung: PollType-Informationen für pushService werden erzwungen, wenn diese in der Konfiguration aktiviert sind",
-                "ru": "Измен.: масштабный рефакторинг кода. \n Исправлено: исправлено ложное сообщение об ошибке, когда PushService прослушивает все адреса IPv4 или IPv6. \n Изм.: принудительное использование информации pollType для pushService, когда она включена, она включена в конфигурации.",
-                "pt": "Alteração: refatoração massiva de código\n Correção: Corrigida mensagem de erro falsa quando PushService está escutando todos os endereços IPv4 ou IPv6\n Alteração: Forçando informações pollType para pushService quando ativado, está ativado na configuração",
-                "nl": "Chg: grootschalige code-refactoring\nFix: foutieve foutmelding opgelost wanneer PushService naar alle IPv4- of IPv6-adressen luistert\nChg: PollType-informatie voor pushService forceren wanneer deze is ingeschakeld in de configuratie",
-                "fr": "Chg : refactorisation massive du code\nCorrection : correction d'un faux message d'erreur lorsque PushService écoute toutes les adresses IPv4 ou IPv6\nChg : forcer les informations pollType pour pushService lorsqu'il est activé, il est activé dans la configuration",
-                "it": "Modifica: refactoring massiccio del codice\nCorrezione: risolto il falso messaggio di errore quando PushService è in ascolto su tutti gli indirizzi IPv4 o IPv6\nModifica: forzatura delle informazioni pollType per pushService quando abilitato è abilitato nella configurazione",
-                "es": "Chg: refactorización masiva de código\n Solución: se corrigió el mensaje de error falso cuando PushService escucha todas las direcciones IPv4 o IPv6\n Chg: Forzar la información pollType para pushService cuando está habilitado, está habilitado en la configuración",
-                "pl": "Chg: masowa refaktoryzacja kodu\nPoprawka: Naprawiono fałszywy komunikat o błędzie, gdy PushService nasłuchuje wszystkich adresów IPv4 lub IPv6\nChg: Wymuszanie informacji typu pollType dla usługi pushService, gdy jest włączona, jest włączona w konfiguracji",
-                "uk": "Зміна: масовий рефакторинг коду\nВиправлення: виправлено помилкове повідомлення про помилку, коли PushService прослуховує всі адреси IPv4 або IPv6\nЗміна: примусове використання інформації pollType для pushService, коли її ввімкнено в конфігурації",
-                "zh-cn": "Chg：大规模代码重构\n修复：修复了 PushService 侦听所有 IPv4 或 IPv6 地址时的错误消息\nChg：在启用时强制推送服务的 pollType 信息（在配置中启用）"
-            },
-            "1.3.2": {
-                "en": "Fix: Switching of extensions works now\nFix: Fixed false error message when switching extensions",
-                "de": "Fix: Das Umschalten von Erweiterungen funktioniert jetzt\nFix: Falsche Fehlermeldung beim Umschalten von Erweiterungen behoben",
-                "ru": "Исправлено: переключение расширений теперь работает\nИсправлено: исправлено ложное сообщение об ошибке при переключении расширений.",
-                "pt": "Correção: a troca de extensões funciona agora\n Correção: corrigida a falsa mensagem de erro ao trocar de extensões",
-                "nl": "Fix: wisselen van extensie werkt nu\nFix: foutieve foutmelding opgelost bij het wisselen van extensie",
-                "fr": "Correctif : le changement d'extension fonctionne maintenant\nCorrection : correction d'un faux message d'erreur lors du changement d'extension",
-                "it": "Correzione: il cambio di estensione ora funziona\nCorrezione: corretto il messaggio di errore falso quando si cambia estensione",
-                "es": "Solución: el cambio de extensiones funciona ahora \n Solución: se corrigió un mensaje de error falso al cambiar de extensión",
-                "pl": "Poprawka: przełączanie rozszerzeń działa teraz \n Poprawka: naprawiono fałszywy komunikat o błędzie podczas przełączania rozszerzeń",
-                "uk": "Виправлення: перемикання розширень працює зараз\nВиправлення: виправлено помилкове повідомлення про помилку під час перемикання розширень",
-                "zh-cn": "修复：现在可以切换扩展程序\n修复：修复切换扩展程序时出现的错误消息"
-            },
-            "1.3.1": {
-                "en": "Chg: removed unnecessary Info log entries",
-                "de": "Änderung: unnötige Info-Log-Einträge entfernt",
-                "ru": "Измен.: удалены ненужные записи журнала информации.",
-                "pt": "Chg: foram removidas entradas desnecessárias do log de informações",
-                "nl": "Chg: onnodige Info-logboekvermeldingen verwijderd",
-                "fr": "Chg : suppression des entrées inutiles du journal d'informations",
-                "it": "Modifica: rimosse le voci del registro informazioni non necessarie",
-                "es": "Cambio: se eliminaron entradas innecesarias del registro de información",
-                "pl": "Zmień: usunięto niepotrzebne wpisy dziennika informacyjnego",
-                "uk": "Зміна: видалено непотрібні записи журналу інформації",
-                "zh-cn": "Chg：删除了不必要的信息日志条目"
-            },
-            "1.3.0": {
-                "en": "Chg: Changed authentication method from URL-Encoding to basic authentication\nImproved error handling\nUpd: Dependencies got updated",
-                "de": "Änderung: Authentifizierungsmethode von URL-Verschlüsselung auf Basisauthentifizierung geändert\nFehlerbehandlung verbessert\nAktualisiert: Abhängigkeiten wurden aktualisiert",
-                "ru": "Изменение: изменен метод аутентификации с URL-кодирования на базовую аутентификацию \n Улучшена обработка ошибок \n Обновление: обновлены зависимости.",
-                "pt": "Chg: Método de autenticação alterado de codificação de URL para autenticação básica\n Melhor tratamento de erros\n Atualização: Dependências foram atualizadas",
-                "nl": "Chg: Gewijzigde authenticatiemethode van URL-codering naar basisauthenticatie\nVerbeterde foutafhandeling\nUpd: Afhankelijkheden zijn bijgewerkt",
-                "fr": "Chg : modification de la méthode d'authentification de l'encodage d'URL à l'authentification de base\nGestion des erreurs améliorée\nMise à jour : les dépendances ont été mises à jour",
-                "it": "Modifica: metodo di autenticazione modificato dalla codifica URL all'autenticazione di base\nGestione degli errori migliorata\nAggiornamento: le dipendenze sono state aggiornate",
-                "es": "Cambio: Se cambió el método de autenticación de codificación de URL a autenticación básica \n Manejo de errores mejorado \n Actualización: Se actualizaron las dependencias",
-                "pl": "Chg: Zmieniono metodę uwierzytelniania z kodowania URL na uwierzytelnianie podstawowe \n Poprawiona obsługa błędów \n Aktualizacja: Zależności zostały zaktualizowane",
-                "uk": "Зміна: метод автентифікації змінено з URL-кодування на базову автентифікацію\nПокращена обробка помилок\nОновлено: залежності оновлено",
-                "zh-cn": "Chg：将身份验证方法从 URL 编码更改为基本身份验证\n改进了错误处理\nUpd：更新了依赖项"
-            },
-            "1.2.0": {
-                "en": "(mcm1957) Fix: Adapter requires NodeJs >= 16\n(crocri)  New: Introduced code to clear errors\n (grizzelbee) Fix: Fixed functions getValueAsync() and testPushServerConfig()",
-                "de": "(mcm1957) Fix: Adapter erfordert NodeJs >= 16\n(crocri) Neu: Code zum Löschen von Fehlern eingeführt\n (grizzelbee) Fix: Funktionen getValueAsync() und testPushServerConfig() korrigiert",
-                "ru": "(mcm1957) Исправлено: адаптер требует NodeJs >= 16\n(crocri). Новое: введен код для очистки ошибок\n (grizzelbee). Исправлено: исправлены функции getValueAsync() и testPushServerConfig().",
-                "pt": "(mcm1957) Correção: o adaptador requer NodeJs >= 16\n(crocri) Novo: código introduzido para limpar erros\n (grizzelbee) Correção: funções corrigidas getValueAsync() e testPushServerConfig()",
-                "nl": "(mcm1957) Oplossing: Adapter vereist NodeJs >= 16\n(crocri) Nieuw: Code geïntroduceerd om fouten te wissen\n (grizzelbee) Oplossing: Functies getValueAsync() en testPushServerConfig() opgelost",
-                "fr": "(mcm1957) Correctif : l'adaptateur nécessite NodeJs >= 16\n(crocri) Nouveau : code introduit pour effacer les erreurs\n (grizzelbee) Correctif : fonctions fixes getValueAsync() et testPushServerConfig()",
-                "it": "(mcm1957) Correzione: l'adattatore richiede NodeJs >= 16\n(crocri) Novità: introdotto codice per cancellare errori\n (grizzelbee) Correzione: corrette le funzioni getValueAsync() e testPushServerConfig()",
-                "es": "(mcm1957) Solución: El adaptador requiere NodeJs >= 16\n(crocri) Nuevo: Código introducido para borrar errores\n (grizzelbee) Solución: Funciones fijas getValueAsync() y testPushServerConfig()",
-                "pl": "(mcm1957) Poprawka: Adapter wymaga NodeJs >= 16\n(crocri) Nowość: Wprowadzono kod do usuwania błędów\n (grizzelbee) Poprawka: Naprawiono funkcje getValueAsync() i testPushServerConfig()",
-                "uk": "(mcm1957) Виправлення: для адаптера потрібні NodeJs >= 16\n(crocri) Нове: представлено код для видалення помилок\n (grizzelbee) Виправлення: виправлено функції getValueAsync() і testPushServerConfig()",
-                "zh-cn": "(mcm1957) 修复：适配器需要 NodeJs >= 16\n(crocri) 新增：引入了清除错误的代码\n (grizzelbee) 修复：修复了函数 getValueAsync() 和 testPushServerConfig()"
             }
         },
         "titleLang": {
@@ -155,7 +79,7 @@
         ],
         "dependencies": [
             {
-                "js-controller": ">=3.0.0"
+                "js-controller": ">=5.0.19"
             }
         ],
         "plugins": {
