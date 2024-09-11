@@ -4,7 +4,18 @@
         "version": "1.4.0",
         "news": {
             "1.4.0": {
-                "en": "Upd: Dependencies got updated\nFix: minor fixes for adapter checker the require a minor release"},
+                "en": "Upd: Dependencies got updated\nFix: minor fixes for adapter checker the require a minor release",
+                "de": "Aktualisiert: Abhängigkeiten wurden aktualisiert\nFix: Kleinere Korrekturen für den Adapter-Checker erfordern eine Nebenversion",
+                "ru": "Upd: Зависимости обновлены.\nИсправлено: мелкие исправления для средства проверки адаптера, требующие незначительной версии.",
+                "pt": "Upd: Dependências foram atualizadas\nCorreção: pequenas correções para o verificador de adaptador requerem uma versão secundária",
+                "nl": "Upd: Afhankelijkheden zijn bijgewerkt\nOplossing: kleine reparaties voor adaptercontrole vereisen een kleine release",
+                "fr": "Mise à jour : les dépendances ont été mises à jour\nCorrectif : correctifs mineurs pour le vérificateur d'adaptateur nécessitant une version mineure",
+                "it": "Aggiornamento: le dipendenze sono state aggiornate\nCorrezione: correzioni minori per il controllo dell'adattatore richiedono una versione minore",
+                "es": "Actualización: Se actualizaron las dependencias\nSolución: correcciones menores para el verificador de adaptadores que requieren una versión menor",
+                "pl": "Aktualizacja: Zależności zostały zaktualizowane\nPoprawka: drobne poprawki modułu sprawdzania adapterów wymagają drobnej wersji",
+                "uk": "Оновлено: залежності оновлено\nВиправлення: незначні виправлення для засобу перевірки адаптерів вимагають незначного випуску",
+                "zh-cn": "更新：依赖项已更新\n修复：适配器检查器的小修复需要次要版本"
+            },
             "1.3.6": {
                 "en": "Upd: Dependencies got updated\nFix: minor fixes for adapter checker",
                 "de": "Update: Abhängigkeiten wurden aktualisiert\nFix: kleinere Korrekturen für den Adapter-Checker",
