@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "robonect",
-        "version": "1.4.0",
+        "version": "1.4.1",
         "news": {
+            "1.4.1": {
+                "en": "New: Added ioBroker adapter release script"
+            },
             "1.4.0": {
                 "en": "Upd: Dependencies got updated\nFix: minor fixes for adapter checker the require a minor release",
                 "de": "Aktualisiert: Abhängigkeiten wurden aktualisiert\nFix: Kleinere Korrekturen für den Adapter-Checker erfordern eine Nebenversion",
