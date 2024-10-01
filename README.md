@@ -71,6 +71,7 @@ permission issue between the iobroker user and the ping utility.
 ## Changelog
 
 ### **WORK IN PROGRESS**
+- (grizzelbee) Fix: Minor fix in readme.md for release script
 
 ### 1.4.1 (2024-09-30)
 - (grizzelbee) New: Added ioBroker adapter release script
