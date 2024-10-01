@@ -2,6 +2,7 @@
 	"dry": false,
 	"plugins": [
 		"iobroker",
-		"license"
+		"license",
+		"manual-review"
 	]
 }
