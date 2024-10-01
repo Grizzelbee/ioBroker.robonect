@@ -1,250 +1,263 @@
 {
-    "common": {
-        "name": "robonect",
-        "version": "1.4.1",
-        "news": {
-            "1.4.1": {
-                "en": "New: Added ioBroker adapter release script",
-                "de": "Neu: ioBroker-Adapter-Release-Skript hinzugefügt",
-                "ru": "Новое: добавлен скрипт выпуска адаптера ioBroker.",
-                "pt": "Novo: Adicionado script de lançamento do adaptador ioBroker",
-                "nl": "Nieuw: ioBroker-adapterreleasescript toegevoegd",
-                "fr": "Nouveau : ajout du script de version de l'adaptateur ioBroker",
-                "it": "Novità: aggiunto lo script di rilascio dell'adattatore ioBroker",
-                "es": "Nuevo: Se agregó el script de lanzamiento del adaptador ioBroker",
-                "pl": "Nowość: Dodano skrypt wydania adaptera ioBroker",
-                "uk": "Нове: додано сценарій випуску адаптера ioBroker",
-                "zh-cn": "新增内容：添加了 ioBroker 适配器发布脚本"
-            },
-            "1.4.0": {
-                "en": "Upd: Dependencies got updated\nFix: minor fixes for adapter checker the require a minor release",
-                "de": "Aktualisiert: Abhängigkeiten wurden aktualisiert\nFix: Kleinere Korrekturen für den Adapter-Checker erfordern eine Nebenversion",
-                "ru": "Upd: Зависимости обновлены.\nИсправлено: мелкие исправления для средства проверки адаптера, требующие незначительной версии.",
-                "pt": "Upd: Dependências foram atualizadas\nCorreção: pequenas correções para o verificador de adaptador requerem uma versão secundária",
-                "nl": "Upd: Afhankelijkheden zijn bijgewerkt\nOplossing: kleine reparaties voor adaptercontrole vereisen een kleine release",
-                "fr": "Mise à jour : les dépendances ont été mises à jour\nCorrectif : correctifs mineurs pour le vérificateur d'adaptateur nécessitant une version mineure",
-                "it": "Aggiornamento: le dipendenze sono state aggiornate\nCorrezione: correzioni minori per il controllo dell'adattatore richiedono una versione minore",
-                "es": "Actualización: Se actualizaron las dependencias\nSolución: correcciones menores para el verificador de adaptadores que requieren una versión menor",
-                "pl": "Aktualizacja: Zależności zostały zaktualizowane\nPoprawka: drobne poprawki modułu sprawdzania adapterów wymagają drobnej wersji",
-                "uk": "Оновлено: залежності оновлено\nВиправлення: незначні виправлення для засобу перевірки адаптерів вимагають незначного випуску",
-                "zh-cn": "更新：依赖项已更新\n修复：适配器检查器的小修复需要次要版本"
-            },
-            "1.3.6": {
-                "en": "Upd: Dependencies got updated\nFix: minor fixes for adapter checker",
-                "de": "Update: Abhängigkeiten wurden aktualisiert\nFix: kleinere Korrekturen für den Adapter-Checker",
-                "ru": "Обновление: обновлены зависимости \n Исправлено: мелкие исправления для проверки адаптера.",
-                "pt": "Atualização: Dependências foram atualizadas\n Correção: pequenas correções para verificador de adaptador",
-                "nl": "Upd: Afhankelijkheden zijn bijgewerkt \n Oplossing: kleine oplossingen voor adaptercontrole",
-                "fr": "Mise à jour : les dépendances ont été mises à jour\nCorrection : correctifs mineurs pour le vérificateur d'adaptateur",
-                "it": "Aggiornamento: le dipendenze sono state aggiornate\nCorrezione: correzioni minori per il controllo dell'adattatore",
-                "es": "Actualización: Se actualizaron las dependencias\n Solución: correcciones menores para el verificador de adaptadores",
-                "pl": "Aktualizacja: Zależności zostały zaktualizowane \nPoprawka: drobne poprawki dla modułu sprawdzania adaptera",
-                "uk": "Оновлено: залежності оновлено\nВиправлення: незначні виправлення для засобу перевірки адаптерів",
-                "zh-cn": "更新：依赖项已更新\n修复：适配器检查器的小修复"
-            }
-        },
-        "titleLang": {
-            "en": "Robonect HX",
-            "de": "Robonect HX",
-            "ru": "Робонект HX",
-            "pt": "Robonect HX",
-            "nl": "Robonect HX",
-            "fr": "Robonect HX",
-            "it": "Robonect HX",
-            "es": "Robonect HX",
-            "pl": "Robonect HX",
-            "uk": "Robonect HX",
-            "zh-cn": "Robonect HX"
-        },
-        "desc": {
-            "en": "Robonect HX for lawn mower robots from Husquarna, Flymo, McCulloch and Gardena",
-            "de": "Robonect HX für Rasenmäherroboter von Husquarna, Flymo, McCulloch und Gardena",
-            "ru": "Robonect HX для роботов-газонокосилок от Husquarna, Flymo, McCulloch и Gardena",
-            "pt": "Robonect HX para robôs cortadores de grama da Husquarna, Flymo, McCulloch e Gardena",
-            "nl": "Robonect HX voor grasmaaierrobots van Husquarna, Flymo, McCulloch en Gardena",
-            "fr": "Robonect HX pour les robots tondeuses Husquarna, Flymo, McCulloch et Gardena",
-            "it": "Robonect HX per robot tosaerba di Husquarna, Flymo, McCulloch e Gardena",
-            "es": "Robonect HX para robots cortacésped de Husquarna, Flymo, McCulloch y Gardena",
-            "pl": "Robonect HX do robotów koszących Husquarna, Flymo, McCulloch i Gardena",
-            "uk": "Robonect HX для роботів-газонокосарок Husquarna, Flymo, McCulloch і Gardena",
-            "zh-cn": "Robonect HX 适用于 Husquarna、Flymo、McCulloch 和 Gardena 割草机机器人"
-        },
-        "mode": "daemon",
-        "compact": true,
-        "platform": "Javascript/Node.js",
-        "loglevel": "info",
-        "connectionType": "local",
-        "dataSource": "push",
-        "icon": "robonect.png",
-        "enabled": false,
-        "extIcon": "https://raw.githubusercontent.com/Grizzelbee/ioBroker.robonect/master/admin/robonect.png",
-        "keywords": [
-            "robonect",
-            "lawn mower"
-        ],
-        "localLinks": {
-            "_default": "http://%robonectIp%"
-        },
-        "readme": "https://github.com/Grizzelbee/ioBroker.robonect/blob/master/README.md",
-        "authors": [
-            "grizzelbee <open.source@hingsen.de>",
-            "braindead1 <os.braindead1@gmail.com>",
-            "StefSign <hufnagl@hotmail.com>"
-        ],
-        "type": "garden",
-        "tier": 2,
-        "adminUI": {
-            "config": "json"
-        },
-        "globalDependencies": [
-            {
-                "admin": ">=6.13.16"
-            }
-        ],
-        "dependencies": [
-            {
-                "js-controller": ">=5.0.19"
-            }
-        ],
-        "plugins": {
-            "sentry": {
-                "dsn": "https://a0c2e8d5451b4c45240850edba5e25d1@o505019.ingest.sentry.io/4505709924253696"
-            }
-        },
-        "messages": [
-            {
-                "condition": {
-                    "operand": "and",
-                    "rules": [
-                        "oldVersion<1.0.0",
-                        "newVersion>=1.0.0"
-                    ]
-                },
-                "title": {
-                    "en": "Instance requires new configuration after update",
-                    "de": "Die Instanz erfordert nach dem Update eine neue Konfiguration",
-                    "ru": "Экземпляр требует новой конфигурации после обновления",
-                    "pt": "A instância requer uma nova configuração após a atualização",
-                    "nl": "Instantie vereist nieuwe configuratie na update",
-                    "fr": "L'instance nécessite une nouvelle configuration après la mise à jour",
-                    "it": "L'istanza richiede una nuova configurazione dopo l'aggiornamento",
-                    "es": "La instancia requiere una nueva configuración después de la actualización",
-                    "pl": "Instancja wymaga nowej konfiguracji po aktualizacji",
-                    "zh-cn": "实例更新后需要新配置",
-                    "uk": "Після оновлення екземпляр потребує нової конфігурації"
-                },
-                "text": {
-                    "en": "After upgrading to Version 1.0.0 or later you need to reenter your password and check your configuration settings due to the change of the admin interface.",
-                    "de": "Nach dem Upgrade auf Version 1.0.0 oder höher müssen Sie aufgrund der Änderung der Admin-Oberfläche Ihr Passwort erneut eingeben und Ihre Konfigurationseinstellungen überprüfen.",
-                    "ru": "После обновления до версии 1.0.0 или более поздней вам необходимо повторно ввести пароль и проверить параметры конфигурации в связи с изменением интерфейса администратора.",
-                    "pt": "Depois de atualizar para a versão 1.0.0 ou posterior, você precisa digitar novamente sua senha e verificar suas definições de configuração devido à alteração da interface de administração.",
-                    "nl": "Na het upgraden naar versie 1.0.0 of later moet u uw wachtwoord opnieuw invoeren en uw configuratie-instellingen controleren vanwege de wijziging van de beheerdersinterface.",
-                    "fr": "Après la mise à niveau vers la version 1.0.0 ou ultérieure, vous devez ressaisir votre mot de passe et vérifier vos paramètres de configuration en raison du changement de l'interface d'administration.",
-                    "it": "Dopo l'aggiornamento alla versione 1.0.0 o successiva è necessario reinserire la password e controllare le impostazioni di configurazione a causa della modifica dell'interfaccia di amministrazione.",
-                    "es": "Después de actualizar a la versión 1.0.0 o posterior, debe volver a ingresar su contraseña y verificar sus ajustes de configuración debido al cambio de la interfaz de administración.",
-                    "pl": "Po aktualizacji do wersji 1.0.0 lub nowszej należy ponownie wprowadzić hasło i sprawdzić ustawienia konfiguracyjne ze względu na zmianę interfejsu administratora.",
-                    "uk": "Після оновлення до версії 1.0.0 або новішої вам потрібно повторно ввести пароль і перевірити налаштування конфігурації через зміну інтерфейсу адміністратора.",
-                    "zh-cn": "升级到版本1.0.0或更高版本后，由于管理界面的更改，您需要重新输入密码并检查您的配置设置。"
-                },
-                "level": "warn",
-                "buttons": [
-                    "agree",
-                    "cancel"
-                ]
-            }
-        ],
-        "licenseInformation": {
-            "license": "MIT",
-            "type": "free"
-        }
+  "common": {
+    "name": "robonect",
+    "version": "1.4.2",
+    "news": {
+      "1.4.2": {
+        "en": "Fix: Minor fix in readme.md for release script",
+        "de": "Fix: Minor fix in readme. md für Releaseskript",
+        "ru": "Исправление: Незначительная фиксация в считывании. md для выпуска скрипта",
+        "pt": "Corrigir: Pequena correção no readme. md para script de lançamento",
+        "nl": "Fix: Kleine fix in readme. md voor releasescript",
+        "fr": "Correction : Correction mineure dans la lecture. md pour le script de sortie",
+        "it": "Correzione: Minor fix in readme. md per lo script di rilascio",
+        "es": "Fijación: Fijación menor en el readme. md for release script",
+        "pl": "Fix: Drobne fix w readme. md dla skryptu wydania",
+        "uk": "Виправлення: Виправлення мінор в чителю. md для сценарію релізу",
+        "zh-cn": "修补:小修在readme. md 用于发布脚本"
+      },
+      "1.4.1": {
+        "en": "New: Added ioBroker adapter release script",
+        "de": "Neu: ioBroker-Adapter-Release-Skript hinzugefügt",
+        "ru": "Новое: добавлен скрипт выпуска адаптера ioBroker.",
+        "pt": "Novo: Adicionado script de lançamento do adaptador ioBroker",
+        "nl": "Nieuw: ioBroker-adapterreleasescript toegevoegd",
+        "fr": "Nouveau : ajout du script de version de l'adaptateur ioBroker",
+        "it": "Novità: aggiunto lo script di rilascio dell'adattatore ioBroker",
+        "es": "Nuevo: Se agregó el script de lanzamiento del adaptador ioBroker",
+        "pl": "Nowość: Dodano skrypt wydania adaptera ioBroker",
+        "uk": "Нове: додано сценарій випуску адаптера ioBroker",
+        "zh-cn": "新增内容：添加了 ioBroker 适配器发布脚本"
+      },
+      "1.4.0": {
+        "en": "Upd: Dependencies got updated\nFix: minor fixes for adapter checker the require a minor release",
+        "de": "Aktualisiert: Abhängigkeiten wurden aktualisiert\nFix: Kleinere Korrekturen für den Adapter-Checker erfordern eine Nebenversion",
+        "ru": "Upd: Зависимости обновлены.\nИсправлено: мелкие исправления для средства проверки адаптера, требующие незначительной версии.",
+        "pt": "Upd: Dependências foram atualizadas\nCorreção: pequenas correções para o verificador de adaptador requerem uma versão secundária",
+        "nl": "Upd: Afhankelijkheden zijn bijgewerkt\nOplossing: kleine reparaties voor adaptercontrole vereisen een kleine release",
+        "fr": "Mise à jour : les dépendances ont été mises à jour\nCorrectif : correctifs mineurs pour le vérificateur d'adaptateur nécessitant une version mineure",
+        "it": "Aggiornamento: le dipendenze sono state aggiornate\nCorrezione: correzioni minori per il controllo dell'adattatore richiedono una versione minore",
+        "es": "Actualización: Se actualizaron las dependencias\nSolución: correcciones menores para el verificador de adaptadores que requieren una versión menor",
+        "pl": "Aktualizacja: Zależności zostały zaktualizowane\nPoprawka: drobne poprawki modułu sprawdzania adapterów wymagają drobnej wersji",
+        "uk": "Оновлено: залежності оновлено\nВиправлення: незначні виправлення для засобу перевірки адаптерів вимагають незначного випуску",
+        "zh-cn": "更新：依赖项已更新\n修复：适配器检查器的小修复需要次要版本"
+      },
+      "1.3.6": {
+        "en": "Upd: Dependencies got updated\nFix: minor fixes for adapter checker",
+        "de": "Update: Abhängigkeiten wurden aktualisiert\nFix: kleinere Korrekturen für den Adapter-Checker",
+        "ru": "Обновление: обновлены зависимости \n Исправлено: мелкие исправления для проверки адаптера.",
+        "pt": "Atualização: Dependências foram atualizadas\n Correção: pequenas correções para verificador de adaptador",
+        "nl": "Upd: Afhankelijkheden zijn bijgewerkt \n Oplossing: kleine oplossingen voor adaptercontrole",
+        "fr": "Mise à jour : les dépendances ont été mises à jour\nCorrection : correctifs mineurs pour le vérificateur d'adaptateur",
+        "it": "Aggiornamento: le dipendenze sono state aggiornate\nCorrezione: correzioni minori per il controllo dell'adattatore",
+        "es": "Actualización: Se actualizaron las dependencias\n Solución: correcciones menores para el verificador de adaptadores",
+        "pl": "Aktualizacja: Zależności zostały zaktualizowane \nPoprawka: drobne poprawki dla modułu sprawdzania adaptera",
+        "uk": "Оновлено: залежності оновлено\nВиправлення: незначні виправлення для засобу перевірки адаптерів",
+        "zh-cn": "更新：依赖项已更新\n修复：适配器检查器的小修复"
+      }
     },
-    "native": {
-        "username": "",
-        "password": "",
-        "robonectIp": "",
-        "pushService": false,
-        "pingFirst": true,
-        "pushServiceIp": "192.168.x.x",
-        "pushServicePort": 55443,
-        "statusInterval": 60,
-        "infoInterval": 900,
-        "restPeriod1Start": "",
-        "restPeriod1End": "",
-        "restPeriod2Start": "",
-        "restPeriod2End": "",
-        "batteryPollType": "Status",
-        "doorPollType": "NoPoll",
-        "errorsPollType": "Info",
-        "extensionPollType": "NoPoll",
-        "gpsPollType": "NoPoll",
-        "hoursPollType": "Info",
-        "motorPollType": "Info",
-        "portalPollType": "Info",
-        "pushPollType": "Info",
-        "timerPollType": "Info",
-        "versionPollType": "Info",
-        "weatherPollType": "NoPoll",
-        "wlanPollType": "Info"
+    "titleLang": {
+      "en": "Robonect HX",
+      "de": "Robonect HX",
+      "ru": "Робонект HX",
+      "pt": "Robonect HX",
+      "nl": "Robonect HX",
+      "fr": "Robonect HX",
+      "it": "Robonect HX",
+      "es": "Robonect HX",
+      "pl": "Robonect HX",
+      "uk": "Robonect HX",
+      "zh-cn": "Robonect HX"
     },
-    "encryptedNative": [
-        "password"
+    "desc": {
+      "en": "Robonect HX for lawn mower robots from Husquarna, Flymo, McCulloch and Gardena",
+      "de": "Robonect HX für Rasenmäherroboter von Husquarna, Flymo, McCulloch und Gardena",
+      "ru": "Robonect HX для роботов-газонокосилок от Husquarna, Flymo, McCulloch и Gardena",
+      "pt": "Robonect HX para robôs cortadores de grama da Husquarna, Flymo, McCulloch e Gardena",
+      "nl": "Robonect HX voor grasmaaierrobots van Husquarna, Flymo, McCulloch en Gardena",
+      "fr": "Robonect HX pour les robots tondeuses Husquarna, Flymo, McCulloch et Gardena",
+      "it": "Robonect HX per robot tosaerba di Husquarna, Flymo, McCulloch e Gardena",
+      "es": "Robonect HX para robots cortacésped de Husquarna, Flymo, McCulloch y Gardena",
+      "pl": "Robonect HX do robotów koszących Husquarna, Flymo, McCulloch i Gardena",
+      "uk": "Robonect HX для роботів-газонокосарок Husquarna, Flymo, McCulloch і Gardena",
+      "zh-cn": "Robonect HX 适用于 Husquarna、Flymo、McCulloch 和 Gardena 割草机机器人"
+    },
+    "mode": "daemon",
+    "compact": true,
+    "platform": "Javascript/Node.js",
+    "loglevel": "info",
+    "connectionType": "local",
+    "dataSource": "push",
+    "icon": "robonect.png",
+    "enabled": false,
+    "extIcon": "https://raw.githubusercontent.com/Grizzelbee/ioBroker.robonect/master/admin/robonect.png",
+    "keywords": [
+      "robonect",
+      "lawn mower"
     ],
-    "protectedNative": [
-        "password"
+    "localLinks": {
+      "_default": "http://%robonectIp%"
+    },
+    "readme": "https://github.com/Grizzelbee/ioBroker.robonect/blob/master/README.md",
+    "authors": [
+      "grizzelbee <open.source@hingsen.de>",
+      "braindead1 <os.braindead1@gmail.com>",
+      "StefSign <hufnagl@hotmail.com>"
     ],
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "Connected to lawn mower",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
+    "type": "garden",
+    "tier": 2,
+    "adminUI": {
+      "config": "json"
+    },
+    "globalDependencies": [
+      {
+        "admin": ">=6.13.16"
+      }
+    ],
+    "dependencies": [
+      {
+        "js-controller": ">=5.0.19"
+      }
+    ],
+    "plugins": {
+      "sentry": {
+        "dsn": "https://a0c2e8d5451b4c45240850edba5e25d1@o505019.ingest.sentry.io/4505709924253696"
+      }
+    },
+    "messages": [
+      {
+        "condition": {
+          "operand": "and",
+          "rules": [
+            "oldVersion<1.0.0",
+            "newVersion>=1.0.0"
+          ]
         },
-        {
-            "_id": "last_sync",
-            "type": "state",
-            "common": {
-                "name": "Last synchronization",
-                "type": "string",
-                "role": "state",
-                "read": true,
-                "write": false,
-                "desc": ""
-            },
-            "native": {}
+        "title": {
+          "en": "Instance requires new configuration after update",
+          "de": "Die Instanz erfordert nach dem Update eine neue Konfiguration",
+          "ru": "Экземпляр требует новой конфигурации после обновления",
+          "pt": "A instância requer uma nova configuração após a atualização",
+          "nl": "Instantie vereist nieuwe configuratie na update",
+          "fr": "L'instance nécessite une nouvelle configuration après la mise à jour",
+          "it": "L'istanza richiede una nuova configurazione dopo l'aggiornamento",
+          "es": "La instancia requiere una nueva configuración después de la actualización",
+          "pl": "Instancja wymaga nowej konfiguracji po aktualizacji",
+          "zh-cn": "实例更新后需要新配置",
+          "uk": "Після оновлення екземпляр потребує нової конфігурації"
         },
-        {
-            "_id": "online",
-            "type": "state",
-            "common": {
-                "name": "Mower is online",
-                "type": "boolean",
-                "role": "state",
-                "read": true,
-                "write": false,
-                "desc": ""
-            },
-            "native": {}
+        "text": {
+          "en": "After upgrading to Version 1.0.0 or later you need to reenter your password and check your configuration settings due to the change of the admin interface.",
+          "de": "Nach dem Upgrade auf Version 1.0.0 oder höher müssen Sie aufgrund der Änderung der Admin-Oberfläche Ihr Passwort erneut eingeben und Ihre Konfigurationseinstellungen überprüfen.",
+          "ru": "После обновления до версии 1.0.0 или более поздней вам необходимо повторно ввести пароль и проверить параметры конфигурации в связи с изменением интерфейса администратора.",
+          "pt": "Depois de atualizar para a versão 1.0.0 ou posterior, você precisa digitar novamente sua senha e verificar suas definições de configuração devido à alteração da interface de administração.",
+          "nl": "Na het upgraden naar versie 1.0.0 of later moet u uw wachtwoord opnieuw invoeren en uw configuratie-instellingen controleren vanwege de wijziging van de beheerdersinterface.",
+          "fr": "Après la mise à niveau vers la version 1.0.0 ou ultérieure, vous devez ressaisir votre mot de passe et vérifier vos paramètres de configuration en raison du changement de l'interface d'administration.",
+          "it": "Dopo l'aggiornamento alla versione 1.0.0 o successiva è necessario reinserire la password e controllare le impostazioni di configurazione a causa della modifica dell'interfaccia di amministrazione.",
+          "es": "Después de actualizar a la versión 1.0.0 o posterior, debe volver a ingresar su contraseña y verificar sus ajustes de configuración debido al cambio de la interfaz de administración.",
+          "pl": "Po aktualizacji do wersji 1.0.0 lub nowszej należy ponownie wprowadzić hasło i sprawdzić ustawienia konfiguracyjne ze względu na zmianę interfejsu administratora.",
+          "uk": "Після оновлення до версії 1.0.0 або новішої вам потрібно повторно ввести пароль і перевірити налаштування конфігурації через зміну інтерфейсу адміністратора.",
+          "zh-cn": "升级到版本1.0.0或更高版本后，由于管理界面的更改，您需要重新输入密码并检查您的配置设置。"
         },
-        {
-            "_id": "rest_time",
-            "type": "state",
-            "common": {
-                "name": "Current poll is in rest time",
-                "type": "boolean",
-                "role": "state",
-                "read": true,
-                "write": false,
-                "desc": ""
-            },
-            "native": {}
-        }
-    ]
+        "level": "warn",
+        "buttons": [
+          "agree",
+          "cancel"
+        ]
+      }
+    ],
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    }
+  },
+  "native": {
+    "username": "",
+    "password": "",
+    "robonectIp": "",
+    "pushService": false,
+    "pingFirst": true,
+    "pushServiceIp": "192.168.x.x",
+    "pushServicePort": 55443,
+    "statusInterval": 60,
+    "infoInterval": 900,
+    "restPeriod1Start": "",
+    "restPeriod1End": "",
+    "restPeriod2Start": "",
+    "restPeriod2End": "",
+    "batteryPollType": "Status",
+    "doorPollType": "NoPoll",
+    "errorsPollType": "Info",
+    "extensionPollType": "NoPoll",
+    "gpsPollType": "NoPoll",
+    "hoursPollType": "Info",
+    "motorPollType": "Info",
+    "portalPollType": "Info",
+    "pushPollType": "Info",
+    "timerPollType": "Info",
+    "versionPollType": "Info",
+    "weatherPollType": "NoPoll",
+    "wlanPollType": "Info"
+  },
+  "encryptedNative": [
+    "password"
+  ],
+  "protectedNative": [
+    "password"
+  ],
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Connected to lawn mower",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "last_sync",
+      "type": "state",
+      "common": {
+        "name": "Last synchronization",
+        "type": "string",
+        "role": "state",
+        "read": true,
+        "write": false,
+        "desc": ""
+      },
+      "native": {}
+    },
+    {
+      "_id": "online",
+      "type": "state",
+      "common": {
+        "name": "Mower is online",
+        "type": "boolean",
+        "role": "state",
+        "read": true,
+        "write": false,
+        "desc": ""
+      },
+      "native": {}
+    },
+    {
+      "_id": "rest_time",
+      "type": "state",
+      "common": {
+        "name": "Current poll is in rest time",
+        "type": "boolean",
+        "role": "state",
+        "read": true,
+        "write": false,
+        "desc": ""
+      },
+      "native": {}
+    }
+  ]
 }
