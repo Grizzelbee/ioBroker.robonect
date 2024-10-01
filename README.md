@@ -72,7 +72,9 @@ permission issue between the iobroker user and the ping utility.
 
 ### Work in progress
 
+### 1.4.1 (2024-09-30)
 - (grizzelbee) New: Added ioBroker adapter release script
+- (grizzelbee) Fix  [#18](https://github.com/Grizzelbee/ioBroker.robonect/issues/48): Fixed some issues mentioned by adapter-checker
 
 ### 1.4.0 (2024-09-11)
 
