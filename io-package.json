@@ -16,19 +16,6 @@
         "uk": "Виправлення: Виправлення мінор в чителю. md для сценарію релізу",
         "zh-cn": "修补:小修在readme. md 用于发布脚本"
       },
-      "1.4.1": {
-        "en": "New: Added ioBroker adapter release script",
-        "de": "Neu: ioBroker-Adapter-Release-Skript hinzugefügt",
-        "ru": "Новое: добавлен скрипт выпуска адаптера ioBroker.",
-        "pt": "Novo: Adicionado script de lançamento do adaptador ioBroker",
-        "nl": "Nieuw: ioBroker-adapterreleasescript toegevoegd",
-        "fr": "Nouveau : ajout du script de version de l'adaptateur ioBroker",
-        "it": "Novità: aggiunto lo script di rilascio dell'adattatore ioBroker",
-        "es": "Nuevo: Se agregó el script de lanzamiento del adaptador ioBroker",
-        "pl": "Nowość: Dodano skrypt wydania adaptera ioBroker",
-        "uk": "Нове: додано сценарій випуску адаптера ioBroker",
-        "zh-cn": "新增内容：添加了 ioBroker 适配器发布脚本"
-      },
       "1.4.0": {
         "en": "Upd: Dependencies got updated\nFix: minor fixes for adapter checker the require a minor release",
         "de": "Aktualisiert: Abhängigkeiten wurden aktualisiert\nFix: Kleinere Korrekturen für den Adapter-Checker erfordern eine Nebenversion",
