@@ -58,5 +58,10 @@
     "NoPoll": "没有轮询",
     "Status": "地位",
     "Info": "信息",
-    "GarageDoor": "车库门"
+    "GarageDoor": "车库门",
+    "Ignore errors": "忽略错误",
+    "errMain": "一般错误",
+    "errMain_desc": "抑制一般错误",
+    "errPing": "平移",
+    "errPing_desc": "忽略无响应的平移"
 }

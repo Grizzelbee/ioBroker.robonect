@@ -59,6 +59,10 @@ class Robonect extends utils.Adapter {
 
         this.infoTimeout;
         this.statusTimeout;
+        this.ignError;
+        this.occError;
+        this.ignPing;
+        this.failedPing;
         // http-server for Robonect PushService
         this.ps;
         this.ps_host;
@@ -111,7 +115,12 @@ class Robonect extends utils.Adapter {
         this.ps_host = this.config.pushServiceIp;
         this.ps_port = this.config.pushServicePort;
         this.apiUrl = `http://${this.robonectIp}/api/json`;
-
+        //
+        this.ignError = this.config.errMain;
+        this.occError = 0;
+        this.ignPing = this.config.errPing;
+        this.failedPing = 0;
+        //
         if (isNaN(this.statusInterval) || this.statusInterval < 1) {
             this.statusInterval = 60;
             this.log.warn('No status interval set. Using default value (60 seconds).');
@@ -129,7 +138,7 @@ class Robonect extends utils.Adapter {
             this.restPeriod1End = '';
             this.log.error('Rest period 1 not configured correctly. Period will be ignored.');
         } else {
-            this.log.warn('Rest period 1 configured (' + this.restPeriod1Start + ' - ' + this.restPeriod1End + '). Only API call /json?cmd=status will be done.');
+            this.log.warn('Rest period 1 configured (' + this.restPeriod1Start + ' - ' + this.restPeriod1End + '). Only API call /json?cmd=status will be done.'                                                    );
         }
 
         if (this.restPeriod2Start === '' && this.restPeriod2End === '') {
@@ -139,7 +148,7 @@ class Robonect extends utils.Adapter {
             this.restPeriod2End = '';
             this.log.error('Rest period 2 not configured correctly. Period will be ignored.');
         } else {
-            this.log.warn('Rest period 2 configured (' + this.restPeriod2Start + ' - ' + this.restPeriod2End + '). Only API call /json?cmd=status will be done.');
+            this.log.warn('Rest period 2 configured (' + this.restPeriod2Start + ' - ' + this.restPeriod2End + '). Only API call /json?cmd=status will be done.'                                                    );
         }
 
         await this.testPushServiceConfig();
@@ -433,7 +442,7 @@ class Robonect extends utils.Adapter {
                     && (this.config.pushServiceIp !== `::`)      // listen to all IPV6 adresses
                 ) {
                     this.log.warn(`Push Service is enabled in config, but misconfigured. Please update your Robonect Push-Service configuration.`);
-                    this.log.warn(`The configured URL in your Robonect is: [${url}] -> but should be: ${this.config.pushServiceIp}:${this.config.pushServicePort}`);
+                    this.log.warn(`The configured URL in your Robonect is: [${url}] -> but should be: ${this.config.pushServiceIp}:${this.config.pushServicePort                                                    }`);
                 }
             })
             .catch((err)=> {
@@ -506,6 +515,7 @@ class Robonect extends utils.Adapter {
             await ping.sys.probe(this.robonectIp, async function (isAlive) {
                 hostOnline = isAlive;
                 adapter.log.debug(`Adapter is configured to ping the robonect device - and it's ${hostOnline? '':'not'} online.`);
+                if (hostOnline) adapter.failedPing = 0;
             });
         } else {
             // no pingFirst configured - assume device to be online
@@ -533,6 +543,7 @@ class Robonect extends utils.Adapter {
                 .then((data) => {
                     adapter.log.silly(`Data from poll: ${JSON.stringify(data)}`);
                     adapter.currentStatus = data['status']['status'];
+                    adapter.occError = 0;
                 })
                 .catch((err) => {
                     // adapter.log.error(`Polling robonect status: ${JSON.stringify(err)}`);
@@ -578,10 +589,19 @@ class Robonect extends utils.Adapter {
                 adapter.log.debug('Polling done');
             }
             catch (err) {
-                adapter.doErrorHandling(err);
+                if (pollType === 'Initial') {
+                         adapter.log.debug('Initial polling failed, try again after 5 seconds...');
+                    setTimeout(() => { this.updateRobonectData('Initial') }, 5000);
+                } else {
+                    adapter.doErrorHandling(err);
+                }
             }
         } else {
-            adapter.log.warn('No connection to lawn mower (Not able to ping it). Check network connection.');
+            adapter.failedPing++;
+            if (adapter.failedPing >= adapter.ignPing) {
+               adapter.log.warn('No connection to lawn mower (Not able to ping it). Check network connection.');
+               adapter.failedPing = 0;
+            }
         }
     }
 
@@ -606,8 +626,14 @@ class Robonect extends utils.Adapter {
                     this.terminate(11);
                     break;
                 }
-                default:
-                    this.log.warn('Error returned from Robonect device: '+JSON.stringify(err));
+                default: {
+                    this.occError++;
+                    if (this.occError >= this.ignError) {
+                       this.log.warn('Error returned from Robonect device: '+JSON.stringify(err));
+                       this.occError = 0;
+                    }
+                    break;
+                }
             }
         } catch(error){
             this.log.error('Error during error handling: '+JSON.stringify(error));
