@@ -610,7 +610,7 @@ class Robonect extends utils.Adapter {
             this.log.debug('Data received for error handling: '+JSON.stringify(err));
             const errorCode = err.error_code || (err.response? err.response.status : -666);
             const errorMessage = err.error_message || err.message;
-            this.log.error(errorMessage);
+            this.log.silly(errorMessage);
             switch (errorCode) {
                 case 7 : // Automower already stopped
                     this.log.info(errorMessage);
