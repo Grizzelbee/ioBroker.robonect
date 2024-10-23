@@ -58,5 +58,10 @@
     "NoPoll": "Żadnego głosowania",
     "Status": "Status",
     "Info": "Informacje",
-    "GarageDoor": "Drzwi garażowe"
+    "GarageDoor": "Drzwi garażowe",
+    "Ignore errors": "Ignorowanie błędów",
+    "errMain": "Ogólne",
+    "errMain_desc": "Pomija błędy ogólne",
+    "errPing": "Ping",
+    "errPing_desc": "Brak odpowiedzi na ping jest ignorowany"
 }

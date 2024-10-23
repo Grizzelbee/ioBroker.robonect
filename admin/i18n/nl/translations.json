@@ -58,5 +58,10 @@
     "NoPoll": "Geen opiniepeiling",
     "Status": "Toestand",
     "Info": "Info",
-    "GarageDoor": "Garagedeur"
+    "GarageDoor": "Garagedeur",
+    "Ignore errors": "Fouten negeren",
+    "errMain": "Algemeen",
+    "errMain_desc": "Onderdrukt algemene fouten",
+    "errPing": "Ping",
+    "errPing_desc": "Geen reactie op ping wordt genegeerd"
 }

@@ -184,7 +184,9 @@
     "timerPollType": "Info",
     "versionPollType": "Info",
     "weatherPollType": "NoPoll",
-    "wlanPollType": "Info"
+    "wlanPollType": "Info",
+    "errMain": 0,
+    "errPing": 0
   },
   "encryptedNative": [
     "password"

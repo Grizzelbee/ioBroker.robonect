@@ -58,5 +58,10 @@
     "NoPoll": "Nessun sondaggio",
     "Status": "Stato",
     "Info": "Informazioni",
-    "GarageDoor": "Porta del garage"
+    "GarageDoor": "Porta del garage",
+    "Ignore errors": "Ignorare gli errori",
+    "errMain": "Generale",
+    "errMain_desc": "Sopprime gli errori generali",
+    "errPing": "Ping",
+    "errPing_desc": "Nessuna risposta al ping viene ignorata"
 }

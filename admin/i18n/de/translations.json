@@ -58,5 +58,10 @@
     "NoPoll": "Keine Umfrage",
     "Status": "Status",
     "Info": "Die Info",
-    "GarageDoor": "Garagentor"
+    "GarageDoor": "Garagentor",
+    "Ignore errors": "Ignoriere Fehler",
+    "errMain": "Allgemein",
+    "errMain_desc": "Unterdrückt allgemeine Fehler",
+    "errPing": "Ping",
+    "errPing_desc": "Keine Antwort bei Ping wird ignoriert"
 }
