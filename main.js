@@ -12,8 +12,8 @@ const utils = require('@iobroker/adapter-core');
 const ping = require('ping');
 const jsonLogic = require('./lib/json_logic.js');
 const axios = require('axios');
-const http = require('http');
-const url = require('url');
+const http = require('node:http');
+const url = require('node:url');
 
 class Robonect extends utils.Adapter {
 
