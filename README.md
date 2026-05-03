@@ -254,6 +254,8 @@ permission issue between the iobroker user and the ping utility.
 
 * (StefSign) initial commit
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 
 The MIT License (MIT)
