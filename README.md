@@ -69,6 +69,9 @@ executing  `sudo chmod 4755 /bin/ping` in a shell inside the ioBroker container.
 permission issue between the iobroker user and the ping utility.
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+- (iobroker-bot) Adapter requires node.js >= 22 now.
 ### 1.4.2 (2024-10-01)
 - (grizzelbee) Fix: Minor fix in readme.md for release script
 

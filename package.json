@@ -46,7 +46,7 @@
     "url": "git+https://github.com/Grizzelbee/ioBroker.robonect.git"
   },
   "engines": {
-    "node": ">=18.0.2"
+    "node": ">=22.0.0"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^3.2.1",
