@@ -15,6 +15,11 @@ const axios = require('axios');
 const http = require('http');
 const url = require('url');
 
+// a hanging request to the Robonect module must not block the adapter forever
+const REQUEST_TIMEOUT = 10000;
+// weather.reason while Robonect keeps the break after the condition ended and the previous reason is unknown
+const WAITING = 'waiting time after condition ended';
+
 class Robonect extends utils.Adapter {
 
     /**
@@ -502,6 +507,27 @@ class Robonect extends utils.Adapter {
                 this.log.silly('Object \'' + id + '\' created');
             }
         }
+
+        // derived states
+        await this.setObjectNotExistsAsync('status.charging', {
+            type: 'state',
+            common: {name: 'Charging (status 4 or positive battery current - Robonect sometimes reports "sleeping" while charging)', type: 'boolean', role: 'indicator.charging', read: true, write: false},
+            native: {},
+        });
+        await this.setObjectNotExistsAsync('weather.reason', {
+            type: 'state',
+            common: {name: 'Reason of the weather break (empty if none)', type: 'string', role: 'text', read: true, write: false},
+            native: {},
+        });
+
+        // time of the last successful update per API area - shows at once whether values are current
+        for (const cmd of ['battery', 'door', 'error', 'ext', 'gps', 'hour', 'motor', 'portal', 'push', 'status', 'timer', 'version', 'weather', 'wlan']) {
+            await this.setObjectNotExistsAsync('info.lastUpdate.' + cmd, {
+                type: 'state',
+                common: {name: 'Last successful update: ' + cmd, type: 'number', role: 'value.time', read: true, write: false},
+                native: {},
+            });
+        }
     }
 
     /**
@@ -555,18 +581,22 @@ class Robonect extends utils.Adapter {
                     doRegularPoll = true;
                 }
             }
+            // Data kept by the Robonect module itself (not by the mower) can be read while the mower sleeps
+            // without waking it up - optional, so values like the weather break don't freeze over night/weekend
+            const sleepPoll = adapter.config.pollWhileSleeping === true && isRestTime === false && adapter.currentStatus != null && !doRegularPoll;
             adapter.log.debug('pollType: ' + pollType);
             adapter.log.debug('isRestTime: ' + isRestTime);
             adapter.log.debug('currentStatus: ' + adapter.currentStatus);
             adapter.log.debug('doRegularPoll: ' + doRegularPoll);
+            adapter.log.debug('sleepPoll: ' + sleepPoll);
             try {
                 if (adapter.batteryPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.batteryPollType === pollType && doRegularPoll)))
                     await adapter.sendApiCmd('cmd=battery', true);
                 if (adapter.doorPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.doorPollType === pollType && doRegularPoll)))
                     await adapter.sendApiCmd('cmd=door', true);
-                if (adapter.errorsPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.errorsPollType === pollType && doRegularPoll)))
+                if (adapter.errorsPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.errorsPollType === pollType && (doRegularPoll || sleepPoll))))
                     await adapter.sendApiCmd('cmd=error', true);
-                if (adapter.extensionPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.extensionPollType === pollType && doRegularPoll)))
+                if (adapter.extensionPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.extensionPollType === pollType && (doRegularPoll || sleepPoll))))
                     await adapter.sendApiCmd('cmd=ext', true);
                 if (adapter.gpsPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.gpsPollType === pollType && doRegularPoll)))
                     await adapter.sendApiCmd('cmd=gps', true);
@@ -574,18 +604,19 @@ class Robonect extends utils.Adapter {
                     await adapter.sendApiCmd('cmd=hour', true);
                 if (adapter.motorPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.motorPollType === pollType && doRegularPoll)))
                     await adapter.sendApiCmd('cmd=motor', true);
-                if (adapter.portalPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.portalPollType === pollType && doRegularPoll)))
+                if (adapter.portalPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.portalPollType === pollType && (doRegularPoll || sleepPoll))))
                     await adapter.sendApiCmd('cmd=portal', true);
-                if (adapter.pushPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.pushPollType === pollType && doRegularPoll)))
+                if (adapter.pushPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.pushPollType === pollType && (doRegularPoll || sleepPoll))))
                     await adapter.sendApiCmd('cmd=push', true);
-                if (adapter.timerPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.timerPollType === pollType && doRegularPoll)))
+                if (adapter.timerPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.timerPollType === pollType && (doRegularPoll || sleepPoll))))
                     await adapter.sendApiCmd('cmd=timer', true);
                 if (adapter.versionPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.versionPollType === pollType && doRegularPoll)))
                     await adapter.sendApiCmd('cmd=version', true);
-                if (adapter.weatherPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.weatherPollType === pollType && doRegularPoll)))
+                if (adapter.weatherPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.weatherPollType === pollType && (doRegularPoll || sleepPoll))))
                     await adapter.sendApiCmd('cmd=weather', true);
-                if (adapter.wlanPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.wlanPollType === pollType && doRegularPoll)))
+                if (adapter.wlanPollType !== 'NoPoll' && (pollType === 'Initial' || (adapter.wlanPollType === pollType && (doRegularPoll || sleepPoll))))
                     await adapter.sendApiCmd('cmd=wlan', true);
+                await adapter.updateDerivedStates();
                 adapter.log.debug('Polling done');
             }
             catch (err) {
@@ -622,7 +653,7 @@ class Robonect extends utils.Adapter {
                 }
                 case 401 : {
                     this.log.error('Your Robonect has denied access due to incorrect credentials.');
-                    this.log.error(`You used: Username=${this.username}, Password=${this.password} for login. Please double check your credentials.`);
+                    this.log.error(`You used: Username=${this.username} for login. Please double check your credentials.`);   // never log the password
                     this.terminate(11);
                     break;
                 }
@@ -672,13 +703,14 @@ class Robonect extends utils.Adapter {
             this.log.debug(`Sending of command [${JSON.stringify(PARAMS)}] started`);
         }
         return new Promise((resolve, reject) => {
-            axios.get(adapter.apiUrl,  {auth: {username: this.username, password: this.password}, params: PARAMS})
+            axios.get(adapter.apiUrl,  {auth: {username: this.username, password: this.password}, timeout: REQUEST_TIMEOUT, params: PARAMS})
                 .then( function (response){
                     adapter.log.debug('Data returned from robonect device: '+JSON.stringify(response.data));
                     if (response.data.successful === true) {
                         if (updateObjectsAfterCall){
                             const objects = require('./lib/objects_' + PARAMS.cmd + '.json');
                             adapter.updateObjects(objects, response.data);
+                            adapter.setState('info.lastUpdate.' + PARAMS.cmd, {val: Date.now(), ack: true});
                         }
                         adapter.log.debug(`Sending of command [${cmd}] - done!`);
                         resolve(response.data);
@@ -705,7 +737,7 @@ class Robonect extends utils.Adapter {
         const PARAMS = {cmd: 'error', clear:0, reset:0};
         if (clear) PARAMS.clear = 1;
         if (reset) PARAMS.reset = 1;
-        axios.get(adapter.apiUrl, {auth: {username: this.username, password: this.password}, params: PARAMS})
+        axios.get(adapter.apiUrl, {auth: {username: this.username, password: this.password}, timeout: REQUEST_TIMEOUT, params: PARAMS})
             .then((response)=>{
                 try {
                     if (response.data.successful === true) {
@@ -714,7 +746,7 @@ class Robonect extends utils.Adapter {
                         if (reset && response.data.error_code === 13) {
                             this.log.info('Trying to reset status....');
                             PARAMS.cmd = 'status';
-                            axios.get(adapter.apiUrl, {auth: {username: this.username, password: this.password}, params: PARAMS})
+                            axios.get(adapter.apiUrl, {auth: {username: this.username, password: this.password}, timeout: REQUEST_TIMEOUT, params: PARAMS})
                                 .then((response)=>{
                                     try {
                                         if (response.data.successful === true) {
@@ -763,7 +795,7 @@ class Robonect extends utils.Adapter {
         }, function(error) {
             return Promise.reject(error);
         });
-        axios.get(adapter.apiUrl, {auth: {username: this.username, password: this.password}, params:PARAMS })
+        axios.get(adapter.apiUrl, {auth: {username: this.username, password: this.password}, timeout: REQUEST_TIMEOUT, params:PARAMS })
             .then((response)=>{
                 try {
                     if (response.data.successful === true) {
@@ -821,7 +853,7 @@ class Robonect extends utils.Adapter {
                 this.log.warn('Mode is invalid');
                 return;
         }
-        axios.get(adapter.apiUrl, {auth: {username: this.username, password: this.password}, params: PARAMS})
+        axios.get(adapter.apiUrl, {auth: {username: this.username, password: this.password}, timeout: REQUEST_TIMEOUT, params: PARAMS})
             .then((response) => {
                 try {
                     if (response.data.successful === true) {
@@ -840,6 +872,28 @@ class Robonect extends utils.Adapter {
             });
     }
 
+
+    /**
+     * Derived states: status.charging and weather.reason
+     */
+    async updateDerivedStates() {
+        const val = async (id) => { const st = await this.getStateAsync(id); return st ? st.val : null; };
+        const status = Number(await val('status.status')), current = Number(await val('batteries.0.current'));
+        // 2 = mowing: current is negative anyway, but never report "charging" while mowing
+        await this.setStateAsync('status.charging', {val: status === 4 || (status !== 2 && current > 0), ack: true});
+
+        const REASONS = {toorainy: 'too rainy', toowet: 'too wet', toocold: 'too cold', toowarm: 'too warm', toodry: 'too dry', day: 'no mowing at day', night: 'no mowing at night'};
+        let reason = '';
+        if (await val('weather.break') === true) {
+            const active = [];
+            for (const k of Object.keys(REASONS)) if (await val('weather.condition.' + k) === true) active.push(REASONS[k]);
+            // no condition set anymore, but Robonect keeps the break for a while (see weather.remaining):
+            // keep the previous reason (persisted in the state, so it survives a restart) and mark the waiting time
+            const prev = String(await val('weather.reason') || '').replace(/ \(waiting time\)$/, '');
+            reason = active.length ? active.join(', ') : prev && prev !== WAITING ? prev + ' (waiting time)' : WAITING;
+        }
+        await this.setStateAsync('weather.reason', {val: reason, ack: true});
+    }
 
     /**
      * Check if current time is in a rest period
@@ -880,8 +934,8 @@ class Robonect extends utils.Adapter {
             if (start <= test && test <= end)
                 return true;
         } else {
-            // End time is (after) midnight
-            if (end <= test && test >= start)
+            // End time is (after) midnight, e.g. 22:00-06:00: before midnight (>= start) or after it (<= end)
+            if (test >= start || test <= end)
                 return true;
         }
 
